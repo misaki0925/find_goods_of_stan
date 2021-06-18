@@ -39,4 +39,4 @@ Twitterで私物を検索することはタグが統一されていなく面倒�
 SixTONESのファン
 
 ## 画面遷移図
-https://www.figma.com/file/pFrYU4hSwDQFn4da2XSTyh/Untitled?node-id=5%3A0
+https://www.figma.com/file/pFrYU4hSwDQFn4da2XSTyh/Untitled?node-id=32%3A80
