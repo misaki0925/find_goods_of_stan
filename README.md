@@ -40,3 +40,6 @@ SixTONESのファン
 
 ## 画面遷移図
 https://www.figma.com/file/pFrYU4hSwDQFn4da2XSTyh/Untitled?node-id=32%3A2
+
+## ER図
+https://drive.google.com/file/d/10gO9reC8SdPK9OE3ZZntfC9CflYIkJHv/view?usp=sharing
