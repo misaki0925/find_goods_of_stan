@@ -1,0 +1,2 @@
+class MistakeReport < ApplicationRecord
+end
