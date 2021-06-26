@@ -2,17 +2,11 @@ Rails.application.routes.draw do
   root 'articles#index'
   get 'articles/show'
   namespace :admin do
-    get 'articles/index'
-    get 'articles/edit'
-    get 'articles/destroy'
-    get 'articles/update'
+    resources :articles, only: %i[index edit destroy update]
   end
-  
-  get 'mistake_reports/new'
-  get 'mistake_reports/create'
+
+  resources :mistake_reports, only: %i[new create]
   namespace :admin do
-    get 'mistake_reports/index'
-    get 'mistake_reports/destroy'
+    resources :mistake_reports, only: %i[index destroy]
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
