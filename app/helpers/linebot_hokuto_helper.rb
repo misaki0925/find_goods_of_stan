@@ -1,0 +1,2 @@
+module LinebotHokutoHelper
+end
