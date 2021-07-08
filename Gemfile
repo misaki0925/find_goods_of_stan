@@ -34,7 +34,14 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# LINE API用
+gem 'line-bot-api'
+
+# API 管理用
 gem 'dotenv-rails'
+
+# Twitter API用
+gem 'twitter'
 
 gem 'whenever', require: false
 
@@ -53,6 +60,7 @@ group :development, :test do
   # Code analyze
   gem 'rails_best_practices'
   gem 'rubocop'
+  gem 'rubocop-rails'
 
   # Debugger
   gem 'better_errors'
