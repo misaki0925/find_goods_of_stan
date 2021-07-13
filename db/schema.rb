@@ -16,8 +16,13 @@ ActiveRecord::Schema.define(version: 2021_07_02_015714) do
   enable_extension "plpgsql"
 
   create_table "articles", force: :cascade do |t|
-    t.integer "member_id"
-    t.text "url"
+    t.integer "yugo_type", default: 0, null: false
+    t.integer "taiga_type", default: 0, null: false
+    t.integer "juri_type", default: 0, null: false
+    t.integer "hokuto_type", default: 0, null: false
+    t.integer "jesse_type", default: 0, null: false
+    t.integer "shintaro_type", default: 0, null: false
+    t.text "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

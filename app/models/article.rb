@@ -1,16 +1,19 @@
 class Article < ApplicationRecord
   validates :url, uniqueness: true
 
-  after_save :callback
-  after_save :callback_HM, if: :hokuto?
-  after_save :callback_TK, if: :taiga?
-  after_save :callback_JT, if: :juri?
-  after_save :callback_J, if: :jesse?
-  after_save :callback_SM, if: :shintaro?
-  after_save :callback_YK, if: :yugo?
-
   require 'Twitter'
+  require 'line/bot'
 
+  enum yugo_type: { not_yugo: 0, yugo: 1 }
+  enum taiga_type: { not_taiga: 0, taiga: 1 }
+  enum juri_type: { not_juri: 0, juri: 1 }
+  enum hokuto_type: { not_hokuto: 0, hokuto: 1 }
+  enum jesse_type: { not_jesse: 0, jesse: 1 }
+  enum shintaro_type: { not_shintaro: 0, shintaro: 1}
+
+
+
+  #Twitter API
   client = Twitter::REST::Client.new do |config|
     config.consumer_key        = ENV["CONSUMER_KEY"]
     config.consumer_secret     = ENV["CONSUMER_SECRET"]
@@ -19,60 +22,84 @@ class Article < ApplicationRecord
   end
 
   def get_url
-    client.search("#oneST_衣装 OR #Taiga_Six衣装 OR #Jesse_Six衣装 OR #Hokuto_Six衣装 OR #Yugo_Six衣装 OR #Shintaro_Six衣装 OR #Juri_Six衣装", result_type: "recent", locale: "ja", exclude: "retweets").take(10).each do |article|
-      tweet_body = article.text
-      case 
-      when tweet_body.include?("松村北斗")
-        member = "松村北斗"
-        url = article.url
-      when tweet_body.include?("京本大我")
-        member = "京本大我"
-        url = article.url
-      when tweet_body.include?("田中樹")
-        member = "田中樹"
-        url = article.url
-      when tweet_body.include?("ジェシー")
-        member = "ジェシー"
-        url = article.url
-      when tweet_body.include?("森本慎太郎")
-        member = "森本慎太郎"
-        url = article.url
-      else
-        member = "高地優吾"
-        url = article.url
-      end
-      @article = Article.new(member: member, url: article.url)
+    client.search("#oneST_衣装 OR #Taiga_Six衣装 OR #Jesse_Six衣装 OR #Hokuto_Six衣装 OR #Yugo_Six衣装 OR #Shintaro_Six衣装 OR #Juri_Six衣装", result_type: "recent", locale: "ja", exclude: "retweets", tweet_mode: "extended").take(10).each do |article|
+      tweet = article.text
+      tweet.include?("優吾") ? yugo_type = :yugo : yugo_type = :not_yugo
+      tweet.include?("京本大我") ? taiga_type = :taiga : taiga_type = :not_taiga
+      tweet.include?("田中樹") ? juri_type = :juri : juri_type = :not_juri
+      tweet.include?("松村北斗") ? hokuto_type = :hokuto : hokuto_type = :not_hokuto
+      tweet.include?("ジェシー") ? jesse_type = :jesse : jesse_type = :not_jesse
+      tweet.include?("森本慎太郎") ? shintaro_type = :shintaro : shintaro_type = :not_shintaro
+      @article = Article.new(yugo_type: yugo_type, taiga_type: taiga_type, juri_type: juri_type, hokuto_type: hokuto_type, jesse_type: jesse_type, shintaro_type: shintaro_type, url: article.url)
       @article.save
+      @article.send_line_all
+      @article.send_line_member
     end
   end
+#LINE API
 
-  def hokuto?
-    @article = Article.order(created::desc).limit(1) #ここの部分いらない?
-    @article.name = "松村北斗"
+#全体用LINEAPI
+  def send_line_all
+#client設定
+    client = Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    }
+
+#ユーザーへメッセージを送信する
+    message = {
+      type: 'text',
+      text: @article.url
+        } 
+    response = client.push_message(ENV["LINE_USER_ID"], message)
+    p response
   end
 
-  def taiga?
-    @article = Article.order(created::desc).limit(1)
-    @article.name = "京本大我"
-  end
+#個別LINEAPI
+  def send_line_member
+    case
+    when @article.yugo?
+      channel_secret = ENV["LINE_CHANNEL_SECRET_YK"]
+      channel_access_token = ENV["LINE_CHANNEL_TOKEN_YK"]
+      userId = ENV["LINE_USER_ID_YK"]
+    when @article.taiga?
+      channel_secret = ENV["LINE_CHANNEL_SECRET_TK"]
+      channel_access_token = ENV["LINE_CHANNEL_TOKEN_TK"]
+      userId = ENV["LINE_USER_ID_KT"]
+    when @article.juri?
+      channel_secret = ENV["LINE_CHANNEL_SECRET_JT"]
+      channel_access_token = ENV["LINE_CHANNEL_TOKEN_JT"]
+      userId = ENV["LINE_USER_ID_JT"]
+    when @article.hokuto?
+      channel_secret = ENV["LINE_CHANNEL_SECRET_HM"]
+      channel_access_token = ENV["LINE_CHANNEL_TOKEN_HM"]
+      userId = ENV["LINE_USER_ID_HM"]
+    when @article.jesse?
+      channel_secret = ENV["LINE_CHANNEL_SECRET_J"]
+      channel_access_token = ENV["LINE_CHANNEL_TOKEN_J"]
+      userId = ENV["LINE_USER_ID_J"]
+    when @article.shintaro?
+      channel_secret = ENV["LINE_CHANNEL_SECRET_SM"]
+      channel_access_token = ENV["LINE_CHANNEL_TOKEN_SM"]
+      userId = ENV["LINE_USER_ID_SM"]
+    else
+      #何もしない
+    end
 
-  def juri?
-    @article = Article.order(created::desc).limit(1)
-    @article.name = "田中樹"
-  end
+    client = Line::Bot::Client.new { |config|
+      config.channel_secret = channel_secret
+      config.channel_token = channel_access_token
+    }
 
-  def jesse?
-    @article = Article.order(created::desc).limit(1)
-    @article.name = "ジェシー"
-  end
-
-  def shintaro?
-    @article = Article.order(created::desc).limit(1)
-    @article.name = "森本慎太郎"
-  end
-
-  def yugo?
-    @article = Article.order(created::desc).limit(1)
-    @article.name = "高地優吾"
+  #ユーザーへメッセージを送信する
+    message = {
+      type: 'text',
+      text: @article.url
+        } 
+    response = client.push_message(userId, message)
+    p response
   end
 end
+
+
+
