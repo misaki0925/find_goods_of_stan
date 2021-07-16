@@ -1,0 +1,14 @@
+<h1>SixTones 詳細画面</h1>
+<p>値段ブランドtwitterへのリンクをご紹介します。</p>
+
+<h2>着用メンバー</h2>
+<% member_ids = @article.member_ids%>
+<% member_ids.each do |member_id|%>
+<% member = Member.find(member_id)%>
+<P><%= member.name%>さん</P>
+<% end %>
+<h2>ブランド</h2>
+<p><%= @article.brand %></p>
+<h2>価格</h2>
+<p><%= @article.price %></p>
+<%= link_to "Twitterはこちら", @article.tweet_url%>

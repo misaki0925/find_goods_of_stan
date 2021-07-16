@@ -10,27 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_02_015714) do
+ActiveRecord::Schema.define(version: 2021_07_15_054201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "article_members", force: :cascade do |t|
+    t.bigint "article_id"
+    t.bigint "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_article_members_on_article_id"
+    t.index ["member_id"], name: "index_article_members_on_member_id"
+  end
+
   create_table "articles", force: :cascade do |t|
-    t.integer "yugo_type", default: 0, null: false
-    t.integer "taiga_type", default: 0, null: false
-    t.integer "juri_type", default: 0, null: false
-    t.integer "hokuto_type", default: 0, null: false
-    t.integer "jesse_type", default: 0, null: false
-    t.integer "shintaro_type", default: 0, null: false
-    t.text "url", null: false
+    t.string "price"
+    t.string "brand"
+    t.text "tweet_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "members", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "article_members", "articles"
+  add_foreign_key "article_members", "members"
 end
