@@ -1,0 +1,15 @@
+<h1>検索結果/一般用</h1>
+<% @articles.each do |article| %>
+<h2>メンバー名</h2>
+<% member_ids = article.member_ids%>
+<% member_ids.each do |id|%>
+<% member = Member.find(id)%>
+<P><%= member.name%>さん</P>
+<% end %>
+<P><%= article.price %></p>
+<p><%= article.brand %></p>
+<% end %>
+<% if @articles.count == 0 %>
+<p>検索結果がありませんでした</p>
+<%end%>
+<%= link_to '一覧へ', root_path %>

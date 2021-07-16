@@ -1,0 +1,6 @@
+<h1>検索結果/管理者用</h1>
+<% @articles.each do |article| %>
+<P><%= article.price %></p>
+<p><%= article.brand %></p>
+<% end %>
+<%= link_to '一覧へ', admins_articles_path %>

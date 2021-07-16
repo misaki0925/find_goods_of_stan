@@ -1,0 +1,8 @@
+<h1>間違い報告画面</h1>
+<p>記事について間違い等あればコメントください。</p>
+
+<%= form_with model: @report, local: true do |f| %>
+<h2>コメント</h2>
+<%= f.text_area :comment, placeholder: "コメントください。" %>
+<%= f.submit '報告する' %>
+<% end %>

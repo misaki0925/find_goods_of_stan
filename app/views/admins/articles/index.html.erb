@@ -1,0 +1,15 @@
+<h1>管理者用一覧画面 これいるのか？詳細ページに編集ボタンをadmin飲みが表示されればいいんじゃね？</h1>
+<p>とりあえず一覧で表示する</p>
+
+<%= render 'layouts/search_form'%>
+
+<% @articles.each do |article| %>
+<h2>着用メンバー</h2>
+<% member_ids = article.member_ids%>
+<% member_ids.each do |id|%>
+<% member = Member.find(id)%>
+<P><%= member.name%>さん</P>
+<% end %>
+<p><%= article.brand %></p>
+<%= link_to "詳細ページ", article_path(article.id)%>
+<% end %>

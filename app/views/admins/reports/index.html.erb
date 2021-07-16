@@ -1,0 +1,9 @@
+<h1>間違い報告確認画面</h1>
+<p>記事について間違い報告を表示します。</p>
+
+<% @reports.each do |report| %>
+<h2>報告</h2>
+<p><%= report.comment %></p>
+<%= link_to "削除", admins_article_path(report.id), method: :delete %>
+<% end %>
+

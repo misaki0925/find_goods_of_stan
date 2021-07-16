@@ -1,17 +1,12 @@
 class Article < ApplicationRecord
-  validates :url, uniqueness: true
+  has_many :article_members
+  has_many :members, through: :article_members
+  #accepts_nested_attributes_for :article_members
+
+  validates :tweet_url, uniqueness: true
 
   require 'Twitter'
   require 'line/bot'
-
-  enum yugo_type: { not_yugo: 0, yugo: 1 }
-  enum taiga_type: { not_taiga: 0, taiga: 1 }
-  enum juri_type: { not_juri: 0, juri: 1 }
-  enum hokuto_type: { not_hokuto: 0, hokuto: 1 }
-  enum jesse_type: { not_jesse: 0, jesse: 1 }
-  enum shintaro_type: { not_shintaro: 0, shintaro: 1}
-
-
 
   #Twitter API
   client = Twitter::REST::Client.new do |config|

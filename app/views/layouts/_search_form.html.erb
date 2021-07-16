@@ -1,0 +1,8 @@
+<%= search_form_for @q, url: search_articles_path do |f| %> 
+<%= f.label :brand_cont , "ブランド" %>
+<%= f.search_field :brand_cont, placeholder: "ブランドを検索" %>  
+<%= f.label :members_name_cont , "メンバー" %>
+<%= f.search_field :members_name_cont, placeholder: "メンバーを検索" %> 
+<%= f.submit "検索"%>
+<% end %>
+
