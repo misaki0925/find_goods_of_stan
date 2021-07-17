@@ -22,7 +22,21 @@
 <p><%= f.label :tweet_url, "Twitterへのurl" %></p>
 <%= f.url_field :tweet_url %>
 
-<%= f.submit "更新する"  %> 
+
+ <p><%= f.label :images, "画像" %></p>
+<%= f.file_field :images, multiple: true %> 
+
+
+<% if @article.images.present? %>
+<P>現在登録されている画像(削除するものはチェックしてください)</P>
+<% @article.images.each do |image| %>
+<%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+<%= image_tag image, size:"150x150" %>
+<% end %>
+<% end %>
+
+
+<p><%= f.submit "更新する"  %> </p>
 
 <% end %> 
 <%= link_to "戻る", admins_articles_path %>

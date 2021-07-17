@@ -2,6 +2,7 @@ class Article < ApplicationRecord
   has_many :article_members, dependent: :destroy
   has_many :members, through: :article_members
   accepts_nested_attributes_for :article_members, allow_destroy: true
+  has_many_attached :images
 
   validates :tweet_url, uniqueness: true
 
