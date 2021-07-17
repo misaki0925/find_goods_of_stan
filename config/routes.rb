@@ -1,21 +1,29 @@
 Rails.application.routes.draw do
+  # if Rails.env.development?
+  #   get '/login_as/:user_id', to: 'development/sessions#login_as'
+  # end
+
   root to: 'articles#index'
   
-  resources :articles, only: [:show, :index] do
+  resources :articles, only: %i[show index] do
     collection do
       get 'search', to: 'articles#search'
     end
   end
+
+  resources :reports, only: %i[new create]
+
   namespace :admins do
-    resources :articles, only: [:update, :destroy, :edit, :index] do
+    get '/login', to: 'sessions#new', as: :login
+    post '/login', to: 'sessions#create'
+    delete '/logout', to: 'sessions#destroy', as: :logout
+    resources :articles, only: %i[update destroy edit index] do
       collection do
         get 'search', to: 'admins/articles#search'
       end
     end
+    resources :reports, only: %i[destroy index]
   end
-  resources :reports, only: [:new, :create]
-  namespace :admins do
-  resources :reports, only: [:destroy, :index]
-  end
+
 
 end

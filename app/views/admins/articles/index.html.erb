@@ -12,4 +12,11 @@
 <% end %>
 <p><%= article.brand %></p>
 <%= link_to "詳細ページ", article_path(article.id)%>
+
+
+<% if logged_in? && current_user.admin? %> 
+
+<%= link_to "編集", edit_admins_article_path(article.id) %>
+<% end %>
+
 <% end %>

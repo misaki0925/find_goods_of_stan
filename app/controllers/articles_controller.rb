@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  skip_before_action :require_login
   before_action :set_article, only: %i[show]
   
   def show;end

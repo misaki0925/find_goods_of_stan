@@ -1,2 +1,28 @@
-<h1>Admins::Articles#edit</h1>
-<p>Find me in app/views/admins/articles/edit.html.erb</p>
+<h1>管理者用 記事編集・削除ページ</h1>
+<p>記事の変更または削除を行う</p>
+
+<%= form_with model: @article, url: admins_article_path(@article.id), local: true do |f| %>
+
+
+<p>メンバー名ここから</p>
+
+ <%= f.fields_for :member do |m| %>
+ <%= f.label :members %>
+ <%= collection_check_boxes(:article, :member_ids, Member.all, :id, :name) do |t| %>
+ <% t.label { t.check_box + t.text} %>
+ <% end %>
+ <% end %>
+
+<p><%= f.label :brand, "ブランド" %></p>
+<%= f.text_field :brand %>
+
+<p><%= f.label :price, "値段" %></p>
+<%= f.text_field :price %>
+
+<p><%= f.label :tweet_url, "Twitterへのurl" %></p>
+<%= f.url_field :tweet_url %>
+
+<%= f.submit "更新する"  %> 
+
+<% end %> 
+<%= link_to "戻る", admins_articles_path %>
