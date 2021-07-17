@@ -1,12 +1,16 @@
 class Admins::ArticlesController < ApplicationController
   before_action :set_article, only: %i[edit update destroy ]
 
-def edit
-  @articles = Article.all
-end
+def edit;end
 
 def update
   @article = Article.find(params[:id])
+  if params[:article][:image_ids]
+    params[:article][:image_ids].each do |image_id|
+      image = @article.images.find(image_id)
+      image.purge
+    end
+  end
   if @article.update_attributes(article_params)
     redirect_to admins_articles_path
   else
@@ -39,7 +43,7 @@ def set_article
 end
 
 def article_params
-  params.require(:article).permit(:price, :brand, :tweet_url, { :member_ids=> [] })
+  params.require(:article).permit(:price, :brand, :tweet_url, { member_ids: [] }, {images: []} )
 end
 
 end

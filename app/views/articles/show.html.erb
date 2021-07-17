@@ -11,7 +11,16 @@
 <p><%= @article.brand %></p>
 <h2>価格</h2>
 <p><%= @article.price %></p>
+
+<h2>画像(２枚のみ表示しております。)</h2>
+<% if @article.images.attached? %>
+<% @article.images.each do |image| %>
+<%= image_tag image %>
+<% end %>
+<% end %>
+
 <%= link_to "Twitterはこちら", @article.tweet_url%>
+
 <% if logged_in? %> 
 <% if current_user.admin? %>
 <%= link_to "編集", edit_admins_article_path(@article.id) %>
