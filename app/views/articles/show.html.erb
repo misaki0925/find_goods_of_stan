@@ -12,3 +12,8 @@
 <h2>価格</h2>
 <p><%= @article.price %></p>
 <%= link_to "Twitterはこちら", @article.tweet_url%>
+<% if logged_in? %> 
+<% if current_user.admin? %>
+<%= link_to "編集", edit_admins_article_path(@article.id) %>
+<% end %>
+<% end %>
