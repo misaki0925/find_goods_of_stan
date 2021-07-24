@@ -7,7 +7,7 @@
 <p>メンバー名ここから</p>
 
  <%= f.fields_for :member do |m| %>
- <%= f.label :members %>
+ <%= f.label :members, "メンバー名" %>
  <%= collection_check_boxes(:article, :member_ids, Member.all, :id, :name) do |t| %>
  <% t.label { t.check_box + t.text} %>
  <% end %>
@@ -23,12 +23,12 @@
 <%= f.url_field :tweet_url %>
 
 
- <p><%= f.label :images, "画像" %></p>
-<%= f.file_field :images, multiple: true %> 
+ <p><%= f.label :image, "画像" %></p>
+<%= f.file_field :image %> 
 
 
 <% if @article.images.present? %>
-<P>現在登録されている画像(削除するものはチェックしてください)</P>
+<P>現在登録されている画像(削除する場合はチェックしてください)</P>
 <% @article.images.each do |image| %>
 <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
 <%= image_tag image, size:"150x150" %>
@@ -37,6 +37,8 @@
 
 
 <p><%= f.submit "更新する"  %> </p>
+<p><%= link_to '削除',admins_article_path(@article.id), method: :delete %></p>
 
-<% end %> 
+<% end %>
+
 <%= link_to "戻る", admins_articles_path %>

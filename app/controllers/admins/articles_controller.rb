@@ -1,5 +1,5 @@
 class Admins::ArticlesController < ApplicationController
-  before_action :set_article, only: %i[edit update destroy ]
+  before_action :set_article, only: %i[ edit update destroy ]
 
 def edit;end
 
@@ -29,7 +29,9 @@ def search
 end
 
 def destroy
-
+  @article.images.purge
+  @article.destroy
+  redirect_to admins_articles_path
 end
 
   private
