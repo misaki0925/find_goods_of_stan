@@ -3,13 +3,14 @@ Rails.application.routes.draw do
   #   get '/login_as/:user_id', to: 'development/sessions#login_as'
   # end
 
-  root to: 'articles#index'
+  root to: 'articles#home'
   
   resources :articles, only: %i[show index] do
     collection do
       get 'search', to: 'articles#search'
     end
   end
+  get '/line_page', to: 'articles#line'
 
   resources :reports, only: %i[new create]
 
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
     delete '/logout', to: 'sessions#destroy', as: :logout
     resources :articles, only: %i[update destroy edit index] do
       collection do
-        get 'search', to: 'admins/articles#search'
+        get 'search', to: 'articles#search'
       end
     end
     resources :reports, only: %i[destroy index]

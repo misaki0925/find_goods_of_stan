@@ -1,10 +1,15 @@
 class Admins::ReportsController < ApplicationController
   def index
-    @reports = Report.all
+    @reports = Report.all.order(created_at: :desc).page(params[:page])
+
+    
+
   end
 
   def destroy
+    @report = Report.find(params[:id])
+    @report.destroy
+    redirect_to admins_reports_path
   end
-
 
 end

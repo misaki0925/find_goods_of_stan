@@ -1,22 +1,39 @@
-<h1>管理者用一覧画面 これいるのか？詳細ページに編集ボタンをadmin飲みが表示されればいいんじゃね？</h1>
-<p>とりあえず一覧で表示する</p>
-
-<%= render 'layouts/search_form'%>
-
-<% @articles.each do |article| %>
-<h2>着用メンバー</h2>
-<% member_ids = article.member_ids%>
-<% member_ids.each do |id|%>
-<% member = Member.find(id)%>
-<P><%= member.name%>さん</P>
-<% end %>
-<p><%= article.brand %></p>
-<%= link_to "詳細ページ", article_path(article.id)%>
-
-
-<% if logged_in? && current_user.admin? %> 
-
-<%= link_to "編集", edit_admins_article_path(article.id) %>
-<% end %>
-
-<% end %>
+<div class = "content">
+  <table class="table table-dark table-responsiv">
+    <thead>
+      <tr>
+        <th scope="col">着用メンバー</th>
+        <th scope="col">ブランド</th>
+        <th scope="col">値段</th>
+        <th scope="col">アイテム</th>
+        <th scope="col">url</th>
+        <th scope="col">画像</th>
+        <th scope="col">詳細</th>
+        <th scope="col">編集</th>
+      </tr>
+      <% @articles.each do |article| %>
+        <% names = [] %>
+        <% article.members.each do |member|%>
+          <% names.push(member.name) %>
+        <% end %>
+        <tr>
+          <td scope="row"><%= "#{names.join("さん")}さん" %></td>
+          <td><%= article.brand %></td>
+          <td><%= article.price %></td>
+          <td><%= article.item%></td>
+          <% if article.tweet_url.present? %>
+            <td>あり</td>
+          <% else %>
+            <td>なし</td>
+          <% end %>
+          <td><%= "#{article.images.count}枚" %></td>
+          <td><%= link_to "詳細", article_path(article.id), class: "btn btn-outline-light" %></td>
+          <% if logged_in? && current_user.admin? %> 
+            <td><%= link_to "編集", edit_admins_article_path(article.id), class: "btn btn-outline-light" %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </thead>
+  </table>
+  <%= paginate @articles %>
+</div>

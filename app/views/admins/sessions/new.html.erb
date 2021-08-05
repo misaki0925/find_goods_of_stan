@@ -1,10 +1,14 @@
-<h1>管理者ログイン画面</h1>
-<p>ログインしてください</p>
+<div class = "content">
+  <div class="mb-3">
+    <%= form_with url: admins_login_path, local: true do |f| %>
+      <%= f.label :email, "メールアドレス", class: "form-label fs-5 mb-3 " %>
+      <%= f.text_field :email, class: "form-control mb-3  w-25 h-25"%>
+      <%= f.label :password, "パスワード", class: "form-label fs-5 mb-3" %>
+      <%= f.password_field :password, class: "form-control mb-3  w-25 h-25"%>
+      <%= f.submit 'ログイン', class: "btn btn-outline-light " %>
+    <% end %>
+  </div>
+</div>
 
-<%= form_with url: admins_login_path, local: true do |f| %>
-<%= f.label :email, "メールアドレス" %>
-<%= f.text_field :email %>
-<%= f.label :password, "パスワード" %>
-<%= f.password_field :password %>
-<%= f.submit 'ログイン' %>
-<% end %>
+
+

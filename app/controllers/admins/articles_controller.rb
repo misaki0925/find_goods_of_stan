@@ -20,12 +20,12 @@ end
 
 def index
   @q = Article.ransack(params[:q])
-  @articles = @q.result.includes(:members)
+  @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page])
 end
 
 def search
   @q = Article.search(search_params)
-  @articles = @q.result.includes(:members)
+  @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page])
 end
 
 def destroy
@@ -45,7 +45,7 @@ def set_article
 end
 
 def article_params
-  params.require(:article).permit(:price, :brand, :tweet_url, { member_ids: [] }, {images: []} )
+  params.require(:article).permit(:price, :brand, :item, :tweet_url, { member_ids: [] }, {images: []} )
 end
 
 end

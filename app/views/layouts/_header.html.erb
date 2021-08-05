@@ -1,0 +1,38 @@
+<div class = "header">
+  <div class = " p-3 px-md-4 mb-3 border-bottom shadow-sm"> 
+    <div class="header_body">
+      <h5 class="my-0 font-weight-normal fs-2">Find Goods of Stan</h5>
+      <div class="header_btn text-end">
+        <% if current_page?(articles_path) or current_page?(search_articles_path) %>
+          <div class = "search justify-content-center py-4">
+            <%= search_form_for @q, url: search_articles_path do |f| %> 
+              <%= f.label :brand_cont , "ブランド" %>
+              <%= f.search_field :brand_cont, class: "btn btn-outline-light rounded-0" %>  
+              <%= f.label :members_name_cont , "メンバー" %>
+              <%= f.search_field :members_name_cont, class: "btn btn-outline-light rounded-0" %> 
+              <%= f.submit "検索", class: "btn btn-outline-light"%>
+            <% end %>
+          </div>
+        <% elsif current_page?(search_admins_articles_path) or current_page?(admins_articles_path) %>
+          <div class = "search mx-auto py-4">
+            <%= search_form_for @q, url: search_admins_articles_path do |f| %> 
+              <%= f.label :brand_cont , "ブランド" %>
+              <%= f.search_field :brand_cont, class: "btn btn-outline-light rounded-0"    %>  
+              <%= f.label :members_name_cont , "メンバー" %>
+              <%= f.search_field :members_name_cont, class: "btn btn-outline-light  rounded-0"     %> 
+              <%= f.submit "検索", class: "btn btn-outline-light" %>
+            <% end %>
+          </div>
+        <% end %> 
+        <% if logged_in? %>
+          <%= link_to "Back", :back, class: "btn btn-outline-light me-4"%>
+          <%= link_to "Report", admins_reports_path, class: "btn btn-outline-light" %>
+          <%= link_to "Index", articles_path, class: "btn btn-outline-light" %>
+          <%= link_to "Admin/Index", admins_articles_path, class: "btn btn-outline-light" %>
+          <%= link_to "Logout", admins_logout_path, class: "btn btn-outline-light", method: :delete %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
