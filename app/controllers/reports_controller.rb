@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   end
 
   def create
-    Report.create(report_params)
+    @report = Report.create(report_params)
     redirect_to articles_path
   end
 
@@ -14,4 +14,5 @@ class ReportsController < ApplicationController
   def report_params
     params.require(:report).permit(:comment)
   end
+
 end

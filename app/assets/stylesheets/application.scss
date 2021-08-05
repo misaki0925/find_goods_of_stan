@@ -10,6 +10,41 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+ @import "bootstrap";
+
+ body{
+   margin: 0;
+   background: #111111;
+   position: relative;
+   color: white;
+ }
+
+ .content{
+  min-height:450px;
+  height:auto !important;
+  height:4500px;
+ }
+
+// .img-hidden {　これimageに使用する？
+//   height: 500px;
+//   overflow: hidden;
+// }
+
+.pagination>li>a {          
+  border: none;     
+  color: #696969;   
+}
+
+.pagination>.active>a {     
+  background: #93c9ff;     
+  border-radius: 15px;     
+}
+
+.pagination>li>a:hover {        
+  border-radius: 15px;   
+}
+
+.pagination {
+  justify-content: center;
+}

@@ -45,11 +45,20 @@ gem 'twitter'
 
 gem 'whenever', require: false
 
-#検索
+# 検索
 gem 'ransack'
 
-#ログイン
+# ログイン
 gem 'sorcery'
+
+#ページネーション
+gem 'kaminari'
+
+
+# bootstrap
+gem 'bootstrap', '~> 5.0.1'
+gem 'jquery-rails'
+
 
 
 group :development, :test do

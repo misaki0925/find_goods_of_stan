@@ -1,9 +1,21 @@
-<h1>間違い報告確認画面</h1>
-<p>記事について間違い報告を表示します。</p>
-
-<% @reports.each do |report| %>
-<h2>報告</h2>
-<p><%= report.comment %></p>
-<%= link_to "削除", admins_article_path(report.id), method: :delete %>
-<% end %>
-
+<div class = "content">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">報告内容</th>
+        <th scope="col">報告日時</th>
+        <th scope="col">削除ボタン</th>
+      </tr>
+      <% @reports.each do |report| %>
+        <tr>
+          <td><%= report.comment %></td>
+          <td><%= report.created_at.strftime('%Y/%m/%d') %></td>
+          <% if logged_in? && current_user.admin? %> 
+            <td><%= link_to "削除", admins_report_path(report.id), class: "btn  btn-outline-light", method: :delete %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </thead>
+  </table>
+<%= paginate @reports %>
+</div>

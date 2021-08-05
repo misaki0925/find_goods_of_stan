@@ -1,44 +1,49 @@
-<h1>管理者用 記事編集・削除ページ</h1>
-<p>記事の変更または削除を行う</p>
-
-<%= form_with model: @article, url: admins_article_path(@article.id), local: true do |f| %>
-
-
-<p>メンバー名ここから</p>
-
- <%= f.fields_for :member do |m| %>
- <%= f.label :members, "メンバー名" %>
- <%= collection_check_boxes(:article, :member_ids, Member.all, :id, :name) do |t| %>
- <% t.label { t.check_box + t.text} %>
- <% end %>
- <% end %>
-
-<p><%= f.label :brand, "ブランド" %></p>
-<%= f.text_field :brand %>
-
-<p><%= f.label :price, "値段" %></p>
-<%= f.text_field :price %>
-
-<p><%= f.label :tweet_url, "Twitterへのurl" %></p>
-<%= f.url_field :tweet_url %>
-
-
- <p><%= f.label :image, "画像" %></p>
-<%= f.file_field :image %> 
-
-
-<% if @article.images.present? %>
-<P>現在登録されている画像(削除する場合はチェックしてください)</P>
-<% @article.images.each do |image| %>
-<%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-<%= image_tag image, size:"150x150" %>
-<% end %>
-<% end %>
-
-
-<p><%= f.submit "更新する"  %> </p>
-<p><%= link_to '削除',admins_article_path(@article.id), method: :delete %></p>
-
-<% end %>
-
-<%= link_to "戻る", admins_articles_path %>
+<div class= "content">
+  <div class="card border-white border-1 rounded-0 bg-white text-dark pt-3 pb-5 mx-auto mt-5 mb-3" style="width: 100%; height: 100%;">
+    <div class="card-body mt-3">
+      <%= form_with model: @article, url: admins_article_path(@article.id), local: true do |f| %>
+        <div class="card-body-text mb-5 text-center">
+          <%= f.fields_for :member do |m| %>
+            <%= f.label :members, "メンバー名" %>
+            <%= collection_check_boxes(:article, :member_ids, Member.all, :id, :name) do |t| %>
+              <% t.label { t.check_box + t.text} %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="card-body-text mb-5 text-center">
+          <%= f.label "<brand>"%>
+          <%= f.text_field :brand,  class: "w-25"  %>
+        </div>
+        <div class="card-body-text mb-5 text-center">
+          <%= f.label "<item>" %>
+          <%= f.text_field :item,  class: "w-25"  %>
+        </div>
+        <div class="card-body-text mb-5 text-center">
+          <%= f.label "<price>" %>
+          <%= f.text_field :price,  class: "w-25" %>
+        </div>
+        <div class="card-body-text mb-5 text-center">
+          <%= f.label :tweet_url, "<Twitterへのurl>" %>
+          <%= f.url_field :tweet_url,  class: "w-25"  %>
+        </div>
+        <div class="card-body-text mb-5 text-center">
+          <%= f.label "<image>"%>
+          <%= f.file_field :image %> 
+        </div>
+        <div class="card-body-text mb-5 text-center">
+          <% if @article.images.present? %>
+          <P>現在登録されている画像(削除する場合はチェックしてください)</P>
+            <% @article.images.each do |image| %>
+              <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+              <%= image_tag image, size:"150x150" %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="card-body-text mb-5 text-center">
+          <%= f.submit "更新する", class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark" %>
+          <%= link_to '削除',admins_article_path(@article.id), method: :delete, class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

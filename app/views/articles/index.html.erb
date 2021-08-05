@@ -1,15 +1,27 @@
-<h1>SixTones 私物一覧</h1>
-<p>メンバー全員の私物一覧かつ、検索機能を使用して検索してください。</p>
-
-<%= render 'layouts/search_form'%>
-
-<% @articles.each do |article| %>
-<h2>着用メンバー</h2>
-<% member_ids = article.member_ids%>
-<% member_ids.each do |id|%>
-<% member = Member.find(id)%>
-<P><%= member.name%>さん</P>
-<% end %>
-<p><%= article.brand %></p>
-<%= link_to "詳細ページ", article_path(article.id)%>
-<% end %>
+<div class = "content">
+  <div class="row justify-content-center pt-3 pb-5">
+    <% @articles.each do |article| %>
+      <% names = [] %>
+      <% article.members.each do |member|%>
+        <% names.push(member.name) %>
+      <% end %>
+      <div class="card border-white border-1 rounded-0 text-dark bg-white pt-2 pb-3 mx-3 mt-5 mb-2 pr-3" style="width: 18rem; height: 28rem;">
+        <div class="card-body">
+          <% if article.images.present? %>
+            <% article_image = article.images.first %>
+            <%= image_tag article_image, size:"100x240", class: "card-img-top", alt: "Card image cap" %>
+          <% end %>
+          <div class="card-body-text mt-4 text-center">
+            <h5 class="card-title"><%= "#{names.join("さん")}さん" %></h5>
+            <p class="card-text"><%= article.brand %></p>
+            <%= link_to "詳細ページへ", article_path(article.id), class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark " %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= paginate @articles %>
+  <% if @articles.count == 0 %>
+    <h5>該当する記事がありません。</h5>
+  <%end%>
+</div>

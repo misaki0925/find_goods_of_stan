@@ -21,13 +21,14 @@ class Article < ApplicationRecord
 
     client.search("#oneST_衣装 OR #Taiga_Six衣装 OR #Jesse_Six衣装 OR #Hokuto_Six衣装 OR #Yugo_Six衣装 OR #Shintaro_Six衣装 OR #Juri_Six衣装", result_type: "recent", locale: "ja", exclude: "retweets", tweet_mode: "extended").take(1).each do |tweet|
     
-      tweet_content = tweet.text
-      price = tweet_content.slice(/¥.*-/)
-      brand = tweet_content.slice(/(?<=\【).*?(?=\】)/)
+    tweet_content = tweet.text.gsub(/[\r\n]/,"")
+    price = tweet_content.slice(/¥.*-/)
+    brand = tweet_content.slice(/(?<=\【).*?(?=\】)/)
+    item = tweet_content.slice(/(?<=\】).*?(?=\¥)/)
+    
 
-      # インスタンス作成
-     @article = Article.new(price: price, brand: brand, tweet_url: tweet.url)
-
+    # インスタンス作成
+   @article = Article.new(price: price, brand: brand, item: item, tweet_url: tweet.url)
   
       # articleにmemberを紐づける
       member_ids = []
@@ -39,12 +40,6 @@ class Article < ApplicationRecord
       member_ids << 6 if tweet_content.include?("森本慎太郎")
       article_members = Member.find(member_ids)
       @article.members << article_members
-
-      names = []
-      @article.members.each do |member|
-        names.push(member.name)
-      end
-      @names = names.join("さん")
   
       # 画像
       medias = tweet.media
@@ -61,17 +56,18 @@ class Article < ApplicationRecord
 
       if @article.save
       # send_lineで送信
-      @article.send_line(@article.member_ids, @names, @article.tweet_url, @imgae_url_for_line_small)
+      @article.send_line(@article.member_ids, @article.tweet_url, @imgae_url_for_line_small)
+
       end
     end
   end
      
   # LINE APIを使用して該当するメンバーのLINEbotに送信する
-  def send_line(member_ids, name, tweet_url, tweet_image_url)
+  def send_line(member_ids, tweet_url, tweet_image_url)
     unless member_ids.empty?
       ids = member_ids.map(&:to_s)
+      @line_names = ["ALL"]
       ids.each do |id|
-        @line_names = ["ALL"]
         @line_names << "YK" if id.include?("1")
         @line_names << "TK" if id.include?("2")
         @line_names << "JT" if id.include?("3")
@@ -87,9 +83,25 @@ class Article < ApplicationRecord
       config.channel_token = ENV["LINE_CHANNEL_TOKEN_#{line_name}"]
     }
 
+    if line_name == "YK"
+      name = "高地優吾さん"
+    elsif line_name == "TK"
+      name = "京本大我さん"
+    elsif line_name == "JT"
+      name = "田中樹さん"
+    elsif line_name == "HM"
+      name = "松村北斗さん"
+    elsif line_name == "J"
+      name = "ジェシーさん"
+    elsif line_name == "SM"
+      name = "森本慎太郎さん"
+    else
+      name = "メンバー"
+    end
+
     message = {
       "type": "flex",
-      "altText": "#{name}さんの私物が特定されました！(Twitter)",
+      "altText": "#{name}の私物が特定されました！(Twitter)",
       "contents": 
           {
             "type": "bubble",
@@ -115,7 +127,7 @@ class Article < ApplicationRecord
                       "contents": [
                         {
                           "type": "text",
-                          "text": "#{name}さん着用",
+                          "text": "#{name}着用",
                           "size": "xl",
                           "color": "#ffffff",
                           "weight": "bold",
