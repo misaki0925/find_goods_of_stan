@@ -3,6 +3,11 @@
     <div class="header_body">
       <h5 class="my-0 font-weight-normal fs-2">Find Goods of Stan</h5>
       <div class="header_btn text-end">
+      <% unless logged_in? %> 
+      <%= breadcrumbs separator: " / " %>
+      <% end %>
+
+
         <%
 =begin%>
  <% if current_page?(articles_path) or current_page?(search_articles_path) %> 
@@ -39,8 +44,7 @@
         <% if logged_in? %>
           <%= link_to "Back", :back, class: "btn btn-outline-light me-4"%>
           <%= link_to "Reports", admins_reports_path, class: "btn btn-outline-light" %>
-          <%= link_to "Index", articles_path, class: "btn btn-outline-light" %>
-          <%= link_to "Admin/Index", admins_articles_path, class: "btn btn-outline-light" %>
+          <%= link_to "Articles", admins_articles_path, class: "btn btn-outline-light" %>
           <%= link_to "Logout", admins_logout_path, class: "btn btn-outline-light", method: :delete %>
         <% end %>
       </div>
