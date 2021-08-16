@@ -32,7 +32,11 @@
         <div class="footer_body">
           <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>
           <%= link_to "LINE追加はこちらから", line_page_path, class: "btn btn-outline-light" %>
-          <%= link_to "戻る", :back, class: "btn btn-outline-light me-4"%>
+          <%
+=begin%>
+ <%= link_to "戻る", :back, class: "btn btn-outline-light me-4"%> 
+<%
+=end%>
         </div>
       </div>
     <% when current_page?(articles_path) then %>
@@ -47,7 +51,11 @@
         <div class="footer_body">
           <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>
           <%= link_to "LINE追加はこちらから", line_page_path, class: "btn btn-outline-light" %>
-          <%= link_to "戻る", :back, class: "btn btn-outline-light me-4"%>
+          <%
+=begin%>
+ <%= link_to "戻る", :back, class: "btn btn-outline-light me-4"%> 
+<%
+=end%>
         </div>
       </div>
     <% end %>
