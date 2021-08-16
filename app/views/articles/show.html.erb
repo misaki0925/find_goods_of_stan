@@ -9,7 +9,7 @@
           <p class="card-text"><%= "<Brand>#{@article.brand}" %></p>
           <p class="card-text"><%= "<Price>      #{@article.price}" %></p>
           <p class="card-text"><%= "<Item>      #{@article.item}" %></p>
-          <%= link_to "詳しくはTweetをご覧ください", @article.tweet_url, class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark " %>
+          <%= link_to "詳しくはTweetをご覧ください", @article.tweet_url, target: :_blank, rel: "noopener noreferrer", class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark " %>
         </div>
         <div class="row justify-content-center">
           <% if @article.images.present? %>

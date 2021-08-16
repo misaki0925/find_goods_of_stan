@@ -5,11 +5,7 @@ Rails.application.routes.draw do
 
   root to: 'articles#home'
   
-  resources :articles, only: %i[show index] do
-    collection do
-      get 'search', to: 'articles#search'
-    end
-  end
+  resources :articles, only: %i[show index]
   get '/line_page', to: 'articles#line'
 
   resources :reports, only: %i[new create]

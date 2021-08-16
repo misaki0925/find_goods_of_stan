@@ -14,7 +14,13 @@
           <div class="card-body-text mt-4 text-center">
             <h5 class="card-title"><%= "#{names.join("さん")}さん" %></h5>
             <p class="card-text"><%= article.brand %></p>
-            <%= link_to "詳細ページへ", article_path(article.id), class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark " %>
+            <%
+=begin%>
+ <%= link_to "詳細ページへ", article_path(article.id), class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark " %> 
+<%
+=end%>
+            <%= button_to "詳細ページへ", article_path(article.id), method: :get, class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark ", id: "btn_#{article.id}" %>
+
           </div>
         </div>
       </div>
