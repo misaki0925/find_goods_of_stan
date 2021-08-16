@@ -12,8 +12,9 @@ def update
     end
   end
   if @article.update_attributes(article_params)
-    redirect_to admins_articles_path
+    redirect_to admins_articles_path, notice: "記事内容を更新しました。"
   else
+    flash.now[:update_error] = "記事内容を更新できませんでした。"
     render :edit
   end
 end
@@ -31,7 +32,7 @@ end
 def destroy
   @article.images.purge
   @article.destroy
-  redirect_to admins_articles_path
+  redirect_to admins_articles_path, notice: "記事内容を削除しました。"
 end
 
   private

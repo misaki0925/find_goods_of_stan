@@ -9,12 +9,12 @@ class ArticlesController < ApplicationController
     @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page])
   end
 
-  def search
-    # @q = Article.search(search_params)
-    # @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page])
-    index
-    render :index
-  end
+  # def search
+  #   # @q = Article.search(search_params)
+  #   # @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page])
+  #   index
+  #   render :index
+  # end
 
   def line;end
 

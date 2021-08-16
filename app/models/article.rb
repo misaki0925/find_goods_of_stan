@@ -6,8 +6,8 @@ class Article < ApplicationRecord
 
   validates :tweet_url, uniqueness: true
 
-  require 'Twitter'
-  require 'line/bot'
+  # require 'Twitter'
+  # require 'line/bot'
   require 'open-uri'
 
   #Twitter API
@@ -195,4 +195,21 @@ class Article < ApplicationRecord
     p response
     end
   end
+#--------------
+def self.search_client
+  search_client = Twitter::REST::Client.new do |config|
+    config.consumer_key        = ENV["CONSUMER_KEY"]
+    config.consumer_secret     = ENV["CONSUMER_SECRET"]
+    config.access_token        = ENV["ACCESS_TOKEN"]
+    config.access_token_secret = ENV["ACCESS_SECRET"]
+  end
 end
+
+def self.search_tweets
+search_client.search("京本大我", result_type: "recent", locale: "ja", exclude: "retweets", tweet_mode: "extended").take(1).each do |tweet|
+    @tweet = tweet
+ end
+ end
+#--------------
+
+ end

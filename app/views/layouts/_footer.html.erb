@@ -21,7 +21,13 @@
           <%= link_to "私物一覧はこちらから", articles_path, class: "btn btn-outline-light me-4"%>
         </div>
       </div>
-    <% when current_page?(search_articles_path) then %>
+    <%
+=begin%>
+ <% when current_page?(search_articles_path) then %> 
+<%
+=end%>
+    <% when current_page?(articles_path) then %>
+
       <div class = " p-3 px-md-4 mb-3 border-top shadow-sm text-center"> 
         <div class="footer_body">
           <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>

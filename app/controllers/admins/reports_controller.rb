@@ -1,15 +1,12 @@
 class Admins::ReportsController < ApplicationController
   def index
     @reports = Report.all.order(created_at: :desc).page(params[:page])
-
-    
-
   end
 
   def destroy
     @report = Report.find(params[:id])
     @report.destroy
-    redirect_to admins_reports_path
+    redirect_to admins_reports_path, notice: "報告が削除されました。"
   end
 
 end

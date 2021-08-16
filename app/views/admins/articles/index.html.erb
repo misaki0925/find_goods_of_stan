@@ -27,9 +27,21 @@
             <td>なし</td>
           <% end %>
           <td><%= "#{article.images.count}枚" %></td>
-          <td><%= link_to "詳細", article_path(article.id), class: "btn btn-outline-light" %></td>
+          <%
+=begin%>
+ <td><%= link_to "詳細", article_path(article.id), class: "btn btn-outline-light" %></td> 
+<%
+=end%>
+
+<td><%= button_to "詳細", article_path(article.id), method: :get, class: "btn btn-outline-light admin_show_btn", id: "admin_show_btn_#{article.id}"%></td>
+
           <% if logged_in? && current_user.admin? %> 
-            <td><%= link_to "編集", edit_admins_article_path(article.id), class: "btn btn-outline-light" %></td>
+          <td><%= button_to "編集", edit_admins_article_path(article.id), method: :get, class: "btn btn-outline-light admin_edit_btn", id: "admin_edit_btn_#{article.id}" %></td>
+            <%
+=begin%>
+ <td><%= link_to "編集", edit_admins_article_path(article.id), class: "btn btn-outline-light" %></td> 
+<%
+=end%>
           <% end %>
         </tr>
       <% end %>

@@ -70,7 +70,10 @@ group :development, :test do
 
   # Test
   gem 'factory_bot_rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'capybara'
+  gem 'webdrivers'
+
 
   # Code analyze
   gem 'rails_best_practices'
