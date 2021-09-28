@@ -1,27 +1,26 @@
-<% breadcrumb :article_show, @article %>
 <div class = "content">
   <div class="card border-white border-1 rounded-0 text-dark bg-white pt-3 pb-5 mx-auto mt-5 mb-3" style="width: 100%; height: 100%;">
     <% names = [] %>
     <% @article.members.each do |member|%>
       <% names.push(member.name) %>
+    <% end %>
       <div class="card-body mt-3">
-        <div class="card-body-text mb-5 text-center">
-          <h5 class="card-title"><%= "#{names.join("さん")}さん" %></h5>
-          <p class="card-text"><%= "<Brand>#{@article.brand}" %></p>
-          <p class="card-text"><%= "<Price>      #{@article.price}" %></p>
-          <p class="card-text"><%= "<Item>      #{@article.item}" %></p>
-          <%= link_to "詳しくはTweetをご覧ください", @article.tweet_url, target: :_blank, rel: "noopener noreferrer", class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark " %>
+        <div class="card-body-text text-center">
+          <h4 class="card-title pb-2"><%= "#{names.join("さん")}さん" %></h4>
+          <p class="card-text mt-4"><%= "#{@article.brand}" %></p>
+          <p class="card-text mt-3"><%= "#{@article.price}" %></p>
+          <p class="card-text mt-3"><%= "#{@article.item}" %></p>
+          <%= link_to t('.to_twitter'), @article.tweet_url, target: :_blank, rel: "noopener noreferrer", class: "btn btn-outline-dark btn-coler mt-4 mb-4" %>
         </div>
         <div class="row justify-content-center">
           <% if @article.images.present? %>
             <% @article.images.each do |article_image| %>
-              <div class="col-md-5 col-sm-12 mx-4 py-4">
-                <%= image_tag article_image, class: "card-img-top", alt: "Card image cap" %>
+            <div class="col-xs-12 col-md-12 col-lg-5 mx-4 py-4 mt-3 mb-2 ">
+                <%= image_tag article_image, class: "card-img-top mb-5", alt: "Card image cap" %>
               </div>
             <% end %>
           <% end %>
         </div>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>

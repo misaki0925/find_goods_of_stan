@@ -7,9 +7,9 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     if @report.save
-    redirect_to articles_path, notice: "ありがとうございます。送信されました。"
+    redirect_to articles_path, notice: t('flash.make_report')
     else
-      flash.now[:notice] = "コメントを入力してください。"
+      flash.now[:notice] = t('flash.not_make_report')
       render :new
     end
   end

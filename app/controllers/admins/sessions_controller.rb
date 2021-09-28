@@ -6,15 +6,15 @@ class Admins::SessionsController < ApplicationController
   def create
     @user = login(params[:email], params[:password])
     if @user
-      redirect_back_or_to admins_articles_path, notice: "ログインしました"
+      redirect_back_or_to admins_articles_path, notice: t('flash.login')
     else
-      flash.now[:danger] = "ログインに失敗しました"
+      flash.now[:danger] = t('flash.not_login')
       render :new
     end
   end
 
   def destroy
     logout
-    redirect_back_or_to root_path, success: "ログアウトしました"
+    redirect_back_or_to root_path, success: t('flash.logout')
   end
 end

@@ -1,5 +1,11 @@
 <footer class="footer mt-5"> 
-  <% if logged_in? && current_user.admin? %> 
+    <div class = "footer_text p-3 border-top shadow-sm text-center"> 
+
+<p>2021 find_goods_of_stan</p>
+</div>
+  <%
+=begin%>
+ <% if logged_in? && current_user.admin? %> 
     <div class = " p-3 px-md-4 mb-3 border-top shadow-sm text-center"> 
     </div>
   <% else %>
@@ -10,54 +16,68 @@
     <% when current_page?(line_page_path) then %>
       <div class = " p-3 px-md-4 mb-3 border-top shadow-sm text-center"> 
         <div class="footer_body">
-          <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>
-          <%= link_to "私物一覧はこちらから", articles_path, class: "btn btn-outline-light me-4"%>
+          <%= link_to t('defaults.report_page'), new_report_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.show_page'), articles_path, class: "btn btn-outline-light me-4"%>
         </div>
       </div>
     <% when current_page?(new_report_path) then %>
       <div class = " p-3 px-md-4 mb-3 border-top shadow-sm text-center"> 
         <div class="footer_body">
-          <%= link_to "LINE追加はこちらから", line_page_path, class: "btn btn-outline-light" %>
-          <%= link_to "私物一覧はこちらから", articles_path, class: "btn btn-outline-light me-4"%>
+          <%= link_to t('defaults.line_page'), line_page_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.show_page'), articles_path, class: "btn btn-outline-light me-4"%>
         </div>
-      </div>
+      </div> 
+<%
+=end%>
     <%
 =begin%>
  <% when current_page?(search_articles_path) then %> 
 <%
 =end%>
-    <% when current_page?(articles_path) then %>
+    <%
+=begin%>
+ <% when current_page?(articles_path) then %>
 
       <div class = " p-3 px-md-4 mb-3 border-top shadow-sm text-center"> 
         <div class="footer_body">
-          <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>
-          <%= link_to "LINE追加はこちらから", line_page_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.report_page'), new_report_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.line_page'), line_page_path, class: "btn btn-outline-light" %> 
+<%
+=end%>
           <%
 =begin%>
  <%= link_to "戻る", :back, class: "btn btn-outline-light me-4"%> 
 <%
 =end%>
-        </div>
+        <%
+=begin%>
+ </div>
       </div>
     <% when current_page?(articles_path) then %>
       <div class = " p-3 px-md-4 mb-3 border-top shadow-sm text-center"> 
         <div class="footer_body">
-          <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>
-          <%= link_to "LINE追加はこちらから", line_page_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.report_page'), new_report_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.line_page'), line_page_path, class: "btn btn-outline-light" %>
         </div>
       </div>
     <% else %>
       <div class = " p-3 px-md-4 mb-3 border-top shadow-sm text-center"> 
         <div class="footer_body">
-          <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>
-          <%= link_to "LINE追加はこちらから", line_page_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.report_page'), new_report_path, class: "btn btn-outline-light" %>
+          <%= link_to t('defaults.line_page'), line_page_path, class: "btn btn-outline-light" %> 
+<%
+=end%>
           <%
 =begin%>
  <%= link_to "戻る", :back, class: "btn btn-outline-light me-4"%> 
 <%
 =end%>
-        </div>
+        <%
+=begin%>
+ </div>
       </div>
     <% end %>
-  <% end %>
+  <% end %> 
+<%
+=end%>
 </footer>

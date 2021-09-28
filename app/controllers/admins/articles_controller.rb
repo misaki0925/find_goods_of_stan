@@ -12,28 +12,29 @@ def update
     end
   end
   if @article.update_attributes(article_params)
-    redirect_to admins_articles_path, notice: "記事内容を更新しました。"
+    redirect_to admins_articles_path, notice: t('flash.updated')
   else
-    flash.now[:update_error] = "記事内容を更新できませんでした。"
+    flash.now[:update_error] = t('flash.not_updated')
     render :edit
   end
 end
 
 def index
   @q = Article.ransack(params[:q])
-  @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page])
+  @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page]).per(8)
 end
 
 def search
   @q = Article.search(search_params)
-  @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page])
+  @articles = @q.result.includes(:members).order(created_at: :desc).page(params[:page]).per(8)
 end
 
 def destroy
   @article.images.purge
   @article.destroy
-  redirect_to admins_articles_path, notice: "記事内容を削除しました。"
+  redirect_to admins_articles_path, notice: t('flash.deleted')
 end
+
 
   private
 
@@ -46,7 +47,7 @@ def set_article
 end
 
 def article_params
-  params.require(:article).permit(:price, :brand, :item, :tweet_url, { member_ids: [] }, {images: []} )
+  params.require(:article).permit(:price, :brand, :item, :tweet_url, :status, { member_ids: [] }, {images: []} )
 end
 
 end

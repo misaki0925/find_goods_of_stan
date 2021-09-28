@@ -1,47 +1,51 @@
-<div class= "content">
-  <div class="card border-white border-1 rounded-0 bg-white text-dark pt-3 pb-5 mx-auto mt-5 mb-3" style="width: 100%; height: 100%;">
+<div class = "content pt-4">
+  <h2>Admins/Edit</h2>
+  <div class="card border-white border-1 rounded-0 bg-white text-dark pt-3 pb-3 mx-auto mt-3 mb-3" style="width: 100%; height: 100%;">
     <div class="card-body mt-3">
       <%= form_with model: @article, url: admins_article_path(@article.id), local: true do |f| %>
         <div class="card-body-text mb-5 text-center">
           <%= f.fields_for :member do |m| %>
-            <%= f.label :members, "メンバー名" %>
+            <%= f.label :members, "【#{Article.human_attribute_name('member')}】" %>
             <%= collection_check_boxes(:article, :member_ids, Member.all, :id, :name) do |t| %>
               <% t.label { t.check_box + t.text} %>
             <% end %>
           <% end %>
         </div>
         <div class="card-body-text mb-5 text-center">
-          <%= f.label "<brand>"%>
+          <%= f.label "【#{Article.human_attribute_name('brand')}】" %>
           <%= f.text_field :brand,  class: "w-25"  %>
         </div>
         <div class="card-body-text mb-5 text-center">
-          <%= f.label "<item>" %>
+          <%= f.label "【#{Article.human_attribute_name('item')}】" %>
           <%= f.text_field :item,  class: "w-25"  %>
         </div>
         <div class="card-body-text mb-5 text-center">
-          <%= f.label "<price>" %>
+          <%= f.label "【#{Article.human_attribute_name('price')}】" %>
           <%= f.text_field :price,  class: "w-25" %>
         </div>
         <div class="card-body-text mb-5 text-center">
-          <%= f.label :tweet_url, "<Twitterへのurl>" %>
+          <%= f.label :tweet_url, "【#{Article.human_attribute_name('twitter_url')}】" %>
           <%= f.url_field :tweet_url,  class: "w-25"  %>
         </div>
         <div class="card-body-text mb-5 text-center">
-          <%= f.label "<image>"%>
-          <%= f.file_field :image %> 
+          <%= f.label "【#{Article.human_attribute_name('image')}】"%>
+          <%= f.file_field :images, name: 'article[images][]' %> 
         </div>
         <div class="card-body-text mb-5 text-center">
           <% if @article.images.present? %>
-          <P>現在登録されている画像(削除する場合はチェックしてください)</P>
-            <% @article.images.each do |image| %>
+          <p><%=  t('.image_comment') %></p>         
+    <% @article.images.each do |image| %>
               <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-              <%= image_tag image, size:"150x150" %>
-            <% end %>
+              <%= image_tag image, size:"200x200" %>
+            <% end %>  
           <% end %>
         </div>
-        <div class="card-body-text mb-5 text-center">
-          <%= f.submit "更新する", class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark" %>
-          <%= link_to '削除',admins_article_path(@article.id), method: :delete, class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark" %>
+         <div class="card-body-text mb-5 text-center">
+         <%= f.select :status, Article.statuses.keys.map {|k| [I18n.t("enums.article.status.#{k}"),k]} %>
+        </div>
+        <div class="card-body-text mb-2 text-center">
+          <%= f.submit t('defaults.update'), class: "btn btn-outline-dark search_btn" %>
+          <%= link_to t('defaults.delete'),admins_article_path(@article.id), method: :delete, class: "btn btn-outline-dark search_btn", data: { confirm: '削除しますか' } %>
         </div>
       <% end %>
     </div>

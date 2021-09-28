@@ -4,65 +4,73 @@ class Article < ApplicationRecord
   accepts_nested_attributes_for :article_members, allow_destroy: true
   has_many_attached :images
 
-  validates :tweet_url, uniqueness: true
+  validates :tweet_url, uniqueness: true, presence: true
 
-  # require 'Twitter'
-  # require 'line/bot'
+  enum status:{ published: 0, draft: 1 }
+
+  require 'Twitter'
+  require 'line/bot'
   require 'open-uri'
 
-  #Twitter API
-  def self.get_tweets
-    client = Twitter::REST::Client.new do |config|
+  # Twitterclient
+  def twitter_client
+    Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["CONSUMER_KEY"]
       config.consumer_secret     = ENV["CONSUMER_SECRET"]
       config.access_token        = ENV["ACCESS_TOKEN"]
       config.access_token_secret = ENV["ACCESS_SECRET"]
     end
+  end
 
-    client.search("#oneST_衣装 OR #Taiga_Six衣装 OR #Jesse_Six衣装 OR #Hokuto_Six衣装 OR #Yugo_Six衣装 OR #Shintaro_Six衣装 OR #Juri_Six衣装", result_type: "recent", locale: "ja", exclude: "retweets", tweet_mode: "extended").take(1).each do |tweet|
-    
-    tweet_content = tweet.text.gsub(/[\r\n]/,"")
-    price = tweet_content.slice(/¥.*-/)
-    brand = tweet_content.slice(/(?<=\【).*?(?=\】)/)
-    item = tweet_content.slice(/(?<=\】).*?(?=\¥)/)
-    
+  # 指定したidのアカウントのツイート検索
+  def search(id)
+    @tweets = twitter_client.user_timeline(user_id: id, count: 1, exclude_replies: false, include_rts: false, contributor_details: false, result_type: "recent", locale: "ja", tweet_mode: "extended")
+  end
 
-    # インスタンス作成
-   @article = Article.new(price: price, brand: brand, item: item, tweet_url: tweet.url)
-  
-      # articleにmemberを紐づける
-      member_ids = []
-      member_ids << 1 if tweet_content.include?("優吾")
-      member_ids << 2 if tweet_content.include?("京本大我")
-      member_ids << 3 if tweet_content.include?("田中樹")
-      member_ids << 4 if tweet_content.include?("松村北斗")
-      member_ids << 5 if tweet_content.include?("ジェシー")
-      member_ids << 6 if tweet_content.include?("森本慎太郎")
-      article_members = Member.find(member_ids)
-      @article.members << article_members
-  
-      # 画像
-      medias = tweet.media
-      image_urls = medias.map{ |h| h.media_url_https }
-      # LINE送信用の画像url作成
-      imgae_url_for_line = image_urls.first
-      @imgae_url_for_line_small = "#{imgae_url_for_line}:small"
-      # 画像をActiveStorageに保存
-      image_urls.each_with_index do |image_url, i|
-        image_url_small = "#{image_url}:small"
-        io = open(image_url_small)
-        @article.images.attach(io: io, filename: "#{@article.id}_#{i}")
-      end
-
-      if @article.save
-      # send_lineで送信
-      @article.send_line(@article.member_ids, @article.tweet_url, @imgae_url_for_line_small)
-
-      end
+  # 検索したツイートが私物関連のものであるか判断
+  def set_article(tag)
+    @for_article_tweets = []
+    @tweets.each do |tweet|
+      @for_article_tweets << tweet if tag.any?{|t| tweet.text.include?(t)}
     end
   end
-     
-  # LINE APIを使用して該当するメンバーのLINEbotに送信する
+
+  # 関係するメンバーを判断
+  def check_member(tweet_content)
+    member_ids = []
+      yugo = ["優吾","優吾のあしあと"]
+      taiga = ["京本大我","きょも","きょもきょも美術館"]
+      juri = ["田中樹","リリックノート"]
+      hokuto = ["松村北斗","北斗学園"]
+      jess = ["ジェシー","JESSEのズドン！BLOG"]
+      shintaro = ["森本慎太郎","もりもとーく"]
+
+      member_ids << 1 if yugo.any?{ |y| tweet_content.include?(y) }
+      member_ids << 2 if taiga.any?{ |t| tweet_content.include?(t) }
+      member_ids << 3 if juri.any?{ |j| tweet_content.include?(j) }
+      member_ids << 4 if hokuto.any?{ |h| tweet_content.include?(h) }
+      member_ids << 5 if jess.any?{ |j| tweet_content.include?(j) }
+      member_ids << 6 if shintaro.any?{ |s| tweet_content.include?(s) }
+      article_members = Member.find(member_ids)
+      members << article_members
+  end
+
+  # ツイートに含まれる画像を保存
+  def set_images(medias)
+    image_urls = medias.map{ |h| h.media_url_https }
+    # LINE送信用の画像url作成
+    imgae_url_for_line = image_urls.first
+    # imgae_url_for_line = image_urls.last
+    @imgae_url_for_line_small = "#{imgae_url_for_line}:small"
+    # 画像をActiveStorageに保存
+    image_urls.each_with_index do |image_url, i|
+      image_url_small = "#{image_url}:small"
+      io = open(image_url_small)
+      self.images.attach(io: io, filename: "image_#{i}")
+    end
+  end
+
+# lineで送信する
   def send_line(member_ids, tweet_url, tweet_image_url)
     unless member_ids.empty?
       ids = member_ids.map(&:to_s)
@@ -83,133 +91,178 @@ class Article < ApplicationRecord
       config.channel_token = ENV["LINE_CHANNEL_TOKEN_#{line_name}"]
     }
 
-    if line_name == "YK"
-      name = "高地優吾さん"
-    elsif line_name == "TK"
-      name = "京本大我さん"
-    elsif line_name == "JT"
-      name = "田中樹さん"
-    elsif line_name == "HM"
-      name = "松村北斗さん"
-    elsif line_name == "J"
-      name = "ジェシーさん"
-    elsif line_name == "SM"
-      name = "森本慎太郎さん"
-    else
-      name = "メンバー"
-    end
+    name = "高地優吾さん" if ids.include?("1")
+    name = "京本大我さん" if ids.include?("2")
+    name = "田中樹さん" if ids.include?("3")
+    name = "松村北斗さん" if ids.include?("4")
+    name = "ジェシーさん" if ids.include?("5")
+    name = "森本慎太郎さん" if ids.include?("6")
 
-    message = {
+    word = "#{self.brand}　#{self.price}　#{self.item}"
+    enc = URI.encode_www_form_component(word)
+    url = "https://www.google.co.jp/search?q="
+    search_url = url+enc
+    
+    message = 
+      {
       "type": "flex",
       "altText": "#{name}の私物が特定されました！(Twitter)",
-      "contents": 
-          {
-            "type": "bubble",
-            "body": {
+      "contents": {
+        "type": "bubble",
+        "hero": {
+          "type": "image",
+          "size": "full",
+          "aspectRatio": "20:28",
+          "aspectMode": "cover",
+          "url": tweet_image_url
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "text",
+              "wrap": true,
+              "weight": "bold",
+              "size": "xl",
+              "text": "#{name}着用"
+            },
+            {
               "type": "box",
-              "layout": "vertical",
+              "layout": "baseline",
               "contents": [
                 {
-                  "type": "image",
-                  "url": "#{tweet_image_url}",
-                  "size": "full",
-                  "aspectMode": "cover",
-                  "aspectRatio": "2:3",
-                  "gravity": "top"
+                  "type": "text",
+                  "text": "#{self.brand}",
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "xl",
+                  "flex": 0
                 },
                 {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "box",
-                      "layout": "vertical",
-                      "contents": [
-                        {
-                          "type": "text",
-                          "text": "#{name}着用",
-                          "size": "xl",
-                          "color": "#ffffff",
-                          "weight": "bold",
-                          "align": "center"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "box",
-                      "layout": "vertical",
-                      "contents": [
-                        {
-                          "type": "filler"
-                        },
-                        {
-                          "type": "box",
-                          "layout": "baseline",
-                          "contents": [
-                            {
-                              "type": "filler"
-                            },
-                            {
-                              "type": "text",
-                              "text": "Twitterへ",
-                              "color": "#ffffff",
-                              "flex": 0,
-                              "offsetTop": "-2px",
-                              "action": {
-                                "type": "uri",
-                                "label": "action",
-                                "uri": "#{tweet_url}"
-                              }
-                            },
-                            {
-                              "type": "filler"
-                            }
-                          ],
-                          "spacing": "sm"
-                        },
-                        {
-                          "type": "filler"
-                        }
-                      ],
-                      "borderWidth": "1px",
-                      "cornerRadius": "4px",
-                      "spacing": "sm",
-                      "borderColor": "#ffffff",
-                      "margin": "xxl",
-                      "height": "40px"
-                    }
-                  ],
-                  "position": "absolute",
-                  "offsetBottom": "0px",
-                  "offsetStart": "0px",
-                  "offsetEnd": "0px",
-                  "paddingAll": "20px",
-                  "paddingTop": "18px"
+                  "type": "text",
+                  "text": "#{self.price}",
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "sm",
+                  "flex": 0
                 }
-              ],
-              "paddingAll": "0px"
+              ]
             }
-          }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "button",
+              "style": "secondary",
+              "action": {
+                "type": "uri",
+                "label": "商品検索",
+                "uri": "#{search_url}",
+              },
+              "color": "#FCE3E7",
+              "height": "md"
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "uri",
+                "label": "To tweet",
+                "uri": "#{tweet_url}"
+              }
+            }
+          ]
         }
+      }
+    }
     response = client.broadcast(message)
     p response
     end
   end
-#--------------
-def self.search_client
-  search_client = Twitter::REST::Client.new do |config|
-    config.consumer_key        = ENV["CONSUMER_KEY"]
-    config.consumer_secret     = ENV["CONSUMER_SECRET"]
-    config.access_token        = ENV["ACCESS_TOKEN"]
-    config.access_token_secret = ENV["ACCESS_SECRET"]
+
+
+    #  GoodsFindというアカウントのツイート検索-------
+    def make_GoodsFind_article
+      search("1407908082575765506")
+      tag = ["#findgoodsofstan"]
+      set_article(tag)
+      @for_article_tweets.each do |tweet|
+        tweet_content = tweet.text.gsub(/[\r\n]/,"")
+        self.tweet_url = tweet.url
+        self.price = tweet_content.scan(/¥.+?-/).join(',')
+        self.brand = tweet_content.scan(/(?<=\【).+?(?=\】)/).join(',')
+        self.item = tweet_content.scan(/(?<=\】).+?(?=\¥)/).join(',')
+        check_member(tweet_content)
+        set_images(tweet.media)
+        if save
+          send_line(member_ids, tweet_url, @imgae_url_for_line_small)
+        end
+      end
+    end
+
+  # 2jkhs6というアカウントのツイート検索------
+  def make_2jkhs6_article
+    search("1193544870444429313")
+    tag = ["#oneST_衣装", "#Taiga_Six衣装", "#Jesse_Six衣装", "#Hokuto_Six衣装", "#Yugo_Six衣装", "#Shintaro_Six衣装", "#Juri_Six衣装"]
+    set_article(tag)
+    @for_article_tweets.each do |tweet|
+      tweet_content = tweet.text.gsub(/[\r\n]/,"")
+      self.tweet_url = tweet.url
+      self.price = tweet_content.scan(/¥.+?-/).join(',')
+      self.brand = tweet_content.scan(/(?<=\【).+?(?=\】)/).join(',')
+      self.item = tweet_content.scan(/(?<=\】).+?(?=\¥)/).join(',')
+      check_member(tweet_content)
+      set_images(tweet.media)
+      if save
+        send_line(member_ids, tweet_url, @imgae_url_for_line_small)
+      end
+    end
+  end
+
+  # Johnnys_stylingというアカウントのツイート検索-----------
+  def make_Johnnys_styling_article
+    search("934773122653229056")
+    tag = ["#SixTONES", "#高地優吾", "#京本大我", "#田中樹", "#松村北斗", "#ジェシー","#森本慎太郎"]
+    set_article(tag)
+    @for_article_tweets.each do |t|
+      tweet_content = t.text
+      self.tweet_url = t.url
+      ary = tweet_content.split("\n")
+      self.price = "#{ary[-2]}-"
+      item_brand = ary[-3]
+      self.item = item_brand.split(" ").last
+      self.brand = item_brand.split(self.item).join(',').gsub(/ /,"")
+      check_member(tweet_content)
+      set_images(t.media)
+      if save
+        send_line(member_ids, tweet_url, @imgae_url_for_line_small)
+      end
+    end
+  end
+
+# jasmine_jumpというアカウントのツイート検索---------------
+  def make_jasmine_jump_article
+    search("842986230442676224")
+    tag = ["高地優吾", "京本大我", "田中樹", "松村北斗", "ジェシー","森本慎太郎"]
+    set_article(tag)
+    @for_article_tweets.each do |t|
+      tweet_content = t.text
+      self.tweet_url = t.url
+      tweet = "#{tweet_content.gsub(/[\r\n]/,"   ")}   "
+      self.price = "¥#{tweet.scan(/(?<=\価格 : ).+?(?=\円)/).join(',')}-"
+      self.brand = tweet.scan(/(?<=\ブランド : ).+?(?=\   )/).join(',')
+      self.item = tweet.scan(/(?<=\私. ).+?(?=\   )/).join(',')
+      check_member(tweet_content)
+      set_images(t.media)
+      if save
+        send_line(member_ids, tweet_url, @imgae_url_for_line_small)
+      end
+    end
   end
 end
 
-def self.search_tweets
-search_client.search("京本大我", result_type: "recent", locale: "ja", exclude: "retweets", tweet_mode: "extended").take(1).each do |tweet|
-    @tweet = tweet
- end
- end
-#--------------
-
- end

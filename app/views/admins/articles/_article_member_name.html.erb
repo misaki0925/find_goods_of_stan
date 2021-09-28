@@ -1,7 +1,0 @@
-<%
-=begin%>
- <%= f.hidden_field :id %>
-<%= f.collection_select :member_id, f.object.article_members, :id, :name %>
-<%= link_to "削除", method: :delete %> 
-<%
-=end%>

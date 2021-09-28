@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy', as: :logout
     resources :articles, only: %i[update destroy edit index] do
+      
       collection do
         get 'search', to: 'articles#search'
       end
