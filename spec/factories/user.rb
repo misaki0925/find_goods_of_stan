@@ -7,5 +7,29 @@ FactoryBot.define do
     trait :admin do
       role { :admin }
     end
+
+    trait :same_email do
+    email {"same_name.example.com"}
+    end
+
+    trait :no_password do
+      password { '' }
+      password_confirmation { '' }
+    end
+
+    trait :password_short do
+      password { '1234' }
+      password_confirmation { '1234' }
+    end
+
+    trait :no_password_confirmation do
+      password { '1234' }
+      password_confirmation { '' }
+    end
+
+    trait :deferent_password_confirmation do
+      password { '1234' }
+      password_confirmation { 'qwety' }
+    end
   end
 end

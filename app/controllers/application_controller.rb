@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   private
 
   def not_authenticated
-    redirect_to admins_login_path, danger: "ログインしてください"
+    redirect_to admins_login_path, danger: t('flash.before_login')
   end
 end

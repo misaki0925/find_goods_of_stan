@@ -1,0 +1,26 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      article: '記事'
+      member: 'メンバー'
+      report: '報告'
+    attributes:
+        article:
+          id: 'ID'
+          price: '値段'
+          brand: 'ブランド'
+          item: 'アイテム'
+          twitter_url: 'TwitterへのURL'
+          image: '画像'
+          member: 'メンバー'
+  enums:
+    user:
+      role:
+        other: '一般'
+        admin: '管理者'
+    article:
+      status:
+        published: '公開中'
+        draft: '非公開'
+

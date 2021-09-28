@@ -1,74 +1,71 @@
-<% breadcrumb :root %>
-<div class= "content mt-5"> 
-  <div class = "introduce text-center">
-  <h3>こんにちは<br>SixTONESの私物の特定ツイートを通知するサービスをご提供します</h3>
-  <%= breadcrumbs separator: " &rsaquo; " %>
-  <div class = "introduce-btns mt-5 py-4">
-  <%= link_to "私物一覧はこちらから", articles_path, class: "btn btn-outline-light me-4"%>
-  <%= link_to "間違いにお気づきの方はこちらから", new_report_path, class: "btn btn-outline-light" %>
-</div>
-  </div>
-  <div class = "line mt-5 text-center">
-    <p>Twitterで私物の特定のツイートがされた際に、LINEでお知らせをお送りします。<br>お知らせからTweetに飛ぶことが可能です。<br>全員の私物をお知らせするチャネルと個人のチャネルがございます。<br>下記からご登録ください。</p>
-    <div class = "row justify-content-center">
-      <div class="card col-2 border-white border-1 rounded-0 text-dark bg-white py-2 mx-3 mt-3 mb-3" style="width: 15rem; height: 18rem;">
-        <div class="card-body">
-          <%= image_tag 'line_all.jpg', size:"150x150"%>
-          <div class="card-body-text mt-4 text-center">
-            <p>全員の私物が特定された際に通知が送られます。</p>
-          </div>
-        </div>
+<div class="content text-center"> 
+  <div class="container">
+    <div class="jumbotron cover">
+      <div class = "title">
+        <h1>Find Goods <br>　　of Stan</h1>
+        <h3>Welcome To Our Page. <br> We send you messege of your fav!!</h3>
       </div>
-      <div class="card col-2 border-white border-1 rounded-0 text-dark  py-2 mx-3 mt-3 mb-3" style="width: 15rem; height: 18rem;">
-        <div class="card-body">
-          <%= image_tag 'line_yugo.jpg', size:"150x150"%>
-          <div class="card-body-text mt-4 text-center">
-            <p>髙地優吾さんの私物が特定された際に通知が送られます。</p>
+    </div>
+    <div class = "introduction pt-3 pb-3 mt-5 mb-5 mx-auto">
+      <p>こんにちは<br>こちらのサイトでは、Twitterの私物特定ツイートに付随して<br>私物が特定された際に皆さんのLINEにお知らせメッセージをお送りします。<br>過去に通知をお送りした私物に関しましては一覧になっているのでご覧ください。<br>また、通知や記事の内容等に間違いがあった際はご報告フォームからコメントをお送りください。</p>
+    </div>
+    <div class = "mt-2 mb-2 pt-1 pb-3">
+      <%= button_to "for LINE PAGE", line_page_path, method: :get, class: "btn home_btn btn-outline-light border-1 rounded-3 " %>
+    </div>
+    <div class = " container all-item mt-5 pt-5 mb-5 pb-5">
+      <h3 class = "pt-3">all item</h3>
+      <div class="row justify-content-center pt-1 pb-1">
+        <% @articles.each do |article| %>
+          <% names = [] %>
+          <% article.members.each do |member|%>
+            <% names.push(member.name) %>
+          <% end %>
+          <div class="card col-xs-12 col-md-12 col-lg-3  border-white border-2 rounded-3 text-dark bg-white pt-2 mx-3 mt-5 mb-2 pr-3">
+            <% if (article[:created_at].to_s.match(/#{Date.today.to_s}.+/)) or (article[:created_at].to_s.match(/#{Date.yesterday.to_s}.+/))  %>
+              <div class = "mark-box">
+            <% elsif %>
+              <div>
+            <% end %>
+                <% if article.images.present? %>
+                  <% article_image = article.images.first %>
+                  <%= link_to image_tag(article_image, class: "card-img-top", alt: "Card image cap"), article_path(article.id) %>
+                <% end %>
+              </div>
+              <div class = "mx-3 mt-3 pb-1">
+                <p style= "line-height:1.5rem"><%="#{names.join("さん")}さん" %></p>
+                <p style= "line-height:0.5rem"><%= article.brand %></p>
+              </div>
           </div>
-        </div>
-      </div>
-      <div class="card col-2 border-white border-1 rounded-0 text-dark bg-white py-2 mx-3 mt-3 mb-3" style="width: 15rem; height: 18rem;">
-        <div class="card-body">
-          <%= image_tag 'line_taiga.jpg', size:"150x150"%>
-          <div class="card-body-text mt-4 text-center">
-            <p>京本大我さんの私物が特定された際に通知が送られます。</p>
-          </div>
-        </div>
-      </div>
-      <div class="card col-2 border border-white border-1 rounded-0 text-dark bg-white py-2 mx-3 mt-3 mb-3" style="width: 15rem; height: 18rem;">
-        <div class="card-body">
-          <%= image_tag 'line_juri.jpg', size:"150x150"%>
-            <div class="card-body-text mt-4 text-center">
-              <p>田中樹さんの私物が特定された際に通知が送られます。</p>
-            </div>
-        </div>
-      </div>
-      <div class="card col-2 border-white border-1 rounded-0 text-dark bg-white py-2 mx-3 mt-3 mb-3" style="width: 15rem; height: 18rem;">
-        <div class="card-body">
-          <%= image_tag 'line_hokuto.jpg', size:"150x150"%>
-          <div class="card-body-text mt-4 text-center">
-            <p>松村北斗さんの私物が特定された際に通知が送られます。</p>
-          </div>
-        </div>
-      </div>
-      <div class="card col-2 border-white border-2 rounded-0 text-dark bg-white py-2 mx-3 mt-3 mb-3" style="width: 15rem; height: 18rem;">
-        <div class="card-body">
-          <%= image_tag 'line_jesse.jpg', size:"150x150"%>
-          <div class="card-body-text mt-4 text-center">
-            <p>ジェシーさんの私物が特定された際に通知が送られます。</p>
-          </div>
-        </div>
-      </div>
-      <div class="card col-2 border-success border-white rounded-6 text-dark bg-white py-2 mx-3 mt-3 mb-3" style="width: 15rem; height: 18rem;">
-        <div class="card-body">
-          <%= image_tag 'line_shintarou.jpg', size:"150x150"%>
-          <div class="card-body-text mt-4 text-center">
-            <p>森本慎太郎さんの私物が特定された際に通知が送られます。</p>
-          </div>
+        <% end %>
+        <div class = "mt-5 mb-2 pt-4 pb-3">
+          <%= button_to "VIEW MORE", articles_path, method: :get, class: "btn home_btn btn-outline-light border-1 rounded-3 mb-3 " %> 
         </div>
       </div>
     </div>
+    <div class = "container each-group-item mt-5 pt-5 mb-5 pb-5">
+      <h3 class = "pt-3">Member</h3>
+      <div class="row justify-content-center pt-1 pb-1">
+        <% @member_articles.each_with_index do |article, i| %>
+          <div class="card col-xs-12 col-md-12 col-lg-3 border-white border-2 rounded-3 text-dark bg-white pt-2 mx-3 mt-5 mb-2 pr-3">
+            <div class = "member_name pb-2 mt-2 pt-2 mb-2">
+              <h5><%= Member.find(i+1).name %>さん</h5>
+            </div>
+            <% if (article[:created_at].to_s.match(/#{Date.today.to_s}.+/)) or (article[:created_at].to_s.match(/#{Date.yesterday.to_s}.+/))  %>
+              <div class = "mark-box">
+            <% elsif %>
+              <div>
+            <% end %>
+                <% if article.images.present? %>
+                  <% article_image = article.images.first %>
+                  <%= link_to image_tag(article_image, class: "card-img-top", alt: "Card image cap"), article_path(article.id) %>
+                <% end %>
+              </div>
+              <div class = "mx-3 mt-3 pb-1">
+                <p><%= article.brand %></p>
+              </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
-
 </div>

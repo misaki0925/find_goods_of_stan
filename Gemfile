@@ -51,8 +51,14 @@ gem 'ransack'
 # ログイン
 gem 'sorcery'
 
-#ページネーション
+# ページネーション
 gem 'kaminari'
+
+# enum
+gem 'enum_help'
+
+# ja.yml
+gem 'rails-i18n'
 
 
 # bootstrap
@@ -98,5 +104,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# パンくず
-gem 'gretel'
+

@@ -6,7 +6,16 @@ rails_env = ENV['RAILS_ENV'] || :development
 set :environment, rails_env
 # cronのログの吐き出し場所
 set :output, "#{Rails.root}/log/cron.log"
-# rakeタスクを1分ごとに実行
+# 1分ごとに実行
 every 1.minute do
-  runner "Article.get_tweets"
+  rake "make_goods_find_article:account_goods_find"
+end
+every 1.minute do
+  rake "make_2jkhs6_article:account_2jkhs6"
+end
+every 1.minute do
+  rake "make_johnnys_styling_article:account_johnnys_styling"
+end
+every 1.minute do
+  rake "make_jasmine_jump_article:account_jasmine_jump"
 end

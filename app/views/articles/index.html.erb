@@ -1,34 +1,33 @@
-<% breadcrumb :articles, class: "logo" %>
-<div class = "content">
-  <div class="row justify-content-center pt-3 pb-5">
-    <% @articles.each do |article| %>
-      <% names = [] %>
-      <% article.members.each do |member|%>
-        <% names.push(member.name) %>
-      <% end %>
-      <div class="card border-white border-1 rounded-0 text-dark bg-white pt-2 pb-3 mx-3 mt-5 mb-2 pr-3" style="width: 18rem; height: 28rem;">
-        <div class="card-body">
-          <% if article.images.present? %>
-            <% article_image = article.images.first %>
-            <%= image_tag article_image, size:"100x240", class: "card-img-top", alt: "Card image cap" %>
+<div class = "content pb-4 pt-4">
+  <h2>ITEM PAGE</h2>
+  <div class = "container mt-4">
+    <div class="row justify-content-center pt-2 pb-3 pt-3 pb-3 mx-auto mt-5 mb-3" style="width: 100%; height: 100%;">
+      <% @articles.each do |article| %>
+        <% names = [] %>
+        <% article.members.each do |member|%>
+          <% names.push(member.name) %>
+        <% end %>     
+        <div class="card col-xs-12 col-md-12 col-lg-3 border-white border-2 rounded-3 text-dark bg-white mx-3 mt-3 mb-2 pr-3"> 
+          <% if (article[:created_at].to_s.match(/#{Date.today.to_s}.+/)) or (article[:created_at].to_s.match(/#{Date.yesterday.to_s}.+/))  %>
+            <div class = "mark-box">
+          <% elsif %>
+            <div>
           <% end %>
-          <div class="card-body-text mt-4 text-center">
-            <h5 class="card-title"><%= "#{names.join("さん")}さん" %></h5>
-            <p class="card-text"><%= article.brand %></p>
-            <%
-=begin%>
- <%= link_to "詳細ページへ", article_path(article.id), class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark " %> 
-<%
-=end%>
-            <%= button_to "詳細ページへ", article_path(article.id), method: :get, class: "btn btn-outline-light border-dark border-1 rounded-0 text-dark ", id: "btn_#{article.id}" %>
-
+              <% if article.images.present? %>
+                <% article_image = article.images.first %>
+                <%= link_to image_tag(article_image, class: "card-img-top", alt: "Card image cap"), article_path(article.id) %>
+              <% end %>
+            </div>
+          <div class = "mx-3 mt-3 pb-1">
+            <p style= "line-height:1.5rem"><%="#{names.join("さん")}さん" %></p>
+            <p style= "line-height:1.5rem"><%= article.brand %></p>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+      <%= paginate @articles %>
+      <% if @articles.count == 0 %>
+        <h5 class = "pt-5 mt-5 pb-4 mt-4">該当する記事がありません。</h5>
+      <%end%>
+    </div>
   </div>
-  <%= paginate @articles %>
-  <% if @articles.count == 0 %>
-    <h5>該当する記事がありません。</h5>
-  <%end%>
 </div>

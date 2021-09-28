@@ -1,0 +1,33 @@
+<table class="table table-responsiv mt-5">
+  <thead>
+    <tr>
+      <th scope="col"><%= t('.member') %></th>
+      <th scope="col"><%= t('.brand') %></th>
+      <th scope="col"><%= t('.image') %></th>
+      <th scope="col"><%= t('.date') %></th>
+      <th scope="col"><%= t('.status') %></th>
+      <th scope="col"><%= t('defaults.show') %></th>
+      <th scope="col"><%= t('defaults.edit') %></th>
+    </tr>
+    <% @articles.each do |article| %>
+      <% names = [] %>
+      <% article.members.each do |member|%>
+        <% names.push(member.name) %>
+      <% end %>
+      <tr>
+        <td scope="row"><%= "#{names.join("さん")}さん" %></td>
+        <td><%= article.brand %></td>
+        <td><%= "#{article.images.count}枚" %></td>
+        <td><%= "#{article.created_at.strftime("%Y/%m/%d")}" %></td>
+        <td><%= "#{article.status_i18n}" %></td>
+        <td><%= link_to t('defaults.show'), article_path(article.id), class: "btn btn-outline-dark search_btn" %></td>
+        <% if logged_in? && current_user.admin? %> 
+          <td><%= link_to t('defaults.edit'), edit_admins_article_path(article.id), class: "btn btn-outline-dark search_btn" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </thead>
+</table>
+<div class = "pt-4 mt-3 pb-1 mb-2">
+  <%= paginate @articles %>
+</div>

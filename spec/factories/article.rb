@@ -1,38 +1,10 @@
 FactoryBot.define do
   factory :article do
-    sequence(:price) { |n| "¥10000#{n}-" }
-    sequence(:brand) { |n| "test_brand_#{n}" }
-    sequence(:item) { |n| "test_item_#{n}" }
+    # sequence(:price) { |n| "¥10000#{n}-" }
+    # sequence(:brand) { |n| "test_brand_#{n}" }
+    # sequence(:item) { |n| "test_item_#{n}" }
     sequence(:tweet_url) { |n| "twitter.com_#{n}" }
-
-    # after(:create) do |article|
-    #   image_urls = ['spec/fixtures/test_image1.jpeg', 'spec/fixtures/test_image2.jpeg']
-    #   image_urls.each_with_index do |image_url, i|
-    #     io = open(image_url)
-    #     article.images.attach(io: io, filename: "#{article.id}_#{i}")
-    #   end
-    # end
-
-# 画像
-# medias = tweet.media
-# image_urls = medias.map{ |h| h.media_url_https }
-# # LINE送信用の画像url作成
-# imgae_url_for_line = image_urls.first
-# @imgae_url_for_line_small = "#{imgae_url_for_line}:small"
-# # 画像をActiveStorageに保存
-# image_urls.each_with_index do |image_url, i|
-#   image_url_small = "#{image_url}:small"
-#   io = open(image_url_small)
-#   @article.images.attach(io: io, filename: "#{@article.id}_#{i}")
-
-# # ここまで  ---------
-    # end
-    trait :no_tweet_url do
-      tweet_url { "" }
-      after(:create) do |article|
-        create_list(:article_member, 1, article: article, member: create(:member))
-      end
-    end
+    
 
     trait :with_member do
       after(:create) do |article|
@@ -40,12 +12,13 @@ FactoryBot.define do
       end
     end
 
-    trait :with_members do
-      after(:create) do |article|
-        create_list(:article_member, 1 , article: article, member: create(:members))
 
-      end
+    trait :with_members do
+      after(:build) do |article|
+        article.members << build(:member)
+        article.members << build(:member_same_name)
     end
+  end
 
     trait :same_brand do
       brand {"same_brand"}
@@ -61,16 +34,24 @@ FactoryBot.define do
     end
 
     trait :with_tweet_url do
-      tweet_url {"https://twitter.com/2jkhs6/status/1424628117360943107"}
+      tweet_url {"https://twitter.com/2jkhs6/status/1397176868780986370"}
+
       after(:create) do |article|
         create_list(:article_member, 1, article: article, member: create(:member))
       end
     end
 
     trait :with_tweet_url_2 do
-      tweet_url {"https://twitter.com/2jkhs6/status/1403743268001615874"}
+      tweet_url {"https://twitter.com/2jkhs6/status/1396831724005330946"}
       after(:create) do |article|
         create_list(:article_member, 1, article: article, member: create(:member))
+      end
+    end
+
+    trait :with_images do
+      after(:build) do |article|
+        article.images.attach(io: File.open('spec/fixtures/test_image1.jpeg'),filename: 'test_image1.jpeg')
+        article.images.attach(io: File.open('spec/fixtures/test_image2.jpeg'),filename: 'test_image2.jpeg')
       end
     end
   end

@@ -1,21 +1,25 @@
-<div class = "content">
-  <table class="table table-dark">
+<div class = "content pb-6 pt-4 mb-4">
+  <h2>Admins/ Report</h2>
+  <table class="table mt-5">
     <thead>
-      <tr>
-        <th scope="col">報告内容</th>
-        <th scope="col">報告日時</th>
-        <th scope="col">削除ボタン</th>
+      <tr  class = "text-center">
+        <th scope="col"><%= t('.comment') %></th>
+        <th scope="col"><%= t('.date') %></th>
+        <th scope="col"><%= t('.delete') %></th>
       </tr>
       <% @reports.each do |report| %>
         <tr>
           <td><%= report.comment %></td>
-          <td><%= report.created_at.strftime('%Y/%m/%d') %></td>
+          <td  class = "text-center"><%= report.created_at.strftime('%Y/%m/%d') %></td>
           <% if logged_in? && current_user.admin? %> 
-            <td><%= link_to "削除", admins_report_path(report.id), class: "btn  btn-outline-light", method: :delete %></td>
+            <td  class = "text-center" ><%= link_to t('defaults.delete'), admins_report_path(report.id), class: "btn btn-outline-dark search_btn", method: :delete, data: { confirm: '削除しますか' } %></td>
           <% end %>
         </tr>
       <% end %>
     </thead>
   </table>
-<%= paginate @reports %>
+  <div class = "pt-4 mt-3 pb-1 mb-2">
+    <%= paginate @reports %>
+  </div>
 </div>
+

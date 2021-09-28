@@ -1,54 +1,61 @@
-<div class = "header">
+<div class = "header"> 
   <div class = " p-3 px-md-4 mb-3 border-bottom shadow-sm"> 
-    <div class="header_body">
-      <h5 class="my-0 font-weight-normal fs-2">Find Goods of Stan</h5>
-      <div class="header_btn text-end">
-      <% unless logged_in? %> 
-      <%= breadcrumbs separator: " / " %>
-      <% end %>
-
-
-        <%
-=begin%>
- <% if current_page?(articles_path) or current_page?(search_articles_path) %> 
-<%
-=end%>
-        <% if current_page?(articles_path) or current_page?(articles_path) %>
-
-          <div class = "search justify-content-center py-4">
-            <%
-=begin%>
- <%= search_form_for @q, url: search_articles_path do |f| %>  
-<%
-=end%>
-            <%= search_form_for @q, url: articles_path do |f| %> 
-
-              <%= f.label :brand_cont , "ブランド" %>
-              <%= f.search_field :brand_cont, class: "btn btn-outline-light rounded-0" %>  
-              <%= f.label :members_name_cont , "メンバー" %>
-              <%= f.search_field :members_name_cont, class: "btn btn-outline-light rounded-0" %> 
-              <%= f.submit "検索", class: "btn btn-outline-light"%>
-            <% end %>
-          </div>
-        <% elsif current_page?(search_admins_articles_path) or current_page?(admins_articles_path) %>
-          <div class = "search mx-auto py-4">
-            <%= search_form_for @q, url: search_admins_articles_path do |f| %> 
-              <%= f.label :brand_cont , "ブランド" %>
-              <%= f.search_field :brand_cont, class: "btn btn-outline-light rounded-0"    %>  
-              <%= f.label :members_name_cont , "メンバー" %>
-              <%= f.search_field :members_name_cont, class: "btn btn-outline-light  rounded-0"     %> 
-              <%= f.submit "検索", class: "btn btn-outline-light" %>
-            <% end %>
-          </div>
-        <% end %> 
-        <% if logged_in? %>
-          <%= link_to "Back", :back, class: "btn btn-outline-light me-4"%>
-          <%= link_to "Reports", admins_reports_path, class: "btn btn-outline-light" %>
-          <%= link_to "Articles", admins_articles_path, class: "btn btn-outline-light" %>
-          <%= link_to "Logout", admins_logout_path, class: "btn btn-outline-light", method: :delete %>
-        <% end %>
+    <h5 class="logo my-0 font-weight-normal fs-2">Find Goods of Stan</h5>
+    <% unless current_page?(admins_login_path) %>
+      <div class="header_body">
+        <div class="header_btn text-end head-color">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">HOME</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/line_page">LINE</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/reports/new">REPORT</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/articles">ITEM</a>
+                </li>
+                <% if logged_in? %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/admins/reports">Admin/REPORT</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/admins/articles">Admin/ITEM</a>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to t('defaults.logout'), admins_logout_path, class: "nav-link", method: :delete %>
+                  </li>
+                <% end %>
+              </ul>
+              <% if current_page?(articles_path) %>
+                <div class = "search justify-content-center py-4">
+                  <%= search_form_for @q, url: articles_path do |f| %> 
+                    <%= f.search_field :brand_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: "Brand" %>  
+                    <%= f.search_field :members_name_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: "Member" %> 
+                    <%= f.submit "search", class: "btn search_btn btn-outline-dark search_btn"%>
+                  <% end %>
+                </div>
+              <% elsif current_page?(search_admins_articles_path) or current_page?(admins_articles_path) %>
+                <div class = "search mx-auto py-4">
+                  <%= search_form_for @q, url: search_admins_articles_path do |f| %> 
+                    <%= f.search_field :brand_cont, class: "btn btn-outline-dark rounded-3", placeholder: "Brand" %>  
+                    <%= f.search_field :members_name_cont, class: "btn btn-outline-dark rounded-3", placeholder: "Member" %> 
+                    <%= f.submit "search", class: "btn btn-outline-dark search_btn"%>
+                  <% end %>
+                </div>
+              <% end %> 
+            </div>
+          </nav>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
-

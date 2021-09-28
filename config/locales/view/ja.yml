@@ -1,0 +1,57 @@
+ja:
+  defaults:
+    login: 'ログイン'
+    logout: 'ログアウト'
+    update: '更新する'
+    delete: '削除'
+    edit: '編集'
+    show: '詳細'
+    search: '検索'
+    submit: '送信'
+    back: '戻る'
+    update_at: '作成日時'
+    report_page: '間違いにお気づきの方はこちらから'
+    show_page: '私物一覧はこちらから'
+    line_page: 'LINE追加はこちらから'
+  flash:
+    deleted: "削除しました"
+    updated: "記事を更新しました"
+    not_updated: "記事を更新できませんでした"
+    login: 'ログインしました'
+    logout: 'ログアウトしました'
+    not_login: 'ログインできません'
+    before_login: 'ログインしてください'
+    make_report: 'ありがとうございます。コメントが送信されました。'
+    not_make_report: 'コメントを入力してから送信してください。'
+  articles:
+    index:
+      title: '記事一覧'
+      to_show_page: '詳細ページへ'
+    show:
+      title: "#{@name}さんの私物詳細ページ"
+      to_twitter: '詳しくはTweetをご覧ください'
+  reports:
+    new:
+      title: 'REPORT'
+  admins:
+    sessions:
+      new:
+        title: '管理者ログインページ'
+        login: 'ログイン'
+        email: 'メールアドレス'
+        password: 'パスワード'
+    reports:
+      index:
+        comment: '報告内容'
+        date: '報告日時'
+        delete: '削除ボタン'
+    articles:
+      form:
+        member: '着用メンバー'
+        brand: 'ブランド'
+        image: '画像枚数'
+        date: '更新日時'
+        status: '公開状況'
+        no_result: '該当する記事がありません'
+      edit:
+        image_comment: '現在登録されている画像(削除する場合はチェックしてください)'
