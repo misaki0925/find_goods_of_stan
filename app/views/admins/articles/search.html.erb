@@ -1,6 +1,12 @@
 <div class = "content">
   <%= render 'form' %>
 <% if @articles.count == 0 %>
-    <h5><%= t('.no_result') %></h5>
+    <%
+=begin%>
+ <h5><%= t('.no_result') %></h5> 
+<%
+=end%>
+    <h5>該当する記事がありません</h5>
+
 <%end%>
 </div>

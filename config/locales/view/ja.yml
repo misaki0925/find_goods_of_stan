@@ -1,4 +1,8 @@
 ja:
+  errors:
+    messages:
+      password: 'とPasswordの入力が一致しません'
+      minimum_characters: 'は5文字以上で入力してください'
   defaults:
     login: 'ログイン'
     logout: 'ログアウト'
@@ -13,6 +17,7 @@ ja:
     report_page: '間違いにお気づきの方はこちらから'
     show_page: '私物一覧はこちらから'
     line_page: 'LINE追加はこちらから'
+    no_result: '該当する記事がありません'
   flash:
     deleted: "削除しました"
     updated: "記事を更新しました"

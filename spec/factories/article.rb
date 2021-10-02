@@ -1,24 +1,13 @@
 FactoryBot.define do
   factory :article do
-    # sequence(:price) { |n| "¥10000#{n}-" }
-    # sequence(:brand) { |n| "test_brand_#{n}" }
-    # sequence(:item) { |n| "test_item_#{n}" }
-    sequence(:tweet_url) { |n| "twitter.com_#{n}" }
-    
+    sequence(:tweet_url) { |n| "https://twitter.com/2jkhs6/status/139717686878098637#{n}" }
+    sequence(:brand) { |n| "brand_#{n}" }
 
     trait :with_member do
       after(:create) do |article|
         create_list(:article_member, 1, article: article, member: create(:member))
       end
     end
-
-
-    trait :with_members do
-      after(:build) do |article|
-        article.members << build(:member)
-        article.members << build(:member_same_name)
-    end
-  end
 
     trait :same_brand do
       brand {"same_brand"}
@@ -35,14 +24,6 @@ FactoryBot.define do
 
     trait :with_tweet_url do
       tweet_url {"https://twitter.com/2jkhs6/status/1397176868780986370"}
-
-      after(:create) do |article|
-        create_list(:article_member, 1, article: article, member: create(:member))
-      end
-    end
-
-    trait :with_tweet_url_2 do
-      tweet_url {"https://twitter.com/2jkhs6/status/1396831724005330946"}
       after(:create) do |article|
         create_list(:article_member, 1, article: article, member: create(:member))
       end
