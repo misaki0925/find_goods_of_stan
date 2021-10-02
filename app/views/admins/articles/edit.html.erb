@@ -45,7 +45,7 @@
         </div>
         <div class="card-body-text mb-2 text-center">
           <%= f.submit t('defaults.update'), class: "btn btn-outline-dark search_btn" %>
-          <%= link_to t('defaults.delete'),admins_article_path(@article.id), method: :delete, class: "btn btn-outline-dark search_btn", data: { confirm: '削除しますか' } %>
+          <%= link_to t('defaults.delete'),admins_article_path(@article.id), method: :delete, class: "btn btn-outline-dark search_btn", data: { confirm: '削除しますか？' } %>
         </div>
       <% end %>
     </div>

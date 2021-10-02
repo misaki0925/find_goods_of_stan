@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe 'AdiminsReport', type: :system  do
   describe '管理者ユーザー' do
     let!(:report) { create(:report) }
@@ -10,9 +9,11 @@ RSpec.describe 'AdiminsReport', type: :system  do
         visit admins_reports_path
         expect(page).to have_content('test_text')
         expect{
-          click_on '削除'
-          sleep 0.5
-        }.to change { Report.count }.by(-1)
+              page.accept_confirm("削除しますか？") do
+              click_on '削除'
+            end
+            sleep 0.5
+          }.to change{Report.count}.by(-1)
         expect(page).to have_content('削除しました')
         expect(current_path).to eq(admins_reports_path)
         expect(page).to have_no_content('test_text')

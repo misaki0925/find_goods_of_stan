@@ -15,7 +15,7 @@
           <% end %>
               <% if article.images.present? %>
                 <% article_image = article.images.first %>
-                <%= link_to image_tag(article_image, class: "card-img-top", alt: "Card image cap"), article_path(article.id) %>
+                <%= link_to image_tag(article_image, class: "card-img-top", alt: "link_for_#{article.id}_page"), article_path(article.id) %>
               <% end %>
             </div>
           <div class = "mx-3 mt-3 pb-1">
@@ -26,7 +26,14 @@
       <% end %>
       <%= paginate @articles %>
       <% if @articles.count == 0 %>
-        <h5 class = "pt-5 mt-5 pb-4 mt-4">該当する記事がありません。</h5>
+        <div class = "pt-5 mt-5 pb-4 mt-4">
+        <%= "該当する記事がありません" %>
+        <%
+=begin%>
+ <%= t('defaults.no_result') %> 
+<%
+=end%>
+        </div>
       <%end%>
     </div>
   </div>

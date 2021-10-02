@@ -15,6 +15,6 @@ class Admins::SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_back_or_to root_path, success: t('flash.logout')
+    redirect_back_or_to admins_login_path, success: t('flash.logout')
   end
 end

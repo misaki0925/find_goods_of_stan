@@ -12,19 +12,9 @@ FactoryBot.define do
     email {"same_name.example.com"}
     end
 
-    trait :no_password do
-      password { '' }
-      password_confirmation { '' }
-    end
-
     trait :password_short do
       password { '1234' }
       password_confirmation { '1234' }
-    end
-
-    trait :no_password_confirmation do
-      password { '1234' }
-      password_confirmation { '' }
     end
 
     trait :deferent_password_confirmation do
