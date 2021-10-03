@@ -1,17 +1,4 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- */
- @import 'bootstrap';
+@import 'bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Bonheur+Royale&family=Sacramento&family=Scheherazade+New&family=Tangerine:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Bonheur+Royale&family=Sacramento&family=Tangerine:wght@700&display=swap');
@@ -45,7 +32,6 @@ body p {
 
   .content{
   min-height:550px;
-  // height:auto !important;
   width: 100%;
   text-align: center;
   justify-content: center;
@@ -53,7 +39,6 @@ body p {
 
  .login-page{
   min-height:550px;
-  // height:auto !important;
   width: 100%;
  }
 
@@ -68,161 +53,113 @@ body p {
     background-position: center center;
     background-size: cover;
     position: relative;
-}
+  }
 
-.cover h1{
-  // color: white;
-  position: absolute;
-  top: 17%;
-  left: 33%;
-  // font-size: 7.5vw;
-  font-size: 9vw;
-  font-weight: bold;
-}
+  .cover h1{
+    position: absolute;
+    top: 17%;
+    left: 33%;
+    font-size: 9vw;
+    font-weight: bold;
+  }
 
-.cover h3{
-  position: absolute;
-  top: 70%;
-  left: 40%;
-  font-size: 2.5vw;
-}
+  .cover h3{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    font-size: 2.9vw;
+  }
 
-.introduction{
-  width: 85%;
-}
+  .introduction{
+    width: 85%;
+  }
 
-.home_btn{
-  background-color: #FCE3E7 ;
-  color: #770022;
-}
+  .home_btn{
+    background-color: #FCE3E7 ;
+    color: #770022;
+  }
 
-.card-body{
-  position: relative;
-}
+  .mark-box {
+    position: relative;
+  }
 
-.new_btn{
-  background-color: #FDF5E6;
-  border-radius: 50px;
-  color: #111111;
-  width: 13%;
-  height: 6%;
-  position: absolute;
-  top: 8%;
-  left: 10%;
-}
-
-.line_card h6 {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 1em;
-}
-.line_card h6:before {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  display: inline-block;
-  width: 30px;
-  height: 2px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  background-color: black;
-  border-radius: 0px;
-}
+  .mark-box:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 50px 0 0;
+    border-color: #f00 transparent transparent transparent;
+  }
+  .mark-box:after {
+    position: absolute;
+    content: "NEW";
+    transform: rotate(315deg);
+    display: block;
+    font-size: 11px;
+    white-space: pre;
+    color: #fff;
+    top: 12px;
+    left: 4px;
+    text-align: center;
+    z-index: 2;
+    line-height: 1.2;
+  }
 
 
-.mark-box {
-  position: relative;
-}
+  input[type="search"]:hover{
+    background-color: #FCE3E7;
+    color: #111111;
+  }
+  input[type="search"]::after{
+    transition: 0.5s;
+    background-color: #FCE3E7;
+  }
 
-.mark-box:before {
-  position: absolute;
-  content: "";
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 50px 50px 0 0;
-  border-color: #f00 transparent transparent transparent;
-}
-.mark-box:after {
-  position: absolute;
-  content: "NEW";
-  transform: rotate(315deg);
-  display: block;
-  font-size: 11px;
-  white-space: pre;
-  color: #fff;
-  top: 12px;
-  left: 4px;
-  text-align: center;
-  z-index: 2;
-  line-height: 1.2;
-}
+  .search_btn:hover {
+    background-color: #FCE3E7;
+    color: #111111;
+  }
+
+  .search_btn::after {
+    transition: 0.5s;
+    background-color: #FCE3E7;
+  }
 
 
-input[type="search"]:hover{
-  background-color: #FCE3E7;
-  color: #111111;
-}
-input[type="search"]::after{
-  transition: 0.5s;
-  background-color: #FCE3E7;
-}
+  .pagination{
+    margin: 20px auto 0;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+  .pagination>li>a {          
+    border: none;
+    color: #770022;
+  }
 
-.search_btn:hover {
-  background-color: #FCE3E7;
-  color: #111111;
-}
+  .pagination>.active>.page-link {     
+    background-color: #FCE3E7;
+    border-radius: 30px;
+  }
 
-.search_btn::after {
-  transition: 0.5s;
-  background-color: #FCE3E7;
-}
+  .pagination>li>a:hover {        
+    border-radius: 30px;
+    background-color: #FCE3E7;
+    color: #770022;
+  }
 
-
-.pagination{
-  margin: 20px auto 0;
-  width: 50%;
-  display: flex;
-  justify-content: center;
-}
-.pagination>li>a {          
-  border: none;
-  color: #770022;
-}
-
-.pagination>.active>.page-link {     
-  background-color: #FCE3E7;
-  border-radius: 30px;
-}
-
-.pagination>li>a:hover {        
-  border-radius: 30px;
-  background-color: #FCE3E7;
-  color: #770022;
-}
-
-.footer_text {
-  color: #999999;
-}
-
-.colortest{
-  background-color: #fff;
-}
-
+  .footer_text {
+    color: #999999;
+  }
 
 @media screen and (min-width:480px) {
-  body {
-    // color: #FF0000;
-  }
   .card-text {
     font-size: 1.1rem;
   }
-  // .cover h1{
-  //   font-size: 6.5vw;
-  // }
   .home_btn{
     width: 60%;
     line-height: 250%;
@@ -241,17 +178,12 @@ input[type="search"]::after{
 }
 
 @media screen and (min-width:768px) and (max-width:1024px) {
-  body {
-    // color: #FFFF00;
-  }
   .card-text {
     font-size: 1.4rem;
   }
-
   .home_btn{
     width: 45%;
   }
-
   .btn-coler {
     background-color: #FCE3E7;
     width: 50%;
@@ -261,18 +193,12 @@ input[type="search"]::after{
     background-color: #FCE3E7;
     color: #111111;
   }
-  
-  
 }
 
 @media screen and (min-width: 1024px) {
-  body {
-    // color: #800080;
-  }
   .card-text {
     font-size: 1.4rem;
   }
-
   .home_btn{
     width: 20%;
   }
@@ -285,6 +211,6 @@ input[type="search"]::after{
   .btn-coler:hover {
     transition: 0.5s;
     background-color: #FCE3E7;
+    color: #111111;
   }
-  
 }
