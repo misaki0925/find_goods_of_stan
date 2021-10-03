@@ -70,7 +70,7 @@ class Article < ApplicationRecord
     end
   end
 
-# lineで送信する
+# LINE APIで送信する
   def send_line(member_ids, tweet_url, tweet_image_url)
     unless member_ids.empty?
       ids = member_ids.map(&:to_s)
