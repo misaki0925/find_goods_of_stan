@@ -1,5 +1,5 @@
 <div class = "content pt-4">
-  <h2>Admins/Edit</h2>
+  <h2><%= t('title') %></h2>
   <div class="card border-white border-1 rounded-0 bg-white text-dark pt-3 pb-3 mx-auto mt-3 mb-3" style="width: 100%; height: 100%;">
     <div class="card-body mt-3">
       <%= form_with model: @article, url: admins_article_path(@article.id), local: true do |f| %>
@@ -44,8 +44,8 @@
          <%= f.select :status, Article.statuses.keys.map {|k| [I18n.t("enums.article.status.#{k}"),k]} %>
         </div>
         <div class="card-body-text mb-2 text-center">
-          <%= f.submit t('defaults.update'), class: "btn btn-outline-dark search_btn" %>
-          <%= link_to t('defaults.delete'),admins_article_path(@article.id), method: :delete, class: "btn btn-outline-dark search_btn", data: { confirm: '削除しますか？' } %>
+          <%= f.submit t('.update'), class: "btn btn-outline-dark search_btn" %>
+          <%= link_to t('defaults.delete'),admins_article_path(@article.id), method: :delete, class: "btn btn-outline-dark search_btn", data: { confirm: t('defaults.confirm_delete') } %>
         </div>
       <% end %>
     </div>

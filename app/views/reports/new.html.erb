@@ -1,16 +1,11 @@
 <div class = "content pb-4 pt-4 text-center">
-  <h2> REPORT</h2>
+  <h2><%= t('.title') %></h2>
   <div class = "line mt-4 text-center">
     <%= form_with model: @report, local: true do |f| %>
-      <%
-=begin%>
- <%= f.label :comment, t('.title'), class: "form-label fs-3 mb-4" %> 
-<%
-=end%>
       <p>記事や通知に間違い等あればこちらからコメントしてください。<br>メンバー名など細かく記入して頂けますとスムーズに対応させていただくことが可能です。</p>
       <%= f.text_area :comment, placeholder: "例)京本くんの最新の記事のブランド名が間違っています。", class: "form-control py-3 mt-5 mb-5 bg-white border-dark border-1 rounded-3 text-dark", rows: "6"%>
       <div class = "text-center">
-        <%= f.submit t('defaults.submit'), class: "btn btn-coler btn-outline-dark" %>
+        <%= f.submit t('.submit'), class: "btn btn-coler btn-outline-dark" %>
       </div>
     <% end %>
   </div>
