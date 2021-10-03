@@ -32,8 +32,8 @@ RSpec.describe 'Article', type: :system do
             it '検索に成功する' do
               expect(current_path).to eq(articles_path)
               find(".navbar-toggler").click
-              fill_in "Brand",	with: article.brand
-              click_on 'search'
+              fill_in I18n.t('activerecord.attributes.article.brand'),	with: article.brand
+              click_on I18n.t('layouts.header.search')
               expect(page).to have_content("#{@name}さん")
               expect(page).to have_content(article.brand)
               expect(page).to_not have_content("#{@other_name}さん")
@@ -43,12 +43,12 @@ RSpec.describe 'Article', type: :system do
             it '該当する記事なし' do
               expect(current_path).to eq(articles_path)
               find(".navbar-toggler").click
-              fill_in "Brand",	with: "brand_false"
-              click_on 'search'
+              fill_in I18n.t('activerecord.attributes.article.brand'),	with: "brand_false"
+              click_on I18n.t('layouts.header.search')
               expect(page).to_not have_content("brand_false")
               expect(page).to_not have_content(article.brand)
               expect(page).to_not have_content(other_article.brand)
-              expect(page).to have_content('該当する記事がありません') 
+              expect(page).to have_content I18n.t('defaults.no_result') 
             end
           end
 
@@ -58,8 +58,8 @@ RSpec.describe 'Article', type: :system do
             it '全ての該当する記事の表示に成功する' do
               expect(current_path).to eq(articles_path)
               find(".navbar-toggler").click
-              fill_in "Brand",	with: article_same_brand_1.brand
-              click_on 'search'
+              fill_in I18n.t('activerecord.attributes.article.brand'),	with: article_same_brand_1.brand
+              click_on I18n.t('layouts.header.search')
               expect(page).to have_content(article_same_brand_1.brand)
               expect(page).to have_content(article_same_brand_2.brand)
               expect(page).to_not have_content(article.brand)
@@ -73,8 +73,8 @@ RSpec.describe 'Article', type: :system do
             it '検索に成功する' do
               expect(current_path).to eq(articles_path)
               find(".navbar-toggler").click
-              fill_in "Member",	with: @name
-              click_on 'search'
+              fill_in Member.model_name.human,	with: @name
+              click_on I18n.t('layouts.header.search')
               expect(page).to have_content("#{@name}さん")
               expect(page).to have_content(article.brand)
               expect(page).to_not have_content("#{@other_name}さん")
@@ -84,12 +84,12 @@ RSpec.describe 'Article', type: :system do
             it '該当する記事なし' do
               expect(current_path).to eq(articles_path)
               find(".navbar-toggler").click
-              fill_in "Member",	with: "#{@name}_fail"
-              click_on 'search'
+              fill_in Member.model_name.human,	with: "#{@name}_fail"
+              click_on I18n.t('layouts.header.search')
               expect(page).to_not have_content("#{@name}_failさん")
               expect(page).to_not have_content("#{@name}さん")
               expect(page).to_not have_content("#{@other_name}さん")
-              expect(page).to have_content('該当する記事がありません') 
+              expect(page).to have_content I18n.t('defaults.no_result')
             end
           end
 
@@ -109,8 +109,8 @@ RSpec.describe 'Article', type: :system do
               it '全ての該当する記事の表示に成功する' do
                 expect(current_path).to eq(articles_path)
                 find(".navbar-toggler").click
-                fill_in "Member",	with: @same_member_name_1
-                click_on 'search'
+                fill_in Member.model_name.human,	with: @same_member_name_1
+                click_on I18n.t('layouts.header.search')
                 expect(page).to have_content("#{@same_member_name_1}さん")
                 expect(page).to have_content(article_same_member_1.brand)
                 expect(page).to have_content("#{@same_member_name_2}さん")
@@ -127,7 +127,7 @@ RSpec.describe 'Article', type: :system do
     before do
       visit articles_path
       find(".navbar-toggler").click
-      click_on 'ITEM'
+      click_on I18n.t('layouts.header.item')
       click_link "link_for_#{article.id}_page"
     end
 
@@ -139,15 +139,15 @@ RSpec.describe 'Article', type: :system do
           expect(page).to have_content("#{article.brand}")
           expect(page).to have_content("#{article.price}")
           expect(page).to have_content("#{article.item}")
-          expect(page).to have_content("詳しくはTweetをご覧ください")
+          expect(page).to have_content I18n.t('articles.show.to_twitter')
         end
       end
     end
 
     describe '詳細画面のTweetへのリンクボタンが正常に動く' do
       it '詳細画面のTweetへのリンクボタンから正常にTwitterへ飛ぶ' do
-        expect(page).to have_content("詳しくはTweetをご覧ください")
-        click_on '詳しくはTweetをご覧ください'
+        expect(page).to have_content I18n.t('articles.show.to_twitter')
+        click_on I18n.t('articles.show.to_twitter')
         switch_to_window(windows.last)
         expect(current_url).to eq(article.tweet_url)
       end

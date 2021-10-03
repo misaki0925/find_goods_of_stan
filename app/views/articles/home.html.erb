@@ -10,10 +10,10 @@
       <p>こんにちは<br>こちらのサイトでは、Twitterの私物特定ツイートに付随して<br>私物が特定された際に皆さんのLINEにお知らせメッセージをお送りします。<br>過去に通知をお送りした私物に関しましては一覧になっているのでご覧ください。<br>また、通知や記事の内容等に間違いがあった際はご報告フォームからコメントをお送りください。</p>
     </div>
     <div class = "mt-2 mb-2 pt-1 pb-3">
-      <%= button_to "for LINE PAGE", line_page_path, method: :get, class: "btn home_btn btn-outline-light border-1 rounded-3 " %>
+      <%= button_to t('.line_btn'), line_page_path, method: :get, class: "btn home_btn btn-outline-light border-1 rounded-3 " %>
     </div>
     <div class = " container all-item mt-5 pt-5 mb-5 pb-5">
-      <h3 class = "pt-3">all item</h3>
+      <h3 class = "pt-3"><%=  t('.all_item') %></h3>
       <div class="row justify-content-center pt-1 pb-1">
         <% @articles.each do |article| %>
           <% names = [] %>
@@ -38,12 +38,12 @@
           </div>
         <% end %>
         <div class = "mt-5 mb-2 pt-4 pb-3">
-          <%= button_to "VIEW MORE", articles_path, method: :get, class: "btn home_btn btn-outline-light border-1 rounded-3 mb-3 " %> 
+          <%= button_to t('.view_more'), articles_path, method: :get, class: "btn home_btn btn-outline-light border-1 rounded-3 mb-3 " %> 
         </div>
       </div>
     </div>
     <div class = "container each-group-item mt-5 pt-5 mb-5 pb-5">
-      <h3 class = "pt-3">Member</h3>
+      <h3 class = "pt-3"><%= Member.model_name.human%></h3>
       <div class="row justify-content-center pt-1 pb-1">
         <% @member_articles.each_with_index do |article, i| %>
           <div class="card col-xs-12 col-md-12 col-lg-3 border-white border-2 rounded-3 text-dark bg-white pt-2 mx-3 mt-5 mb-2 pr-3">

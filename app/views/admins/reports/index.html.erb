@@ -1,18 +1,18 @@
 <div class = "content pb-6 pt-4 mb-4">
-  <h2>Admins/ Report</h2>
+  <h2><%= t('.title') %></h2>
   <table class="table mt-5">
     <thead>
       <tr  class = "text-center">
-        <th scope="col"><%= t('.comment') %></th>
+        <th scope="col"><%= t('.content') %></th>
         <th scope="col"><%= t('.date') %></th>
-        <th scope="col"><%= t('.delete') %></th>
+        <th scope="col"><%= t('defaults.delete') %></th>
       </tr>
       <% @reports.each do |report| %>
         <tr>
           <td><%= report.comment %></td>
           <td  class = "text-center"><%= report.created_at.strftime('%Y/%m/%d') %></td>
           <% if logged_in? && current_user.admin? %> 
-            <td  class = "text-center" ><%= link_to t('defaults.delete'), admins_report_path(report.id), class: "btn btn-outline-dark search_btn", method: :delete, data: { confirm: '削除しますか？' } %></td>
+            <td  class = "text-center" ><%= link_to t('defaults.delete'), admins_report_path(report.id), class: "btn btn-outline-dark search_btn", method: :delete, data: { confirm: t('defaults.confirm_delete') } %></td>
           <% end %>
         </tr>
       <% end %>
