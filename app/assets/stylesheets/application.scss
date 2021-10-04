@@ -193,6 +193,15 @@ input[type="search"]::after {
   .report_area {
     width: 100%;
   }
+
+  input[type="search"]{
+    height: 4rem;
+  }
+
+  .search_btn{
+    height: 4rem;
+  }
+
 }
 
 @media screen and (min-width:768px) and (max-width:1024px) {
@@ -218,6 +227,15 @@ input[type="search"]::after {
     background-color: #FCE3E7;
     color: #111111;
   }
+
+  input[type="search"]{
+    height: 4rem;
+  }
+
+  .search_btn{
+    height: 4rem;
+  }
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -259,4 +277,13 @@ input[type="search"]::after {
     background-color: #FCE3E7;
     color: #111111;
   }
+
+  input[type="search"]{
+    height: 2.5rem;
+  }
+
+  .search_btn{
+    height: 2.5rem;
+  }
+
 }
