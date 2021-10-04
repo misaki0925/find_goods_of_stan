@@ -7,13 +7,13 @@
       </div>
     </div>
     <div class = "introduction pt-3 pb-3 mt-5 mb-5 mx-auto">
-      <p>こんにちは<br>こちらのサイトでは、Twitterの私物特定ツイートに付随して<br>私物が特定された際に皆さんのLINEにお知らせメッセージをお送りします。<br>過去に通知をお送りした私物に関しましては一覧になっているのでご覧ください。<br>また、通知や記事の内容等に間違いがあった際はご報告フォームからコメントをお送りください。</p>
+      <p>こんにちは<br>Twitterの私物特定ツイートに付随して<br>私物が特定された際にLINEでお知らせメッセージをお送りします。<br>過去に通知をお送りした私物に関しましては一覧になっているのでご覧ください。<br>また、通知や記事の内容等に間違いがあった際はご報告フォームからコメントをお送りください。</p>
     </div>
     <div class = "mt-2 mb-2 pt-1 pb-3">
       <%= button_to t('.line_btn'), line_page_path, method: :get, class: "btn home_btn btn-outline-light border-1 rounded-3 " %>
     </div>
     <div class = " container all-item mt-5 pt-5 mb-5 pb-5">
-      <h3 class = "pt-3"><%=  t('.all_item') %></h3>
+      <h1 class = "pt-3"><%=  t('.all_item') %></h1>
       <div class="row justify-content-center pt-1 pb-1">
         <% @articles.each do |article| %>
           <% names = [] %>
@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class = "container each-group-item mt-5 pt-5 mb-5 pb-5">
-      <h3 class = "pt-3"><%= Member.model_name.human%></h3>
+      <h1 class = "pt-3"><%= Member.model_name.human%></h1>
       <div class="row justify-content-center pt-1 pb-1">
         <% @each_member_articles.zip(@each_member_names) do |article, name| %>
           <div class="card col-xs-12 col-md-12 col-lg-3 border-white border-2 rounded-3 text-dark bg-white pt-2 mx-3 mt-5 mb-2 pr-3">

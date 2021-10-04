@@ -5,6 +5,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Bonheur+Royale&family=Montserrat:wght@300&family=Sacramento&family=Scheherazade+New&family=Tangerine:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Bonheur+Royale&family=Lato:wght@700&family=Montserrat:wght@300&family=Sacramento&family=Scheherazade+New&family=Tangerine:wght@700&display=swap');
 
+h1, h3, h6,.home_btn,  .header .search_btn  {
+  font-family: 'Noto Serif JP', sans-serif; 
+}
+
 .title h1 {
   font-family: 'Scheherazade New', serif;
 }
@@ -13,13 +17,10 @@
   font-family: 'Bonheur Royale', cursive;
 }
 
-h2, h3, h6,.home_btn,  .header .search_btn  {
-  font-family: 'Noto Serif JP', sans-serif; 
-}
-
 body p {
   font-family: 'Montserrat', sans-serif;
-  line-height:1.5rem;
+  font-size: 1.2rem;
+  line-height:2.0rem;
 }
 
 body {
@@ -33,7 +34,7 @@ body {
 
 .content {
   min-height:550px;
-  width: 100%;
+  // width: 100%;
   text-align: center;
   justify-content: center;
 }
@@ -45,8 +46,10 @@ body {
 
 .cover {
   background-image: image-url('top_image2.jpg');
-  width: 100%;
-  height: 0;
+  // width: 100%;
+  margin-right: calc(50% - 50vw);
+	margin-left: calc(50% - 50vw);
+  height: 100%;
   /* (画像の高さ / 画像の横幅) × 100 */
   padding-top: 50%;
   background-repeat: no-repeat;
@@ -71,7 +74,7 @@ body {
 }
 
 .introduction {
-  width: 85%;
+  width: 100%;
 }
 
 .home_btn {
@@ -100,7 +103,7 @@ body {
   content: "NEW";
   transform: rotate(315deg);
   display: block;
-  font-size: 11px;
+  font-size: 25px;
   white-space: pre;
   color: #fff;
   top: 12px;
@@ -158,19 +161,27 @@ input[type="search"]::after {
 }
 
 @media screen and (min-width:480px) {
+  body {
+    color: blue;
+ }
+  body p {
+    font-size: 1.8rem;
+    line-height:2.7rem;
+   }
+
   .card-text {
     font-size: 1.1rem;
   }
 
   .home_btn {
-    width: 60%;
-    line-height: 250%;
+    width: 100%;
+    line-height: 400%;
   }
 
   .btn-coler {
     background-color: #FCE3E7;
-    width: 55%;
-    line-height: 200%;
+    width: 100%;
+    line-height: 300%;
   }
 
   .btn-coler:hover {
@@ -201,6 +212,18 @@ input[type="search"]::after {
 }
 
 @media screen and (min-width: 1024px) {
+  body {
+    color: red;
+ }
+ body p {
+  font-size: 1.2rem;
+  line-height:2.0rem;
+}
+.home_btn {
+  width: 80%;
+  line-height: 200%;
+}
+
   .cover h1 {
     left: 40%;
   }
