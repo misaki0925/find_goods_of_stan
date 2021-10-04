@@ -65,6 +65,8 @@ gem 'rails-i18n'
 gem 'bootstrap', '~> 5.0.1'
 gem 'jquery-rails'
 
+gem "aws-sdk-s3", require: false
+
 
 
 group :development, :test do
