@@ -125,7 +125,7 @@ RSpec.describe 'Article', type: :system do
 
   describe '一般ユーザー用記事の詳細画面' do
     before do
-      visit articles_path
+      visit root_path
       find(".navbar-toggler").click
       click_on I18n.t('layouts.header.item')
       click_link "link_for_#{article.id}_page"

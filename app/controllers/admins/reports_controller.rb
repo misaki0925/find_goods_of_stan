@@ -8,5 +8,4 @@ class Admins::ReportsController < ApplicationController
     @report.destroy
     redirect_to admins_reports_path, notice: t('flash.deleted')
   end
-
 end

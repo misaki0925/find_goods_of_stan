@@ -130,7 +130,7 @@ class Article < ApplicationRecord
             },
             {
               "type": "box",
-              "layout": "baseline",
+              "layout": "vertical",
               "contents": [
                 {
                   "type": "text",
@@ -186,7 +186,7 @@ class Article < ApplicationRecord
   end
 
 
-    #  GoodsFindというアカウントのツイート検索-------
+    #  GoodsFindというアカウントのツイート検索
     def make_GoodsFind_article
       search("1407908082575765506")
       tag = ["#findgoodsofstan"]
@@ -205,7 +205,7 @@ class Article < ApplicationRecord
       end
     end
 
-  # 2jkhs6というアカウントのツイート検索------
+  # 2jkhs6というアカウントのツイート検索
   def make_2jkhs6_article
     search("1193544870444429313")
     tag = ["#oneST_衣装", "#Taiga_Six衣装", "#Jesse_Six衣装", "#Hokuto_Six衣装", "#Yugo_Six衣装", "#Shintaro_Six衣装", "#Juri_Six衣装"]
@@ -224,7 +224,7 @@ class Article < ApplicationRecord
     end
   end
 
-  # Johnnys_stylingというアカウントのツイート検索-----------
+  # Johnnys_stylingというアカウントのツイート検索
   def make_Johnnys_styling_article
     search("934773122653229056")
     tag = ["#SixTONES", "#高地優吾", "#京本大我", "#田中樹", "#松村北斗", "#ジェシー","#森本慎太郎"]
@@ -245,7 +245,7 @@ class Article < ApplicationRecord
     end
   end
 
-# jasmine_jumpというアカウントのツイート検索---------------
+# jasmine_jumpというアカウントのツイート検索
   def make_jasmine_jump_article
     search("842986230442676224")
     tag = ["高地優吾", "京本大我", "田中樹", "松村北斗", "ジェシー","森本慎太郎"]

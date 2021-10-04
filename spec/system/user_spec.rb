@@ -29,7 +29,7 @@ RSpec.describe 'User', type: :system do
     before { login(user) }
     describe "ログアウト" do
       it 'Logoutボタンを押すとログアウトに成功する' do
-        visit articles_path
+        visit root_path
         find(".navbar-toggler").click
         click_on I18n.t('layouts.header.logout')
         expect(page).to have_content I18n.t('flash.logout')
@@ -38,7 +38,7 @@ RSpec.describe 'User', type: :system do
     end
   end
 
-  describe "ログインしていない状態でadmin用のページを選択する" do
+  describe "ログインしていない状態でadmin用のページにアクセスする" do
     describe "表示に失敗する" do
       let!(:article) {create(:article)}
       it 'admin用ITEMページ' do
