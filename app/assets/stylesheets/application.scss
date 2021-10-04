@@ -121,6 +121,7 @@ input[type="search"]:hover {
 input[type="search"]::after {
   transition: 0.5s;
   background-color: #FCE3E7;
+  color: #111111;
 }
 
 .search_btn:hover {
@@ -131,6 +132,7 @@ input[type="search"]::after {
 .search_btn::after {
   transition: 0.5s;
   background-color: #FCE3E7;
+  color: #111111;
 }
 
 .pagination {
