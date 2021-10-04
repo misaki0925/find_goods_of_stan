@@ -6,6 +6,6 @@ Member.create!(
 end
 
 User.create!(
-  email: ENV["EMAIL"]
+  email: ENV["EMAIL"],
   password: ENV["PASSWORD"]
 )
