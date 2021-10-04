@@ -6,6 +6,6 @@ Member.create!(
 end
 
 User.create!(
-  email: "test@email.com"
+  email: "test@email.com",
   password: "test1234"
 )
