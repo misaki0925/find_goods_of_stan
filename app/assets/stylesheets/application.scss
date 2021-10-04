@@ -164,7 +164,11 @@ input[type="search"]::after {
   body p {
     font-size: 1.8rem;
     line-height:2.7rem;
-   }
+  }
+
+  .nav-item a{
+    font-size:  5.0vw;
+  }
 
   .card-text {
     font-size: 1.1rem;
@@ -185,11 +189,19 @@ input[type="search"]::after {
     background-color: #FCE3E7;
     color: #111111;
   }
+
+  .report_area {
+    width: 100%;
+  }
 }
 
 @media screen and (min-width:768px) and (max-width:1024px) {
   .card-text {
     font-size: 1.4rem;
+  }
+
+  .nav-item a{
+    font-size:  3.5vw;
   }
 
   .home_btn {
@@ -213,6 +225,11 @@ input[type="search"]::after {
   font-size: 1.2rem;
   line-height:2.0rem;
 }
+
+.nav-item a{
+  font-size:  1.5vw;
+}
+
 .home_btn {
   width: 80%;
   line-height: 200%;
