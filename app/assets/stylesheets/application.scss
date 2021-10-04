@@ -121,7 +121,6 @@ input[type="search"]:hover {
 input[type="search"]::after {
   transition: 0.5s;
   background-color: #FCE3E7;
-  color: #111111;
 }
 
 .search_btn:hover {
@@ -132,7 +131,6 @@ input[type="search"]::after {
 .search_btn::after {
   transition: 0.5s;
   background-color: #FCE3E7;
-  color: #111111;
 }
 
 .pagination {
@@ -196,13 +194,13 @@ input[type="search"]::after {
     width: 100%;
   }
 
-  input[type="search"]{
-    height: 4rem;
-  }
+  // input[type="search"]{
+  //   height: 4rem;
+  // }
 
-  .search_btn{
-    height: 4rem;
-  }
+  // .search_btn{
+  //   height: 4rem;
+  // }
 
 }
 
@@ -230,13 +228,13 @@ input[type="search"]::after {
     color: #111111;
   }
 
-  input[type="search"]{
-    height: 4rem;
-  }
+  // input[type="search"]{
+  //   height: 4rem;
+  // }
 
-  .search_btn{
-    height: 4rem;
-  }
+  // .search_btn{
+  //   height: 4rem;
+  // }
 
 }
 
@@ -280,12 +278,12 @@ input[type="search"]::after {
     color: #111111;
   }
 
-  input[type="search"]{
-    height: 2.5rem;
-  }
+  // input[type="search"]{
+  //   height: 2.5rem;
+  // }
 
-  .search_btn{
-    height: 2.5rem;
-  }
+  // .search_btn{
+  //   height: 2.5rem;
+  // }
 
 }
