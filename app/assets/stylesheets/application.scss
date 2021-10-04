@@ -94,7 +94,7 @@ body {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 50px 50px 0 0;
+  border-width: 100px 100px 0 0;
   border-color: #f00 transparent transparent transparent;
 }
 
@@ -161,9 +161,6 @@ input[type="search"]::after {
 }
 
 @media screen and (min-width:480px) {
-  body {
-    color: blue;
- }
   body p {
     font-size: 1.8rem;
     line-height:2.7rem;
@@ -212,9 +209,6 @@ input[type="search"]::after {
 }
 
 @media screen and (min-width: 1024px) {
-  body {
-    color: red;
- }
  body p {
   font-size: 1.2rem;
   line-height:2.0rem;
