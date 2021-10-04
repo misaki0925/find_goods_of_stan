@@ -7,5 +7,7 @@ end
 
 User.create!(
   email: "test@email.com",
-  password: "test1234"
+  password: "test1234",
+  password_confirmation: "test1234",
+  role: 1
 )
