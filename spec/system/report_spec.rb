@@ -3,7 +3,7 @@ RSpec.describe 'Report', type: :system do
   describe "ユーザー" do
     describe "報告コメント作成" do
       before do
-        visit articles_path
+        visit root_path
         find(".navbar-toggler").click
         click_on I18n.t('layouts.header.report')
       end

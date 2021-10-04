@@ -2,7 +2,7 @@
   <div class="container">
     <div class="jumbotron cover">
       <div class = "title">
-        <h1>Find Goods <br>　　of Stan</h1>
+        <h1>Find Goods <br>　　　of Stan</h1>
         <h3>Welcome To Our Page. <br> We send you messege of your fav!!</h3>
       </div>
     </div>
@@ -32,8 +32,8 @@
                 <% end %>
               </div>
               <div class = "mx-3 mt-3 pb-1">
-                <p style= "line-height:1.5rem"><%="#{names.join("さん")}さん" %></p>
-                <p style= "line-height:0.5rem"><%= article.brand %></p>
+                <p><%="#{names.join("さん")}さん" %></p>
+                <p><%= article.brand %></p>
               </div>
           </div>
         <% end %>
@@ -45,10 +45,12 @@
     <div class = "container each-group-item mt-5 pt-5 mb-5 pb-5">
       <h3 class = "pt-3"><%= Member.model_name.human%></h3>
       <div class="row justify-content-center pt-1 pb-1">
-        <% @member_articles.each_with_index do |article, i| %>
+        <% @each_member_articles.zip(@each_member_names) do |article, name| %>
           <div class="card col-xs-12 col-md-12 col-lg-3 border-white border-2 rounded-3 text-dark bg-white pt-2 mx-3 mt-5 mb-2 pr-3">
             <div class = "member_name pb-2 mt-2 pt-2 mb-2">
-              <h5><%= Member.find(i+1).name %>さん</h5>
+              <h5>
+                <%= "#{name}さん" %>
+              </h5>
             </div>
             <% if (article[:created_at].to_s.match(/#{Date.today.to_s}.+/)) or (article[:created_at].to_s.match(/#{Date.yesterday.to_s}.+/))  %>
               <div class = "mark-box">
