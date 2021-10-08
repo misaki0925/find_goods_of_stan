@@ -38,8 +38,8 @@
               <% if current_page?(articles_path) %>
                 <div class = "search justify-content-center py-4">
                   <%= search_form_for @q, url: articles_path do |f| %> 
-                    <%= f.search_field :brand_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: t("activerecord.attributes.article.brand") %>  
-                    <%= f.search_field :members_name_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: Member.model_name.human %> 
+                    <%= f.search_field :brand_cont, class: " search_btn btn-outline-dark rounded-3", placeholder: t("activerecord.attributes.article.brand") %>  
+                    <%= f.search_field :members_name_cont, class: " search_btn btn-outline-dark rounded-3", placeholder: Member.model_name.human %> 
                     <%= f.submit t('.search'), class: "btn search_btn btn-outline-dark search_btn"%>
                   <% end %>
                 </div>
