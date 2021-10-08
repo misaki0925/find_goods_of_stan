@@ -265,4 +265,3 @@ class Article < ApplicationRecord
     end
   end
 end
-

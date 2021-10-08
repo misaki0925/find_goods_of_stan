@@ -113,25 +113,25 @@ body {
   line-height: 1.2;
 }
 
-input[type="search"]:hover {
-  background-color: #FCE3E7;
-  color: #111111;
-}
+// input[type="search"]:hover {
+//   background-color: #FCE3E7;
+//   color: #111111;
+// }
 
-input[type="search"]::after {
-  transition: 0.5s;
-  background-color: #FCE3E7;
-}
+// input[type="search"]::after {
+//   transition: 0.5s;
+//   background-color: #FCE3E7;
+// }
 
-.search_btn:hover {
-  background-color: #FCE3E7;
-  color: #111111;
-}
+// .search_btn:hover {
+//   background-color: #FCE3E7;
+//   color: #111111;
+// }
 
-.search_btn::after {
-  transition: 0.5s;
-  background-color: #FCE3E7;
-}
+// .search_btn::after {
+//   transition: 0.5s;
+//   background-color: #FCE3E7;
+// }
 
 .pagination {
   margin: 20px auto 0;
@@ -194,13 +194,13 @@ input[type="search"]::after {
     width: 100%;
   }
 
-  // input[type="search"]{
-  //   height: 4rem;
-  // }
+  input[type="search"]{
+    height: 4rem;
+  }
 
-  // .search_btn{
-  //   height: 4rem;
-  // }
+  .search_btn{
+    height: 4rem;
+  }
 
 }
 
@@ -228,13 +228,13 @@ input[type="search"]::after {
     color: #111111;
   }
 
-  // input[type="search"]{
-  //   height: 4rem;
-  // }
+  input[type="search"]{
+    height: 4rem;
+  }
 
-  // .search_btn{
-  //   height: 4rem;
-  // }
+  .search_btn{
+    height: 4rem;
+  }
 
 }
 
@@ -278,12 +278,12 @@ input[type="search"]::after {
     color: #111111;
   }
 
-  // input[type="search"]{
-  //   height: 2.5rem;
-  // }
+  input[type="search"]{
+    height: 2.5rem;
+  }
 
-  // .search_btn{
-  //   height: 2.5rem;
-  // }
+  .search_btn{
+    height: 2.5rem;
+  }
 
 }
