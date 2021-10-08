@@ -46,8 +46,8 @@
               <% elsif current_page?(search_admins_articles_path) or current_page?(admins_articles_path) %>
                 <div class = "search mx-auto py-4">
                   <%= search_form_for @q, url: search_admins_articles_path do |f| %> 
-                    <%= f.text_field :brand_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: t("activerecord.attributes.article.brand") %> 
-                    <%= f.text_field :members_name_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: Member.model_name.human %> 
+                    <%= f.search_field :brand_cont, class: " search_btn btn-outline-dark rounded-3", placeholder: t("activerecord.attributes.article.brand") %> 
+                    <%= f.search_field :members_name_cont, class: " search_btn btn-outline-dark rounded-3", placeholder: Member.model_name.human %> 
                     <%= f.submit t('.search'), class: "btn search_btn  btn-outline-dark search_btn"%>
                   <% end %>
                 </div>
