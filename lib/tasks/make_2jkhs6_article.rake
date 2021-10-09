@@ -4,6 +4,7 @@ namespace :make_2jkhs6_article do
     3.times{
       article = Article.new
       article.make_2jkhs6_article
+      sleep(150)
     }
   end
 end
