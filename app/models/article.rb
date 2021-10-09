@@ -55,6 +55,25 @@ class Article < ApplicationRecord
       members << article_members
   end
 
+  def check_member_2jkhs6(tweet_content)
+    member_ids = []
+      yugo = ["#Yugo_Six衣装"]
+      taiga = ["#Taiga_Six衣装"]
+      juri = ["#Juri_Six衣装"]
+      hokuto = ["#Hokuto_Six衣装"]
+      jess = ["#Jesse_Six衣装"]
+      shintaro = ["#Shintaro_Six衣装"]
+
+      member_ids << 1 if yugo.any?{ |y| tweet_content.include?(y) }
+      member_ids << 2 if taiga.any?{ |t| tweet_content.include?(t) }
+      member_ids << 3 if juri.any?{ |j| tweet_content.include?(j) }
+      member_ids << 4 if hokuto.any?{ |h| tweet_content.include?(h) }
+      member_ids << 5 if jess.any?{ |j| tweet_content.include?(j) }
+      member_ids << 6 if shintaro.any?{ |s| tweet_content.include?(s) }
+      article_members = Member.find(member_ids)
+      members << article_members
+  end
+
   # ツイートに含まれる画像を保存
   def set_images(medias)
     image_urls = medias.map{ |h| h.media_url_https }
@@ -216,7 +235,7 @@ class Article < ApplicationRecord
       self.price = tweet_content.scan(/¥.+?-/).join(',')
       self.brand = tweet_content.scan(/(?<=\【).+?(?=\】)/).join(',')
       self.item = tweet_content.scan(/(?<=\】).+?(?=\¥)/).join(',')
-      check_member(tweet_content)
+      check_member_2jkhs6(tweet_content)
       set_images(tweet.media)
       if save
         send_line(member_ids, tweet_url, @imgae_url_for_line_small)

@@ -151,6 +151,10 @@ body {
   color: #999999;
 }
 
+.alert p {
+  font-size: 1.5rem
+}
+
 @media screen and (min-width:480px) {
   body p {
     font-size: 3.0rem;
@@ -168,9 +172,9 @@ body {
   .nav-item a{
     font-size:  5.0vw;
   }
-  
+
   .card-title{
-    font-size: 90px;
+    font-size: 70px;
   }
 
   .card {
@@ -235,7 +239,7 @@ body {
   }
 
   .card-title{
-    font-size: 90px;
+    font-size: 70px;
   }
 
   .nav-item a{
@@ -257,10 +261,6 @@ body {
     border-radius: 30px;
   }
 
-  // input[type="search"]{
-  //   height: 4rem;
-  // }
-
   .search_btn{
     height: 4rem;
   }
@@ -280,32 +280,35 @@ body {
 }
 
 @media screen and (min-width: 1024px) {
- body p {
-  font-size: 1.2rem;
-  line-height:2.0rem;
-}
+  body p {
+    font-size: 1.2rem;
+    line-height:2.0rem;
+  }
 
-h1{
-  font-size: 40px;
-}
-
-.cover h1 {
-  font-size: 40px;
-}
-
-.nav-item a{
-  font-size:  1.5vw;
-}
-
-.home_btn {
-  width: 80%;
-  line-height: 200%;
-}
-
-.cover h1 {
-  left: 40%;
-}
-
+  h1{
+    font-size: 40px;
+  }
+  
+  .cover h1 {
+    font-size: 125px;
+  }
+  
+  .nav-item a{
+    font-size:  1.5vw;
+  }
+  
+  .home_btn {
+    width: 80%;
+    line-height: 200%;
+  }
+  
+  .cover h1 {
+    left: 40%;
+  }
+  
+  .card-title{
+    font-size: 50px;
+  }
 
   .home_btn {
     width: 20%;

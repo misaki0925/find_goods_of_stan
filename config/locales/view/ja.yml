@@ -19,7 +19,7 @@ ja:
     logout: 'ログアウトしました'
     not_login: 'ログインできません'
     before_login: 'ログインしてください'
-    make_report: 'ありがとうございます。コメントが送信されました。'
+    make_report: 'コメントが送信されました。'
     not_make_report: 'コメントを入力してから送信してください。'
   layouts:
     header:
