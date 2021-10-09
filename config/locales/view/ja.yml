@@ -39,10 +39,10 @@ ja:
     index:
       title: 'ITEM PAGE'
     show:
-      to_twitter: '詳しくはTweetをご覧ください'
+      to_twitter: '詳しくはTwitterへ'
     line:
       title: 'LINE PAGE'
-      st: 'ST'
+      st: 'ALL'
       yugo: 'KY'
       taiga: 'KT'
       juri: 'TJ'

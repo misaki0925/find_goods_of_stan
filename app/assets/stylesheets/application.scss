@@ -19,8 +19,6 @@ h1, h3, h6,.home_btn,  .header .search_btn  {
 
 body p {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.2rem;
-  line-height:2.0rem;
 }
 
 body {
@@ -46,7 +44,6 @@ body {
 
 .cover {
   background-image: image-url('top_image2.jpg');
-  // width: 100%;
   margin-right: calc(50% - 50vw);
 	margin-left: calc(50% - 50vw);
   height: 100%;
@@ -62,7 +59,6 @@ body {
   position: absolute;
   top: 13%;
   left: 30%;
-  font-size: 8vw;
   font-weight: bold;
 }
 
@@ -115,6 +111,7 @@ body {
 
 .search_btn {
   text-align: center;
+  border-radius: 8px;
 }
 
 .search_btn:hover {
@@ -150,23 +147,34 @@ body {
   color: #770022;
 }
 
-.footer_text {
+.footer_text p {
   color: #999999;
 }
 
-
 @media screen and (min-width:480px) {
   body p {
-    font-size: 1.8rem;
-    line-height:2.7rem;
+    font-size: 3.0rem;
+    line-height:6.0rem;
+  }
+
+  h1 {
+    font-size: 70px;
+  }
+
+  .cover h1 {
+    font-size: 70px;
   }
 
   .nav-item a{
     font-size:  5.0vw;
   }
+  
+  .card-title{
+    font-size: 90px;
+  }
 
-  .card-text {
-    font-size: 1.1rem;
+  .card {
+    padding-bottom: 150px;
   }
 
   .home_btn {
@@ -177,35 +185,65 @@ body {
   .btn-coler {
     background-color: #FCE3E7;
     width: 100%;
-    line-height: 300%;
-  }
-
-  .btn-coler:hover {
-    background-color: #FCE3E7;
-    color: #111111;
+    line-height: 250%;
+    border-radius: 30px;
   }
 
   .report_area {
     width: 100%;
   }
 
-  input[type="search"]{
-    height: 4rem;
-  }
-
   .search_btn{
     height: 4rem;
   }
 
+  .form-control {
+    font-size: 1.8rem;
+    line-height:3.0rem;
+  }
+
+  .pagination {
+    font-size: 30px;
+  }
+
+  .footer_text p {
+    font-size: 1.8rem;
+  }
 }
 
 @media screen and (min-width:768px) and (max-width:1024px) {
-  .card-text {
+  body p {
+    font-size: 3.0rem;
+    line-height:4.0rem;
+  }
+
+  h1{
+    font-size: 70px;
+  }
+
+  .cover h1 {
+    font-size: 70px;
+  }
+
+  .introduction {
     font-size: 1.4rem;
+    line-height:3.5rem;
+  }
+
+  .card {
+    padding-bottom: 150px;
+  }
+
+  .card-title{
+    font-size: 90px;
   }
 
   .nav-item a{
-    font-size:  3.5vw;
+    font-size:  5.5vw;
+  }
+  .navbar-toggler-icon{
+    border-color: rgba(0,0,0,0);
+    size:  5.5vw;
   }
 
   .home_btn {
@@ -214,29 +252,45 @@ body {
 
   .btn-coler {
     background-color: #FCE3E7;
-    width: 50%;
+    width: 100%;
     line-height: 250%;
+    border-radius: 30px;
   }
 
-  .btn-coler:hover {
-    background-color: #FCE3E7;
-    color: #111111;
-  }
-
-  input[type="search"]{
-    height: 4rem;
-  }
+  // input[type="search"]{
+  //   height: 4rem;
+  // }
 
   .search_btn{
     height: 4rem;
   }
 
+  .form-control {
+    font-size: 1.8rem;
+    line-height:3.0rem;
+  }
+
+  .pagination {
+    font-size: 30px;
+  }
+
+  .footer_text p {
+    font-size: 1.8rem;
+  }
 }
 
 @media screen and (min-width: 1024px) {
  body p {
   font-size: 1.2rem;
   line-height:2.0rem;
+}
+
+h1{
+  font-size: 40px;
+}
+
+.cover h1 {
+  font-size: 40px;
 }
 
 .nav-item a{
@@ -248,13 +302,10 @@ body {
   line-height: 200%;
 }
 
-  .cover h1 {
-    left: 40%;
-  }
+.cover h1 {
+  left: 40%;
+}
 
-  .card-text {
-    font-size: 1.4rem;
-  }
 
   .home_btn {
     width: 20%;
@@ -263,8 +314,9 @@ body {
   .btn-coler {
     background-color: #FCE3E7;
     color: #111111;
-    width: 30%;
-    line-height: 200%;
+    border-radius: 10px;
+    width: 15%;
+    line-height: 150%;
   }
 
   .btn-coler:hover {
@@ -279,5 +331,21 @@ body {
 
   .search_btn{
     height: 2.5rem;
+  }
+
+  .card {
+    padding-bottom: 75px;
+  }
+
+  .form-control {
+    font-size: 1.0rem;
+    line-height:1.7rem;
+  }
+
+  .pagination {
+    font-size: 18px;
+  }
+  .footer_text p {
+    font-size: 1.0rem;
   }
 }

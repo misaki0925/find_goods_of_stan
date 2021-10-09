@@ -6,10 +6,10 @@
     <% end %>
       <div class="card-body mt-3">
         <div class="card-body-text text-center">
-          <h4 class="card-title pb-2"><%= "#{names.join("さん")}さん" %></h4>
-          <p class="card-text mt-4"><%= "#{@article.brand}" %></p>
-          <p class="card-text mt-3"><%= "#{@article.price}" %></p>
-          <p class="card-text mt-3"><%= "#{@article.item}" %></p>
+          <p class="card-title pb-2"><%= "#{names.join("さん")}さん" %></p>
+          <p class="mt-4"><%= "#{@article.brand}" %></p>
+          <p class="mt-3"><%= "#{@article.price}" %></p>
+          <p class="mt-3"><%= "#{@article.item}" %></p>
           <%= link_to t('.to_twitter'), @article.tweet_url, target: :_blank, rel: "noopener noreferrer", class: "btn btn-outline-dark btn-coler mt-4 mb-4" %>
         </div>
         <div class="row justify-content-center">

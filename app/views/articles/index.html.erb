@@ -18,9 +18,9 @@
                 <%= link_to image_tag(article_image, class: "card-img-top", alt: "link_for_#{article.id}_page"), article_path(article.id) %>
               <% end %>
             </div>
-          <div class = "mx-3 mt-3 pb-1">
-            <p style= "line-height:1.5rem"><%="#{names.join("さん")}さん" %></p>
-            <p style= "line-height:1.5rem"><%= article.brand %></p>
+          <div class = "mx-3 mt-3 pb-6">
+            <p><%="#{names.join("さん")}さん" %></p>
+            <p><%= article.brand %></p>
           </div>
         </div>
       <% end %>
