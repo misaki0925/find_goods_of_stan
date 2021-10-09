@@ -161,6 +161,11 @@ body {
     line-height:6.0rem;
   }
 
+  .text_message {
+    font-size: 1.9rem;
+    line-height:2.3rem;
+  }
+
   h1 {
     font-size: 70px;
   }
@@ -219,6 +224,11 @@ body {
   body p {
     font-size: 3.0rem;
     line-height:4.0rem;
+  }
+
+  .text_message {
+    font-size: 1.9rem;
+    line-height:2.3rem;
   }
 
   h1{
@@ -281,6 +291,11 @@ body {
 
 @media screen and (min-width: 1024px) {
   body p {
+    font-size: 1.2rem;
+    line-height:2.0rem;
+  }
+
+  .text_message {
     font-size: 1.2rem;
     line-height:2.0rem;
   }
