@@ -1,7 +1,9 @@
 class Admins::ArticlesController < ApplicationController
   before_action :set_article, only: %i[ edit update destroy ]
 
-  def edit;end
+  def edit
+    @article = Article.find(params[:id])
+  end
 
   def update
     @article = Article.find(params[:id])

@@ -13,9 +13,7 @@ set :output, "#{Rails.root}/log/cron.log"
 # every 1.minute do
 #   rake "make_2jkhs6_article:account_2jkhs6"
 # end
-every 1.minute do
-  rake "make_johnnys_styling_article:account_johnnys_styling"
-end
+
 every 1.minute do
   rake "make_jasmine_jump_article:account_jasmine_jump"
 end

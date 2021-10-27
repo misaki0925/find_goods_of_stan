@@ -38,12 +38,12 @@ class Article < ApplicationRecord
   # 関係するメンバーを判断
   def check_member(tweet_content)
     member_ids = []
-      yugo = ["優吾","優吾のあしあと"]
-      taiga = ["京本大我","きょも","きょもきょも美術館"]
-      juri = ["田中樹","リリックノート"]
-      hokuto = ["松村北斗","北斗学園"]
-      jess = ["ジェシー","JESSEのズドン！BLOG"]
-      shintaro = ["森本慎太郎","もりもとーく"]
+      yugo = ["#高地優吾"]
+      taiga = ["#京本大我"]
+      juri = ["#田中樹"]
+      hokuto = ["#松村北斗"]
+      jess = ["#ジェシー"]
+      shintaro = ["#森本慎太郎"]
 
       member_ids << 1 if yugo.any?{ |y| tweet_content.include?(y) }
       member_ids << 2 if taiga.any?{ |t| tweet_content.include?(t) }
@@ -244,7 +244,7 @@ class Article < ApplicationRecord
   end
 
   # Johnnys_stylingというアカウントのツイート検索
-  def make_Johnnys_styling_article
+  def make_johnnys_styling_article
     search("934773122653229056")
     tag = ["#SixTONES", "#高地優吾", "#京本大我", "#田中樹", "#松村北斗", "#ジェシー","#森本慎太郎"]
     set_article(tag)
