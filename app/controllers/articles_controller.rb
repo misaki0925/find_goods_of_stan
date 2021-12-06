@@ -1,12 +1,12 @@
 class ArticlesController < ApplicationController
   skip_before_action :require_login
   before_action :set_article, only: %i[show]
+  before_action :set_item_search, only: %i[index]
   
   def show;end
 
   def index
-    @q = Article.ransack(params[:q])
-    @articles = @q.result.includes(:members).published.order(created_at: :desc).page(params[:page]).per(6)
+    @articles = @set_items.includes(:members).published.order(created_at: :desc).page(params[:page]).per(6)
   end
 
   def home
@@ -28,7 +28,4 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end 
 
-  def search_params
-    params.require(:q).permit(:brand_cont, :members_name_cont, :status)
-  end
 end

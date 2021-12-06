@@ -5,6 +5,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Bonheur+Royale&family=Montserrat:wght@300&family=Sacramento&family=Scheherazade+New&family=Tangerine:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Bonheur+Royale&family=Lato:wght@700&family=Montserrat:wght@300&family=Sacramento&family=Scheherazade+New&family=Tangerine:wght@700&display=swap');
 
+h1, h3, h6,.home_btn,  .header .search_btn  {
+  font-family: 'Noto Serif JP', sans-serif; 
+}
+
 .title h1 {
   font-family: 'Scheherazade New', serif;
 }
@@ -13,13 +17,8 @@
   font-family: 'Bonheur Royale', cursive;
 }
 
-h2, h3, h6,.home_btn,  .header .search_btn  {
-  font-family: 'Noto Serif JP', sans-serif; 
-}
-
 body p {
   font-family: 'Montserrat', sans-serif;
-  line-height:1.5rem;
 }
 
 body {
@@ -33,7 +32,7 @@ body {
 
 .content {
   min-height:550px;
-  width: 100%;
+  // width: 100%;
   text-align: center;
   justify-content: center;
 }
@@ -45,8 +44,9 @@ body {
 
 .cover {
   background-image: image-url('top_image2.jpg');
-  width: 100%;
-  height: 0;
+  margin-right: calc(50% - 50vw);
+	margin-left: calc(50% - 50vw);
+  height: 100%;
   /* (画像の高さ / 画像の横幅) × 100 */
   padding-top: 50%;
   background-repeat: no-repeat;
@@ -59,7 +59,6 @@ body {
   position: absolute;
   top: 13%;
   left: 30%;
-  font-size: 8vw;
   font-weight: bold;
 }
 
@@ -71,7 +70,7 @@ body {
 }
 
 .introduction {
-  width: 85%;
+  width: 100%;
 }
 
 .home_btn {
@@ -91,7 +90,7 @@ body {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 50px 50px 0 0;
+  border-width: 100px 100px 0 0;
   border-color: #f00 transparent transparent transparent;
 }
 
@@ -100,7 +99,7 @@ body {
   content: "NEW";
   transform: rotate(315deg);
   display: block;
-  font-size: 11px;
+  font-size: 25px;
   white-space: pre;
   color: #fff;
   top: 12px;
@@ -110,14 +109,9 @@ body {
   line-height: 1.2;
 }
 
-input[type="search"]:hover {
-  background-color: #FCE3E7;
-  color: #111111;
-}
-
-input[type="search"]::after {
-  transition: 0.5s;
-  background-color: #FCE3E7;
+.search_btn {
+  text-align: center;
+  border-radius: 8px;
 }
 
 .search_btn:hover {
@@ -153,35 +147,117 @@ input[type="search"]::after {
   color: #770022;
 }
 
-.footer_text {
+.footer_text p {
   color: #999999;
 }
 
+.alert p {
+  font-size: 1.5rem
+}
+
 @media screen and (min-width:480px) {
-  .card-text {
-    font-size: 1.1rem;
+  body p {
+    font-size: 3.0rem;
+    line-height:6.0rem;
+  }
+
+  .text_message {
+    font-size: 1.9rem;
+    line-height:2.3rem;
+  }
+
+  h1 {
+    font-size: 70px;
+  }
+
+  .cover h1 {
+    font-size: 70px;
+  }
+
+  .nav-item a{
+    font-size:  5.0vw;
+  }
+
+  .card-title{
+    font-size: 70px;
+  }
+
+  .card {
+    padding-bottom: 150px;
   }
 
   .home_btn {
-    width: 60%;
-    line-height: 250%;
+    width: 100%;
+    line-height: 400%;
   }
 
   .btn-coler {
     background-color: #FCE3E7;
-    width: 55%;
-    line-height: 200%;
+    width: 100%;
+    line-height: 250%;
+    border-radius: 30px;
   }
 
-  .btn-coler:hover {
-    background-color: #FCE3E7;
-    color: #111111;
+  .report_area {
+    width: 100%;
+  }
+
+  .search_btn{
+    height: 4rem;
+  }
+
+  .form-control {
+    font-size: 1.8rem;
+    line-height:3.0rem;
+  }
+
+  .pagination {
+    font-size: 30px;
+  }
+
+  .footer_text p {
+    font-size: 1.8rem;
   }
 }
 
 @media screen and (min-width:768px) and (max-width:1024px) {
-  .card-text {
+  body p {
+    font-size: 3.0rem;
+    line-height:4.0rem;
+  }
+
+  .text_message {
+    font-size: 1.9rem;
+    line-height:2.3rem;
+  }
+
+  h1{
+    font-size: 70px;
+  }
+
+  .cover h1 {
+    font-size: 70px;
+  }
+
+  .introduction {
     font-size: 1.4rem;
+    line-height:3.5rem;
+  }
+
+  .card {
+    padding-bottom: 150px;
+  }
+
+  .card-title{
+    font-size: 70px;
+  }
+
+  .nav-item a{
+    font-size:  5.5vw;
+  }
+  .navbar-toggler-icon{
+    border-color: rgba(0,0,0,0);
+    size:  5.5vw;
   }
 
   .home_btn {
@@ -190,23 +266,63 @@ input[type="search"]::after {
 
   .btn-coler {
     background-color: #FCE3E7;
-    width: 50%;
+    width: 100%;
     line-height: 250%;
+    border-radius: 30px;
   }
 
-  .btn-coler:hover {
-    background-color: #FCE3E7;
-    color: #111111;
+  .search_btn{
+    height: 4rem;
+  }
+
+  .form-control {
+    font-size: 1.8rem;
+    line-height:3.0rem;
+  }
+
+  .pagination {
+    font-size: 30px;
+  }
+
+  .footer_text p {
+    font-size: 1.8rem;
   }
 }
 
 @media screen and (min-width: 1024px) {
+  body p {
+    font-size: 1.2rem;
+    line-height:2.0rem;
+  }
+
+  .text_message {
+    font-size: 1.2rem;
+    line-height:2.0rem;
+  }
+
+  h1{
+    font-size: 40px;
+  }
+  
+  .cover h1 {
+    font-size: 125px;
+  }
+  
+  .nav-item a{
+    font-size:  1.5vw;
+  }
+  
+  .home_btn {
+    width: 80%;
+    line-height: 200%;
+  }
+  
   .cover h1 {
     left: 40%;
   }
-
-  .card-text {
-    font-size: 1.4rem;
+  
+  .card-title{
+    font-size: 50px;
   }
 
   .home_btn {
@@ -216,13 +332,38 @@ input[type="search"]::after {
   .btn-coler {
     background-color: #FCE3E7;
     color: #111111;
-    width: 30%;
-    line-height: 200%;
+    border-radius: 10px;
+    width: 15%;
+    line-height: 150%;
   }
 
   .btn-coler:hover {
     transition: 0.5s;
     background-color: #FCE3E7;
     color: #111111;
+  }
+
+  input[type="search"]{
+    height: 2.5rem;
+  }
+
+  .search_btn{
+    height: 2.5rem;
+  }
+
+  .card {
+    padding-bottom: 75px;
+  }
+
+  .form-control {
+    font-size: 1.0rem;
+    line-height:1.7rem;
+  }
+
+  .pagination {
+    font-size: 18px;
+  }
+  .footer_text p {
+    font-size: 1.0rem;
   }
 }

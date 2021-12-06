@@ -1,6 +1,6 @@
 class Admins::ReportsController < ApplicationController
   def index
-    @reports = Report.all.order(created_at: :desc).page(params[:page]).per(8)
+    @reports = Report.all.order(created_at: :desc).page(params[:page])
   end
 
   def destroy

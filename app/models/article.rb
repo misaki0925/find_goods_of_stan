@@ -12,7 +12,7 @@ class Article < ApplicationRecord
   # require 'line/bot'
   require 'open-uri'
 
-  # Twitterclient
+  #Twitterclient
   def twitter_client
     Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["CONSUMER_KEY"]
@@ -38,12 +38,31 @@ class Article < ApplicationRecord
   # 関係するメンバーを判断
   def check_member(tweet_content)
     member_ids = []
-      yugo = ["優吾","優吾のあしあと"]
-      taiga = ["京本大我","きょも","きょもきょも美術館"]
-      juri = ["田中樹","リリックノート"]
-      hokuto = ["松村北斗","北斗学園"]
-      jess = ["ジェシー","JESSEのズドン！BLOG"]
-      shintaro = ["森本慎太郎","もりもとーく"]
+      yugo = ["#高地優吾"]
+      taiga = ["#京本大我"]
+      juri = ["#田中樹"]
+      hokuto = ["#松村北斗"]
+      jess = ["#ジェシー"]
+      shintaro = ["#森本慎太郎"]
+
+      member_ids << 1 if yugo.any?{ |y| tweet_content.include?(y) }
+      member_ids << 2 if taiga.any?{ |t| tweet_content.include?(t) }
+      member_ids << 3 if juri.any?{ |j| tweet_content.include?(j) }
+      member_ids << 4 if hokuto.any?{ |h| tweet_content.include?(h) }
+      member_ids << 5 if jess.any?{ |j| tweet_content.include?(j) }
+      member_ids << 6 if shintaro.any?{ |s| tweet_content.include?(s) }
+
+      members << Member.find(member_ids)
+  end
+
+  def check_member_2jkhs6(tweet_content)
+    member_ids = []
+      yugo = ["#Yugo_Six衣装"]
+      taiga = ["#Taiga_Six衣装"]
+      juri = ["#Juri_Six衣装"]
+      hokuto = ["#Hokuto_Six衣装"]
+      jess = ["#Jesse_Six衣装"]
+      shintaro = ["#Shintaro_Six衣装"]
 
       member_ids << 1 if yugo.any?{ |y| tweet_content.include?(y) }
       member_ids << 2 if taiga.any?{ |t| tweet_content.include?(t) }
@@ -102,7 +121,10 @@ class Article < ApplicationRecord
     enc = URI.encode_www_form_component(word)
     url = "https://www.google.co.jp/search?q="
     search_url = url+enc
-    
+
+    self.brand.present? ? brand = self.brand : brand = ""
+    self.price.present? ? price = self.price : price = "  "
+
     message = 
       {
       "type": "flex",
@@ -111,10 +133,10 @@ class Article < ApplicationRecord
         "type": "bubble",
         "hero": {
           "type": "image",
+          "url": tweet_image_url,
           "size": "full",
           "aspectRatio": "20:28",
-          "aspectMode": "cover",
-          "url": tweet_image_url
+          "aspectMode": "cover"
         },
         "body": {
           "type": "box",
@@ -134,7 +156,7 @@ class Article < ApplicationRecord
               "contents": [
                 {
                   "type": "text",
-                  "text": "#{self.brand}",
+                  "text": "#{brand}",
                   "wrap": true,
                   "weight": "bold",
                   "size": "xl",
@@ -142,7 +164,7 @@ class Article < ApplicationRecord
                 },
                 {
                   "type": "text",
-                  "text": "#{self.price}",
+                  "text": "#{price}",
                   "wrap": true,
                   "weight": "bold",
                   "size": "sm",
@@ -163,7 +185,7 @@ class Article < ApplicationRecord
               "action": {
                 "type": "uri",
                 "label": "商品検索",
-                "uri": "#{search_url}",
+                "uri": "#{search_url}"
               },
               "color": "#FCE3E7",
               "height": "md"
@@ -185,7 +207,6 @@ class Article < ApplicationRecord
     end
   end
 
-
     #  GoodsFindというアカウントのツイート検索
     def make_GoodsFind_article
       search("1407908082575765506")
@@ -205,7 +226,7 @@ class Article < ApplicationRecord
       end
     end
 
-  # 2jkhs6というアカウントのツイート検索
+  #2jkhs6というアカウントのツイート検索
   def make_2jkhs6_article
     search("1193544870444429313")
     tag = ["#oneST_衣装", "#Taiga_Six衣装", "#Jesse_Six衣装", "#Hokuto_Six衣装", "#Yugo_Six衣装", "#Shintaro_Six衣装", "#Juri_Six衣装"]
@@ -216,7 +237,7 @@ class Article < ApplicationRecord
       self.price = tweet_content.scan(/¥.+?-/).join(',')
       self.brand = tweet_content.scan(/(?<=\【).+?(?=\】)/).join(',')
       self.item = tweet_content.scan(/(?<=\】).+?(?=\¥)/).join(',')
-      check_member(tweet_content)
+      check_member_2jkhs6(tweet_content)
       set_images(tweet.media)
       if save
         send_line(member_ids, tweet_url, @imgae_url_for_line_small)
@@ -225,7 +246,7 @@ class Article < ApplicationRecord
   end
 
   # Johnnys_stylingというアカウントのツイート検索
-  def make_Johnnys_styling_article
+  def make_johnnys_styling_article
     search("934773122653229056")
     tag = ["#SixTONES", "#高地優吾", "#京本大我", "#田中樹", "#松村北斗", "#ジェシー","#森本慎太郎"]
     set_article(tag)
@@ -265,4 +286,3 @@ class Article < ApplicationRecord
     end
   end
 end
-

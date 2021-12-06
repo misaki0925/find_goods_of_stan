@@ -23,7 +23,6 @@ RSpec.describe 'AdiminsArticle', type: :system  do
             find(".navbar-toggler").click
             fill_in I18n.t('activerecord.attributes.article.brand'),	with: other_article.brand
             click_on I18n.t('layouts.header.search')
-            expect(current_path).to eq(search_admins_articles_path)
             expect(page).to_not have_content(article.brand)
             expect(page).to have_content(other_article.brand)
           end
@@ -33,7 +32,6 @@ RSpec.describe 'AdiminsArticle', type: :system  do
             find(".navbar-toggler").click
             fill_in I18n.t('activerecord.attributes.article.brand'),	with: "#{other_article.brand}_fail"
             click_on I18n.t('layouts.header.search')
-            expect(current_path).to eq(search_admins_articles_path)
             expect(page).to have_content I18n.t('defaults.no_result')
           end
         end
@@ -45,7 +43,6 @@ RSpec.describe 'AdiminsArticle', type: :system  do
               find(".navbar-toggler").click
               fill_in Member.model_name.human,	with: @name
               click_on I18n.t('layouts.header.search')
-              expect(current_path).to eq(search_admins_articles_path)
               expect(page).to have_content("#{@name}さん")
               expect(page).to_not have_content("#{@members.join("さん")}さん")
             end
@@ -55,7 +52,6 @@ RSpec.describe 'AdiminsArticle', type: :system  do
             find(".navbar-toggler").click
             fill_in Member.model_name.human,	with: "#{@name}_fail"
             click_on I18n.t('layouts.header.search')
-            expect(current_path).to eq(search_admins_articles_path)
             expect(page).to_not have_content("#{@name}_failさん")
             expect(page).to_not have_content("#{@name}さん")
             expect(page).to_not have_content("#{@members.join("さん")}さん")

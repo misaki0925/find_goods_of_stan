@@ -19,7 +19,7 @@ ja:
     logout: 'ログアウトしました'
     not_login: 'ログインできません'
     before_login: 'ログインしてください'
-    make_report: 'ありがとうございます。コメントが送信されました。'
+    make_report: 'コメントが送信されました。'
     not_make_report: 'コメントを入力してから送信してください。'
   layouts:
     header:
@@ -39,10 +39,10 @@ ja:
     index:
       title: 'ITEM PAGE'
     show:
-      to_twitter: '詳しくはTweetをご覧ください'
+      to_twitter: '詳しくはTwitterへ'
     line:
       title: 'LINE PAGE'
-      st: 'ST'
+      st: 'ALL'
       yugo: 'KY'
       taiga: 'KT'
       juri: 'TJ'

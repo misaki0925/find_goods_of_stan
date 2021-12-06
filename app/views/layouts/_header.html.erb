@@ -4,15 +4,15 @@
     <% unless current_page?(admins_login_path) %>
       <div class="header_body">
         <div class="header_btn text-end head-color">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light p-4">
             <div class="container-fluid">
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon p-4"></span>
               </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/"><%= t('.home') %></h2></a>
+                  <a class="nav-link active" aria-current="page" href="/"><%= t('.home') %></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/line_page"><%= t('.line') %></a>
@@ -36,21 +36,9 @@
                 <% end %>
               </ul>
               <% if current_page?(articles_path) %>
-                <div class = "search justify-content-center py-4">
-                  <%= search_form_for @q, url: articles_path do |f| %> 
-                    <%= f.search_field :brand_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: t("activerecord.attributes.article.brand") %>  
-                    <%= f.search_field :members_name_cont, class: "btn search_btn btn-outline-dark rounded-3", placeholder: Member.model_name.human %> 
-                    <%= f.submit t('.search'), class: "btn search_btn btn-outline-dark search_btn"%>
-                  <% end %>
-                </div>
-              <% elsif current_page?(search_admins_articles_path) or current_page?(admins_articles_path) %>
-                <div class = "search mx-auto py-4">
-                  <%= search_form_for @q, url: search_admins_articles_path do |f| %> 
-                    <%= f.search_field :brand_cont, class: "btn btn-outline-dark rounded-3", placeholder: t("activerecord.attributes.article.brand") %> 
-                    <%= f.search_field :members_name_cont, class: "btn btn-outline-dark rounded-3", placeholder: Member.model_name.human %> 
-                    <%= f.submit t('.search'), class: "btn btn-outline-dark search_btn"%>
-                  <% end %>
-                </div>
+                <%= render partial: 'layouts/search', url: articles_path %>
+              <% elsif current_page?(admins_articles_path) %>
+                <%= render partial: 'layouts/search', url: admins_articles_path %>
               <% end %> 
             </div>
           </nav>

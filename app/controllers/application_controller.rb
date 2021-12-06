@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
+  add_flash_types :success, :info, :warning, :danger
   before_action :require_login
+
+  def set_item_search
+    @q = Article.ransack(params[:q])
+    @set_items = @q.result
+  end
 
   private
 

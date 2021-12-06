@@ -37,7 +37,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # LINE API用
 gem 'line-bot-api'
 
-# API 管理用
+# env 管理用
 gem 'dotenv-rails'
 
 # Twitter API用
@@ -64,6 +64,8 @@ gem 'rails-i18n'
 # bootstrap
 gem 'bootstrap', '~> 5.0.1'
 gem 'jquery-rails'
+
+gem "aws-sdk-s3", require: false
 
 
 
