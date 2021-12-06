@@ -12,7 +12,7 @@ class Article < ApplicationRecord
   # require 'line/bot'
   require 'open-uri'
 
-  # Twitterclient
+  #Twitterclient
   def twitter_client
     Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["CONSUMER_KEY"]
@@ -226,7 +226,7 @@ class Article < ApplicationRecord
       end
     end
 
-  # 2jkhs6というアカウントのツイート検索
+  #2jkhs6というアカウントのツイート検索
   def make_2jkhs6_article
     search("1193544870444429313")
     tag = ["#oneST_衣装", "#Taiga_Six衣装", "#Jesse_Six衣装", "#Hokuto_Six衣装", "#Yugo_Six衣装", "#Shintaro_Six衣装", "#Juri_Six衣装"]
