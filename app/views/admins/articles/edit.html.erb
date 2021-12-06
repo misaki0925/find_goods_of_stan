@@ -36,12 +36,17 @@
           <p><%=  t('.image_comment') %></p>         
     <% @article.images.each do |image| %>
               <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+<%
+=begin%>
+ #multiple: trueを使用することで:image_idsを配列として認識しチェックボックスを複数利用できる 
+<%
+=end%>
               <%= image_tag image, size:"200x200" %>
             <% end %>  
           <% end %>
         </div>
          <div class="card-body-text mb-5 text-center">
-         <%= f.select :status, Article.statuses.keys.map {|k| [I18n.t("enums.article.status.#{k}"),k]} %>
+          <%= f.select :status, Article.statuses_i18n.invert %>
         </div>
         <div class="card-body-text mb-2 text-center">
           <%= f.submit t('.update'), class: "btn btn-outline-dark search_btn" %>

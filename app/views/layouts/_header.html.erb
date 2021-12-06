@@ -36,21 +36,9 @@
                 <% end %>
               </ul>
               <% if current_page?(articles_path) %>
-                <div class = "search justify-content-center py-4">
-                  <%= search_form_for @q, url: articles_path do |f| %> 
-                    <%= f.search_field :brand_cont, class: " search_btn btn-outline-dark", placeholder: t("activerecord.attributes.article.brand") %>  
-                    <%= f.search_field :members_name_cont, class: " search_btn btn-outline-dark", placeholder: Member.model_name.human %> 
-                    <%= f.submit t('.search'), class: "search_btn btn-outline-dark"%>
-                  <% end %>
-                </div>
-              <% elsif current_page?(search_admins_articles_path) or current_page?(admins_articles_path) %>
-                <div class = "search mx-auto py-4">
-                  <%= search_form_for @q, url: search_admins_articles_path do |f| %> 
-                    <%= f.search_field :brand_cont, class: " search_btn btn-outline-dark", placeholder: t("activerecord.attributes.article.brand") %> 
-                    <%= f.search_field :members_name_cont, class: " search_btn btn-outline-dark", placeholder: Member.model_name.human %> 
-                    <%= f.submit t('.search'), class: "search_btn  btn-outline-dark"%>
-                  <% end %>
-                </div>
+                <%= render partial: 'layouts/search', url: articles_path %>
+              <% elsif current_page?(admins_articles_path) %>
+                <%= render partial: 'layouts/search', url: admins_articles_path %>
               <% end %> 
             </div>
           </nav>

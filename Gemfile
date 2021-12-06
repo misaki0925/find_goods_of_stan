@@ -37,7 +37,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # LINE API用
 gem 'line-bot-api'
 
-# API 管理用
+# env 管理用
 gem 'dotenv-rails'
 
 # Twitter API用

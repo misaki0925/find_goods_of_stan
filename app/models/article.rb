@@ -51,8 +51,8 @@ class Article < ApplicationRecord
       member_ids << 4 if hokuto.any?{ |h| tweet_content.include?(h) }
       member_ids << 5 if jess.any?{ |j| tweet_content.include?(j) }
       member_ids << 6 if shintaro.any?{ |s| tweet_content.include?(s) }
-      article_members = Member.find(member_ids)
-      members << article_members
+
+      members << Member.find(member_ids)
   end
 
   def check_member_2jkhs6(tweet_content)
@@ -121,7 +121,10 @@ class Article < ApplicationRecord
     enc = URI.encode_www_form_component(word)
     url = "https://www.google.co.jp/search?q="
     search_url = url+enc
-    
+
+    self.brand.present? ? brand = self.brand : brand = ""
+    self.price.present? ? price = self.price : price = "  "
+
     message = 
       {
       "type": "flex",
@@ -130,10 +133,10 @@ class Article < ApplicationRecord
         "type": "bubble",
         "hero": {
           "type": "image",
+          "url": tweet_image_url,
           "size": "full",
           "aspectRatio": "20:28",
-          "aspectMode": "cover",
-          "url": tweet_image_url
+          "aspectMode": "cover"
         },
         "body": {
           "type": "box",
@@ -153,7 +156,7 @@ class Article < ApplicationRecord
               "contents": [
                 {
                   "type": "text",
-                  "text": "#{self.brand}",
+                  "text": "#{brand}",
                   "wrap": true,
                   "weight": "bold",
                   "size": "xl",
@@ -161,7 +164,7 @@ class Article < ApplicationRecord
                 },
                 {
                   "type": "text",
-                  "text": "#{self.price}",
+                  "text": "#{price}",
                   "wrap": true,
                   "weight": "bold",
                   "size": "sm",
@@ -182,7 +185,7 @@ class Article < ApplicationRecord
               "action": {
                 "type": "uri",
                 "label": "商品検索",
-                "uri": "#{search_url}",
+                "uri": "#{search_url}"
               },
               "color": "#FCE3E7",
               "height": "md"
@@ -203,7 +206,6 @@ class Article < ApplicationRecord
     p response
     end
   end
-
 
     #  GoodsFindというアカウントのツイート検索
     def make_GoodsFind_article

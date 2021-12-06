@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
     if @report.save
     redirect_to articles_path, notice: t('flash.make_report')
     else
-      flash.now[:notice] = t('flash.not_make_report')
+      flash.now[:danger] = t('flash.not_make_report')
       render :new
     end
   end

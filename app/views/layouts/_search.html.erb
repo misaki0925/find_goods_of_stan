@@ -1,0 +1,7 @@
+<div class = "search mx-auto py-4">
+  <%= search_form_for @q do |f| %> 
+    <%= f.search_field :brand_cont, class: " search_btn btn-outline-dark", placeholder: t("activerecord.attributes.article.brand") %> 
+    <%= f.search_field :members_name_cont, class: " search_btn btn-outline-dark", placeholder: Member.model_name.human %> 
+    <%= f.submit 'search', class: "search_btn  btn-outline-dark"%>
+  <% end %>
+</div>

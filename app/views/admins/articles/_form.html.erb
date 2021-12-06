@@ -30,4 +30,9 @@
 </table>
 <div class = "pt-4 mt-3 pb-1 mb-2">
   <%= paginate @articles %>
+  <% if @articles.count == 0 %>
+        <div class = "pt-5 mt-5 pb-4 mt-4">
+          <%= t('defaults.no_result') %> 
+        </div>
+      <%end%>
 </div>
