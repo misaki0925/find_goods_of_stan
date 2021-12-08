@@ -284,23 +284,4 @@ class Article < ApplicationRecord
       end
     end
   end
-
-  def self.misaki
-
-    client = Line::Bot::Client.new { |config|
-      config.channel_secret = "1e80c72d2ad6b33bc2ddc67f606a265f"
-      config.channel_token = "eyfzyp1wdm0hzg9HCD4PolHHuct0rXO8Db9W12mDF4Fbhr6imeXJNN9Cze35/4hXFuay1Wd9m29hONvE1mRMyIYZZKYaULA/YnubsJiMu+cmnM0REsZttnv2tllw2/jRadVW+rr1tmierhwH0fTtWAdB04t89/1O/w1cDnyilFU="}
-    message = {
-      type: 'text',
-      text: 'hello'
-    }
-
-   users = LineUser.yugo_necessary
-   @user_ids = []
-   users.each do |user|
-    @user_ids << user.user_id
-   end
-
-  client.multicast(@user_ids, message)
-  end
 end
