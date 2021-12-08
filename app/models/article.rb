@@ -93,20 +93,11 @@ class Article < ApplicationRecord
   def send_line(member_ids, tweet_url, tweet_image_url)
     unless member_ids.empty?
       ids = member_ids.map(&:to_s)
-      @line_names = ["ALL"]
-      ids.each do |id|
-        @line_names << "YK" if id.include?("1")
-        @line_names << "TK" if id.include?("2")
-        @line_names << "JT" if id.include?("3")
-        @line_names << "HM" if id.include?("4")
-        @line_names << "J" if id.include?("5")
-        @line_names << "SM" if id.include?("6")
-      end
     end
 
     @line_names.each do |line_name|
       client = Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET_#{line_name}"]
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET_"]
       config.channel_token = ENV["LINE_CHANNEL_TOKEN_#{line_name}"]
     }
 
@@ -207,6 +198,14 @@ class Article < ApplicationRecord
     end
   end
 
+  def resent_article
+    image = Article.last.image
+    message = {
+
+    }
+  end
+
+
     #  GoodsFindというアカウントのツイート検索
     def make_GoodsFind_article
       search("1407908082575765506")
@@ -284,5 +283,24 @@ class Article < ApplicationRecord
         send_line(member_ids, tweet_url, @imgae_url_for_line_small)
       end
     end
+  end
+
+  def self.misaki
+
+    client = Line::Bot::Client.new { |config|
+      config.channel_secret = "1e80c72d2ad6b33bc2ddc67f606a265f"
+      config.channel_token = "eyfzyp1wdm0hzg9HCD4PolHHuct0rXO8Db9W12mDF4Fbhr6imeXJNN9Cze35/4hXFuay1Wd9m29hONvE1mRMyIYZZKYaULA/YnubsJiMu+cmnM0REsZttnv2tllw2/jRadVW+rr1tmierhwH0fTtWAdB04t89/1O/w1cDnyilFU="}
+    message = {
+      type: 'text',
+      text: 'hello'
+    }
+
+   users = LineUser.yugo_necessary
+   @user_ids = []
+   users.each do |user|
+    @user_ids << user.user_id
+   end
+
+  client.multicast(@user_ids, message)
   end
 end

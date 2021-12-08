@@ -14,5 +14,10 @@ Rails.application.routes.draw do
     resources :reports, only: %i[destroy index]
   end
 
+post '/setting_request', to: 'line_users#setting_request'
+post '/submit_setting', to: 'line_users#submit_setting'
+post '/set_member', to: 'line_users#set_member'
+post '/off_member', to: 'line_users#off_member'
+
 
 end
