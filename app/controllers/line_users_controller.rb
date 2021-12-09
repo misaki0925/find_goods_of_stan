@@ -10,6 +10,27 @@ class LineUsersController < ApplicationController
     }
   end
 
+  def callback
+    body = request.body.read
+    events = client.parse_events_from(body)
+    events.each do |event|
+      text = event.message['text']
+      userId = event['source']['userId']
+      if text == "受け取るメンバーの設定をする"
+        message = {
+          "type": "text",
+          "text": "hello"
+        }
+      else
+        message = {
+          "type": "text",
+          "text": "こんにちは"
+        }
+      end
+      client.push_message(userId, message)
+    end
+  end
+
   # LINEからメンバー設定のメッセージが届いたらメンバーを決めてもらう
     def setting_request
     body = request.body.read
