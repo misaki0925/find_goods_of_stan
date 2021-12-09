@@ -22,6 +22,23 @@ class Article < ApplicationRecord
     end
   end
 
+  #テスト
+
+  def line
+    client = Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET_ALL"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN_ALL"]
+    }
+
+    user_id = LineUser.last.user_id
+    message = {
+      type: 'text',
+      text: 'できてる'
+    }
+
+    client.push_message(user_id, message)
+  end
+
   # 指定したidのアカウントのツイート検索
   def search(id)
     @tweets = twitter_client.user_timeline(user_id: id, count: 1, exclude_replies: false, include_rts: false, contributor_details: false, result_type: "recent", locale: "ja", tweet_mode: "extended")

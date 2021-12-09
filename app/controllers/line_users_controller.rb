@@ -11,6 +11,16 @@ class LineUsersController < ApplicationController
     }
   end
 
+  # def line
+  #   user_id = LineUser.last.user_id
+  #   message = {
+  #     type: 'text',
+  #     text: 'hello'
+  #   }
+  #   response = client.push_message(user_id, message)
+  #   p response
+  # end
+
   def callback
     body = request.body.read
     # signature = request.env['HTTP_X_LINE_SIGNATURE']
