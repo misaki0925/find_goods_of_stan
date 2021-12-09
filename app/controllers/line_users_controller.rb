@@ -35,7 +35,10 @@ class LineUsersController < ApplicationController
           }
         end
       end
-      client.reply_message(event['replyToken'], message)
+      user_ids = [userId]
+      client.multicast(userId, message)
+      # client.push_message(userId, message)
+      # client.reply_message(event['replyToken'], message)
       puts "#{event.message['text']}はこれです"
       puts "#{word}はテキスト"
       puts "#{userId}はユーザーID"
