@@ -20,6 +20,11 @@ class LineUsersController < ApplicationController
     events = client.parse_events_from(body)
 
     events.each do |event|
+      word = event.message['text']
+      userId = event['source']['userId']
+      puts "#{event.message['text']}はこれです"
+      puts "#{word}はテキスト"
+      puts "#{userId}はユーザーID"
       case event
       when Line::Bot::Event::Message
         case event.type
@@ -31,6 +36,9 @@ class LineUsersController < ApplicationController
         end
       end
       client.reply_message(event['replyToken'], message)
+      puts "#{event.message['text']}はこれです"
+      puts "#{word}はテキスト"
+      puts "#{userId}はユーザーID"
     end
     head :ok
   end
