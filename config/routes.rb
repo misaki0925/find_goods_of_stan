@@ -18,6 +18,10 @@ post '/setting_request', to: 'line_users#setting_request'
 post '/submit_setting', to: 'line_users#submit_setting'
 post '/set_member', to: 'line_users#set_member'
 post '/off_member', to: 'line_users#off_member'
+post '/all_member_setting', to: 'line_users#all_member_setting'
+
+post '/callback', to: 'line_users#callback'
+
 
 
 end
