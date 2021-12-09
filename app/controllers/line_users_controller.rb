@@ -1,6 +1,7 @@
 class LineUsersController < ApplicationController
   skip_before_action :require_login
-  # skip_before_action :verify_authenticity_token
+  protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token
   require 'line/bot'
 
   def client

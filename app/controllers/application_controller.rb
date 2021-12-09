@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  # protect_from_forgery with: :exception 削除
   add_flash_types :success, :info, :warning, :danger
   before_action :require_login
 
