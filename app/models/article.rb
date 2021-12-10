@@ -8,8 +8,8 @@ class Article < ApplicationRecord
 
   enum status:{ published: 0, draft: 1 }
 
-  require 'Twitter'
-  require 'line/bot'
+  # require 'Twitter'
+  # require 'line/bot'
   require 'open-uri'
 
   #Twitterclient
