@@ -24,17 +24,17 @@ class Article < ApplicationRecord
 
   #テスト
 
-  def line
-    client = Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET_ALL"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN_ALL"]
-    }
+  # def line
+  #   client = Line::Bot::Client.new { |config|
+  #     config.channel_secret = ENV["LINE_CHANNEL_SECRET_ALL"]
+  #     config.channel_token = ENV["LINE_CHANNEL_TOKEN_ALL"]
+  #   }
 
-    user_id = LineUser.last.user_id
-    message = {
-      type: 'text',
-      text: 'できてる'
-    }
+  #   user_id = 
+  #   message = {
+  #     type: 'text',
+  #     text: 'ok'
+  #   }
 
     client.push_message(user_id, message)
   end
