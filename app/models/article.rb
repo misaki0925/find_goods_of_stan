@@ -8,8 +8,8 @@ class Article < ApplicationRecord
 
   enum status:{ published: 0, draft: 1 }
 
-  # require 'Twitter'
-  # require 'line/bot'
+  require 'Twitter'
+  require 'line/bot'
   require 'open-uri'
 
   #Twitterclient
@@ -20,23 +20,6 @@ class Article < ApplicationRecord
       config.access_token        = ENV["ACCESS_TOKEN"]
       config.access_token_secret = ENV["ACCESS_SECRET"]
     end
-  end
-
-  #テスト
-
-  # def line
-  #   client = Line::Bot::Client.new { |config|
-  #     config.channel_secret = ENV["LINE_CHANNEL_SECRET_ALL"]
-  #     config.channel_token = ENV["LINE_CHANNEL_TOKEN_ALL"]
-  #   }
-
-  #   user_id = 
-  #   message = {
-  #     type: 'text',
-  #     text: 'ok'
-  #   }
-
-    client.push_message(user_id, message)
   end
 
   # 指定したidのアカウントのツイート検索
@@ -108,22 +91,53 @@ class Article < ApplicationRecord
 
 # LINE APIで送信する
   def send_line(member_ids, tweet_url, tweet_image_url)
+    client = Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET_ALL"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN_ALL"]
+    }
+
     unless member_ids.empty?
       ids = member_ids.map(&:to_s)
     end
+    
+    names = []
+    user_ids = []
 
-    @line_names.each do |line_name|
-      client = Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET_"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN_#{line_name}"]
+    #include使用
+    if ids.include?("1")
+      names << "高地優吾さん" 
+      LineUser.yugo_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+    end
+    if ids.include?("2")
+      names << "京本大我さん" 
+      LineUser.taiga_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+    end
+
+    if ids.include?("3")
+      names << "田中樹さん" 
+      LineUser.juri_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+    end
+
+    if ids.include?("4")
+      names << "松村北斗さん"
+      LineUser.hokuto_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+    end
+
+    if ids.include?("5")
+      names << "ジェシーさん"
+      LineUser.jess_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+    end
+
+    if ids.include?("6")
+      names << "森本慎太郎さん"
+      LineUser.shintarou_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+    end
+
+
+    message = {
+      type: 'text',
+      text: "#{names.join('と')}の情報"
     }
-
-    name = "高地優吾さん" if ids.include?("1")
-    name = "京本大我さん" if ids.include?("2")
-    name = "田中樹さん" if ids.include?("3")
-    name = "松村北斗さん" if ids.include?("4")
-    name = "ジェシーさん" if ids.include?("5")
-    name = "森本慎太郎さん" if ids.include?("6")
 
     word = "#{self.brand}　#{self.price}　#{self.item}"
     enc = URI.encode_www_form_component(word)
@@ -136,7 +150,7 @@ class Article < ApplicationRecord
     message = 
       {
       "type": "flex",
-      "altText": "#{name}の私物が特定されました！(Twitter)",
+      "altText": "#{names.join('と')}の私物が特定されました！(Twitter)",
       "contents": {
         "type": "bubble",
         "hero": {
@@ -156,7 +170,7 @@ class Article < ApplicationRecord
               "wrap": true,
               "weight": "bold",
               "size": "xl",
-              "text": "#{name}着用"
+              "text": "#{names.join('と')}着用"
             },
             {
               "type": "box",
@@ -210,16 +224,7 @@ class Article < ApplicationRecord
         }
       }
     }
-    response = client.broadcast(message)
-    p response
-    end
-  end
-
-  def resent_article
-    image = Article.last.image
-    message = {
-
-    }
+    client.multicast(user_ids, message)
   end
 
 

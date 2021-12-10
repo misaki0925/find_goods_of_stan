@@ -32,9 +32,6 @@ class LineUsersController < ApplicationController
     events.each do |event|
       word = event.message['text']
       userId = event['source']['userId']
-      puts "#{event.message['text']}はこれです"
-      puts "#{word}はテキスト"
-      puts "#{userId}はユーザーID"
       case event
       when Line::Bot::Event::Message
         case event.type
@@ -47,9 +44,9 @@ class LineUsersController < ApplicationController
       end
       user_ids = [userId]
       client.multicast(user_ids, message)
-      client.push_message(userId, message)
-      responce = client.push_message(userId, message)
-      p responce
+      # client.push_message(userId, message)
+      # responce = client.push_message(userId, message)
+      # p responce
       # client.reply_message(event['replyToken'], message)
       puts "#{event.message['text']}はこれです"
       puts "#{word}はテキスト"
