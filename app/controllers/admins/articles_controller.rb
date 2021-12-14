@@ -39,6 +39,6 @@ class Admins::ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:price, :brand, :item, :tweet_url, :status, { member_ids: [] }, {images: []} )
+      params.require(:article).permit(:price, :brand, :item, :tweet_url, :line_image_url, :status, { member_ids: [] }, {images: []} )
     end
 end

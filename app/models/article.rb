@@ -12,9 +12,9 @@ class Article < ApplicationRecord
   # require 'line/bot'
   require 'open-uri'
 
-  #Twitterclient
+  #Twitterclient認証
   def twitter_client
-    Twitter::REST::Client.new do |config|
+    @twitter_client ||= Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["CONSUMER_KEY"]
       config.consumer_secret     = ENV["CONSUMER_SECRET"]
       config.access_token        = ENV["ACCESS_TOKEN"]
@@ -55,6 +55,7 @@ class Article < ApplicationRecord
       members << Member.find(member_ids)
   end
 
+  # 関係するメンバーを判断(2jkhs6用)
   def check_member_2jkhs6(tweet_content)
     member_ids = []
       yugo = ["#Yugo_Six衣装"]
@@ -79,8 +80,7 @@ class Article < ApplicationRecord
     image_urls = medias.map{ |h| h.media_url_https }
     # LINE送信用の画像url作成
     imgae_url_for_line = image_urls.first
-    # imgae_url_for_line = image_urls.last
-    @imgae_url_for_line_small = "#{imgae_url_for_line}:small"
+    self.line_image_url = "#{imgae_url_for_line}:small"
     # 画像をActiveStorageに保存
     image_urls.each_with_index do |image_url, i|
       image_url_small = "#{image_url}:small"
@@ -89,55 +89,50 @@ class Article < ApplicationRecord
     end
   end
 
-# LINE APIで送信する
+  # LINE APIで送信する
   def send_line(member_ids, tweet_url, tweet_image_url)
     client = Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET_ALL"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN_ALL"]
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
 
     unless member_ids.empty?
       ids = member_ids.map(&:to_s)
     end
     
+    #通知onにしているユーザーのline_user_idをにまとめる
     names = []
     user_ids = []
 
-    #include使用
     if ids.include?("1")
       names << "高地優吾さん" 
-      LineUser.yugo_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+      LineUser.yugo_on.each {|lineuser| user_ids << lineuser.line_user_id unless user_ids.include?(lineuser.line_user_id)}
     end
     if ids.include?("2")
       names << "京本大我さん" 
-      LineUser.taiga_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+      LineUser.taiga_on.each {|lineuser| user_ids << lineuser.line_user_id unless user_ids.include?(lineuser.line_user_id)}
     end
 
     if ids.include?("3")
       names << "田中樹さん" 
-      LineUser.juri_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+      LineUser.juri_on.each {|lineuser| user_ids << lineuser.line_user_id unless user_ids.include?(lineuser.line_user_id)}
     end
 
     if ids.include?("4")
       names << "松村北斗さん"
-      LineUser.hokuto_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+      LineUser.hokuto_on.each {|lineuser| user_ids << lineuser.line_user_id unless user_ids.include?(lineuser.line_user_id)}
     end
 
     if ids.include?("5")
       names << "ジェシーさん"
-      LineUser.jess_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+      LineUser.jess_on.each {|lineuser| user_ids << lineuser.line_user_id unless user_ids.include?(lineuser.line_user_id)}
     end
 
     if ids.include?("6")
       names << "森本慎太郎さん"
-      LineUser.shintarou_necessary.each {|lineuser| user_ids << lineuser.user_id unless user_ids.include?(lineuser.user_id)}
+      LineUser.shintarou_on.each {|lineuser| user_ids << lineuser.line_user_id unless user_ids.include?(lineuser.line_user_id)}
     end
 
-
-    message = {
-      type: 'text',
-      text: "#{names.join('と')}の情報"
-    }
 
     word = "#{self.brand}　#{self.price}　#{self.item}"
     enc = URI.encode_www_form_component(word)
@@ -227,9 +222,8 @@ class Article < ApplicationRecord
     client.multicast(user_ids, message)
   end
 
-
     #  GoodsFindというアカウントのツイート検索
-    def make_GoodsFind_article
+    def make_goods_find_article
       search("1407908082575765506")
       tag = ["#findgoodsofstan"]
       set_article(tag)
@@ -242,7 +236,7 @@ class Article < ApplicationRecord
         check_member(tweet_content)
         set_images(tweet.media)
         if save
-          send_line(member_ids, tweet_url, @imgae_url_for_line_small)
+          send_line(member_ids, tweet_url, line_image_url)
         end
       end
     end
@@ -261,7 +255,7 @@ class Article < ApplicationRecord
       check_member_2jkhs6(tweet_content)
       set_images(tweet.media)
       if save
-        send_line(member_ids, tweet_url, @imgae_url_for_line_small)
+        send_line(member_ids, tweet_url, line_image_url)
       end
     end
   end
@@ -271,38 +265,18 @@ class Article < ApplicationRecord
     search("934773122653229056")
     tag = ["#SixTONES", "#高地優吾", "#京本大我", "#田中樹", "#松村北斗", "#ジェシー","#森本慎太郎"]
     set_article(tag)
-    @for_article_tweets.each do |t|
-      tweet_content = t.text
-      self.tweet_url = t.url
+    @for_article_tweets.each do |tweet|
+      tweet_content = tweet.text
+      self.tweet_url = tweet.url
       ary = tweet_content.split("\n")
       self.price = "#{ary[-2]}-"
       item_brand = ary[-3]
       self.item = item_brand.split(" ").last
       self.brand = item_brand.split(self.item).join(',').gsub(/ /,"")
       check_member(tweet_content)
-      set_images(t.media)
+      set_images(tweet.media)
       if save
-        send_line(member_ids, tweet_url, @imgae_url_for_line_small)
-      end
-    end
-  end
-
-# jasmine_jumpというアカウントのツイート検索
-  def make_jasmine_jump_article
-    search("842986230442676224")
-    tag = ["高地優吾", "京本大我", "田中樹", "松村北斗", "ジェシー","森本慎太郎"]
-    set_article(tag)
-    @for_article_tweets.each do |t|
-      tweet_content = t.text
-      self.tweet_url = t.url
-      tweet = "#{tweet_content.gsub(/[\r\n]/,"   ")}   "
-      self.price = "¥#{tweet.scan(/(?<=\価格 : ).+?(?=\円)/).join(',')}-"
-      self.brand = tweet.scan(/(?<=\ブランド : ).+?(?=\   )/).join(',')
-      self.item = tweet.scan(/(?<=\私. ).+?(?=\   )/).join(',')
-      check_member(tweet_content)
-      set_images(t.media)
-      if save
-        send_line(member_ids, tweet_url, @imgae_url_for_line_small)
+        send_line(member_ids, tweet_url, line_image_url)
       end
     end
   end

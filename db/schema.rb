@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_08_083933) do
+ActiveRecord::Schema.define(version: 2021_12_14_133546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,10 +53,11 @@ ActiveRecord::Schema.define(version: 2021_12_08_083933) do
     t.datetime "updated_at", null: false
     t.string "item"
     t.integer "status", default: 0, null: false
+    t.text "line_image_url"
   end
 
   create_table "line_users", force: :cascade do |t|
-    t.string "user_id", null: false
+    t.string "line_user_id", null: false
     t.integer "yugo", default: 0, null: false
     t.integer "taiga", default: 0, null: false
     t.integer "juri", default: 0, null: false
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_12_08_083933) do
     t.integer "shintarou", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["line_user_id"], name: "index_line_users_on_line_user_id", unique: true
   end
 
   create_table "members", force: :cascade do |t|
