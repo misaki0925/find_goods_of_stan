@@ -23,7 +23,7 @@ RSpec.describe Member, type: :model do
     let!(:member_2) {create(:member, :with_article)}
     it 'Memberを削除したらArticleMemberも削除される' do
       expect{
-      member_1.destroy
+      member_1.destroy!
       }.to change{Member.count}.by(-1).and change{ArticleMember.count}.by(-1)
     end
   end

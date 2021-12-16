@@ -151,8 +151,12 @@ body {
   color: #999999;
 }
 
-.alert p {
-  font-size: 1.5rem
+.alert {
+  font-size: 1.3rem;
+}
+
+.card-body-text p {
+  font-size: 1.1rem;
 }
 
 @media screen and (min-width:480px) {
@@ -287,6 +291,7 @@ body {
   .footer_text p {
     font-size: 1.8rem;
   }
+
 }
 
 @media screen and (min-width: 1024px) {

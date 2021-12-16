@@ -224,7 +224,7 @@ class Article < ApplicationRecord
 
     #  GoodsFindというアカウントのツイート検索
     def make_goods_find_article
-      search("1407908082575765506")
+      search(Settings.goods_find)
       tag = ["#findgoodsofstan"]
       set_article(tag)
       @for_article_tweets.each do |tweet|
@@ -243,7 +243,7 @@ class Article < ApplicationRecord
 
   #2jkhs6というアカウントのツイート検索
   def make_2jkhs6_article
-    search("1193544870444429313")
+    search(Settings.jkhs)
     tag = ["#oneST_衣装", "#Taiga_Six衣装", "#Jesse_Six衣装", "#Hokuto_Six衣装", "#Yugo_Six衣装", "#Shintaro_Six衣装", "#Juri_Six衣装"]
     set_article(tag)
     @for_article_tweets.each do |tweet|
@@ -262,7 +262,7 @@ class Article < ApplicationRecord
 
   # Johnnys_stylingというアカウントのツイート検索
   def make_johnnys_styling_article
-    search("934773122653229056")
+    search(Settings.johnnys_styling)
     tag = ["#SixTONES", "#高地優吾", "#京本大我", "#田中樹", "#松村北斗", "#ジェシー","#森本慎太郎"]
     set_article(tag)
     @for_article_tweets.each do |tweet|

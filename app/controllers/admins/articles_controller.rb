@@ -28,7 +28,7 @@ class Admins::ArticlesController < ApplicationController
 
   def destroy
     @article.images.purge
-    @article.destroy
+    @article.destroy!
     redirect_to admins_articles_path, danger: t('flash.deleted')
   end
 

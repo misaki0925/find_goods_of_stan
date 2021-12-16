@@ -23,7 +23,7 @@ class LineUser < ApplicationRecord
       @lineuser = LineUser.new(line_user_id: user_id)
       @lineuser.save!
     end
-    client.link_user_rich_menu("#{@lineuser.line_user_id}", "richmenu-b3f00de79e4739e5344189336eb7b8fb")
+    client.link_user_rich_menu("#{@lineuser.line_user_id}", Settings.richmenu_id)
   end
 
   #ユーザーからメッセージが届いた際の対応
@@ -322,7 +322,7 @@ class LineUser < ApplicationRecord
         "type": "bubble",
         "hero": {
           "type": "image",
-          "url": "#{article.line_image_url ||= "https://pbs.twimg.com/media/FGk5b2hVcAA1DxS.jpg:small"}",
+          "url": "#{article.line_image_url ||= Settings.defualts_url}",
           "size": "full",
           "aspectRatio": "20:28",
           "aspectMode": "cover"

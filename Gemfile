@@ -40,6 +40,9 @@ gem 'line-bot-api'
 # env 管理用
 gem 'dotenv-rails'
 
+# 定数定義
+gem 'config'
+
 # Twitter API用
 gem 'twitter'
 
