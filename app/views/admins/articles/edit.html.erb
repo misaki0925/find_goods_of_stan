@@ -28,6 +28,10 @@
           <%= f.url_field :tweet_url,  class: "w-25"  %>
         </div>
         <div class="card-body-text mb-5 text-center">
+          <%= f.label :line_image_url, "【#{Article.human_attribute_name('line_image_url')}】" %>
+          <%= f.url_field :line_image_url,  class: "w-25"  %>
+        </div>
+        <div class="card-body-text mb-5 text-center">
           <%= f.label "【#{Article.human_attribute_name('image')}】"%>
           <%= f.file_field :images, name: 'article[images][]' %> 
         </div>

@@ -42,13 +42,7 @@ ja:
       to_twitter: '詳しくはTwitterへ'
     line:
       title: 'LINE PAGE'
-      st: 'ALL'
-      yugo: 'KY'
-      taiga: 'KT'
-      juri: 'TJ'
-      hokuto: 'MH'
-      jesse: '　J　'
-      shintaro: 'MS'
+      st: 'FindGoodsodStan'
   reports:
     new:
       title: 'REPORT'

@@ -5,7 +5,7 @@ class Admins::ReportsController < ApplicationController
 
   def destroy
     @report = Report.find(params[:id])
-    @report.destroy
+    @report.destroy!
     redirect_to admins_reports_path, notice: t('flash.deleted')
   end
 end

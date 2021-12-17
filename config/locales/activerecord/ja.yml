@@ -8,6 +8,7 @@ ja:
           brand: 'Brand'
           member: 'メンバー'
           twitter_url: 'TwitterへのURL'
+          line_image_url: 'line用画像URL'
         member:
           email: 'メールアドレス'
           password: 'パスワード'
